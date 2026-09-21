@@ -1,0 +1,73 @@
+.fv-merch-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: var(--space-lg);
+}
+
+.fv-merch-card {
+  aspect-ratio: auto;
+  justify-content: flex-end;
+  background: var(--color-bg-surface);
+}
+
+.fv-merch-card .fv-card-image-wrapper {
+  aspect-ratio: 1/1; /* Square for products */
+  background: radial-gradient(circle, var(--color-bg-elevated) 0%, var(--color-bg-surface) 100%);
+}
+
+.fv-merch-card .fv-card-image {
+  object-fit: contain;
+  padding: var(--space-md);
+}
+
+.fv-merch-card .fv-card-image-overlay {
+  display: none; /* No gradient overlay for products */
+}
+
+.fv-merch-info {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.fv-merch-title {
+  font-size: 16px;
+  font-family: var(--font-family-body);
+  font-weight: 500;
+  white-space: normal;
+}
+
+.fv-merch-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: var(--space-xs);
+}
+
+.fv-merch-price {
+  font-weight: 600;
+  color: var(--color-accent-primary);
+  font-size: 18px;
+}
+
+.fv-merch-status {
+  font-size: 12px;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+}
+
+.fv-merch-hover-action {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: var(--space-md);
+  background: var(--glass-bg);
+  backdrop-filter: blur(8px);
+  transform: translateY(100%);
+  transition: transform var(--transition-smooth);
+}
+
+.fv-merch-card:hover .fv-merch-hover-action {
+  transform: translateY(0);
+}

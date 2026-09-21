@@ -1,0 +1,32 @@
+.fv-trailers-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--space-lg);
+}
+
+.fv-trailer-card {
+  justify-content: flex-end;
+}
+
+.fv-play-icon-wrapper {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  transition: transform var(--transition-smooth), background var(--transition-fast);
+  z-index: 2;
+}
+
+.fv-trailer-card:hover .fv-play-icon-wrapper {
+  transform: translate(-50%, -50%) scale(1.1);
+  background: var(--color-accent-primary);
+}

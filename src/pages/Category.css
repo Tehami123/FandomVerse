@@ -1,0 +1,197 @@
+.fv-category-page {
+  min-height: 100vh;
+}
+
+.fv-category-hero {
+  position: relative;
+  min-height: 70vh;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  margin-top: -72px; /* Pull under navbar */
+}
+
+.fv-category-hero-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.fv-category-hero-bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.fv-category-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, var(--color-bg-base) 0%, rgba(5,5,5,0.7) 30%, transparent 100%),
+              linear-gradient(to right, rgba(5,5,5,0.8) 0%, transparent 100%);
+  z-index: 1;
+}
+
+.fv-category-hero-content {
+  position: relative;
+  z-index: 2;
+  padding-top: 100px;
+}
+
+.fv-category-breadcrumb {
+  font-family: var(--font-family-body);
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-xl);
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.fv-category-breadcrumb a {
+  transition: color var(--transition-fast);
+}
+
+.fv-category-breadcrumb a:hover {
+  color: var(--color-text-primary);
+}
+
+.fv-category-breadcrumb .divider {
+  color: var(--color-text-muted);
+}
+
+.fv-category-title {
+  font-size: clamp(64px, 8vw, 120px);
+  line-height: 0.9;
+  text-transform: uppercase;
+  margin-bottom: var(--space-lg);
+  color: var(--color-text-primary);
+}
+
+.fv-category-desc {
+  font-size: 16px;
+  color: var(--color-text-secondary);
+  line-height: 1.8;
+  max-width: 600px;
+  border-left: 1px solid var(--cat-accent);
+  padding-left: var(--space-lg);
+}
+
+.fv-category-section {
+  padding: var(--space-3xl) 0;
+}
+
+.fv-category-featured-card {
+  position: relative;
+  width: 100%;
+  height: 500px;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+}
+
+.fv-category-featured-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+.fv-category-featured-card:hover img {
+  transform: scale(1.02);
+}
+
+.fv-category-featured-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(5,5,5,0.9) 0%, transparent 100%);
+}
+
+.fv-category-featured-content {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  padding: var(--space-2xl);
+  width: 100%;
+}
+
+.fv-category-featured-content h3 {
+  font-family: var(--font-family-display);
+  font-size: 48px;
+  margin-bottom: var(--space-xs);
+}
+
+.fv-category-featured-content p {
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: 12px;
+  margin-bottom: var(--space-lg);
+}
+
+.fv-cat-btn {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  background: transparent;
+  border: 1px solid var(--cat-accent);
+  color: var(--color-text-primary);
+  padding: 12px 24px;
+  font-family: var(--font-family-body);
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.fv-cat-btn:hover {
+  background: var(--cat-accent);
+  color: #fff;
+}
+
+.fv-category-rail {
+  display: flex;
+  gap: var(--space-md);
+  overflow-x: auto;
+  padding-bottom: var(--space-md);
+  scrollbar-width: thin;
+}
+
+.fv-category-rail::-webkit-scrollbar {
+  height: 4px;
+}
+.fv-category-rail::-webkit-scrollbar-track {
+  background: var(--color-bg-surface);
+}
+.fv-category-rail::-webkit-scrollbar-thumb {
+  background: var(--cat-accent);
+}
+
+.fv-category-rail-item {
+  min-width: 300px;
+  flex-shrink: 0;
+}
+
+.fv-category-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--space-lg);
+}
+
+.fv-cat-card-content {
+  padding: var(--space-md) 0 0 0;
+}
+
+.fv-cat-card-content h4 {
+  font-family: var(--font-family-display);
+  font-size: 24px;
+  margin-bottom: var(--space-xs);
+}
+
+.fv-cat-card-content span {
+  font-size: 11px;
+  color: var(--cat-accent);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}

@@ -1,0 +1,117 @@
+import { trending, articles, characterSpotlight, trailers, events, merchandise } from './mockData';
+import heroImg1 from '../../design-references/0b72e5f07125a921159f0b5dbc184597.webp';
+import heroImg2 from '../../design-references/3d5657abee8d862f79660b657c0dad51.webp';
+import heroImg3 from '../../design-references/41d76481d4b984ecf038a53c156885fd.webp';
+import heroImg4 from '../../design-references/44cdc4c432e8385d9bfec5c691a8ce90.webp';
+import heroImg5 from '../../design-references/6b1371c55b89a2c351d9416935faf085.webp';
+import heroImg6 from '../../design-references/7acf74c51e317ed64a46d21fef8c2eb8 (1).webp';
+import heroImg7 from '../../design-references/914bb14146d4d8591cd886f9589d146b.webp';
+
+// Reusing global mock data to populate category pages
+export const categoryDetails = {
+  anime: {
+    id: 'anime',
+    name: 'Anime',
+    slug: 'anime',
+    accentColor: 'var(--color-anime)',
+    heroImage: heroImg1,
+    description: 'Explore the vast worlds of Japanese animation. From high-octane shounen battles to deep psychological thrillers, discover your next obsession.',
+    featuredContent: trending[1],
+    trendingContent: [trending[1], trending[1], trending[1], trending[1]],
+    characters: characterSpotlight,
+    articles: [articles[0], articles[0], articles[0]],
+    trailers: trailers,
+    events: events,
+    merchandise: merchandise
+  },
+  gaming: {
+    id: 'gaming',
+    name: 'Gaming',
+    slug: 'gaming',
+    accentColor: 'var(--color-gaming)',
+    heroImage: heroImg2,
+    description: 'Dive into digital realms. The latest releases, deepest lore, and competitive scenes from across the gaming multiverse.',
+    featuredContent: trending[0],
+    trendingContent: [trending[0], trending[0], trending[0], trending[0]],
+    characters: characterSpotlight,
+    articles: [articles[1], articles[1], articles[1]],
+    trailers: trailers,
+    events: events,
+    merchandise: merchandise
+  },
+  movies: {
+    id: 'movies',
+    name: 'Movies',
+    slug: 'movies',
+    accentColor: 'var(--color-movies)',
+    heroImage: heroImg3,
+    description: 'Cinematic experiences that define generations. Blockbusters, indie darlings, and deep-cut classics await.',
+    featuredContent: trending[2],
+    trendingContent: [trending[2], trending[2], trending[2], trending[2]],
+    characters: characterSpotlight,
+    articles: [articles[2], articles[2], articles[2]],
+    trailers: trailers,
+    events: events,
+    merchandise: merchandise
+  },
+  tv: {
+    id: 'tv',
+    name: 'TV Shows',
+    slug: 'tv',
+    accentColor: 'var(--color-tv)',
+    heroImage: heroImg4,
+    description: 'Binge-worthy narratives and episodic adventures. Step into ongoing worlds of premium television.',
+    featuredContent: trending[3],
+    trendingContent: [trending[3], trending[3], trending[3], trending[3]],
+    characters: characterSpotlight,
+    articles: [articles[0], articles[1], articles[2]],
+    trailers: trailers,
+    events: events,
+    merchandise: merchandise
+  },
+  kpop: {
+    id: 'kpop',
+    name: 'K-Pop',
+    slug: 'kpop',
+    accentColor: 'var(--color-kpop)',
+    heroImage: heroImg5,
+    description: 'The global phenomenon. Music videos, group spotlights, and the culture surrounding Korean pop.',
+    featuredContent: trending[3],
+    trendingContent: [trending[3], trending[3], trending[3], trending[3]],
+    characters: characterSpotlight,
+    articles: [articles[0], articles[0], articles[0]],
+    trailers: trailers,
+    events: events,
+    merchandise: merchandise
+  },
+  comics: {
+    id: 'comics',
+    name: 'Comics',
+    slug: 'comics',
+    accentColor: 'var(--color-comics)',
+    heroImage: heroImg6,
+    description: 'Sequential storytelling at its finest. From superhero epics to grounded indie graphic novels.',
+    featuredContent: trending[0],
+    trendingContent: [trending[0], trending[0], trending[0], trending[0]],
+    characters: characterSpotlight,
+    articles: [articles[1], articles[1], articles[1]],
+    trailers: trailers,
+    events: events,
+    merchandise: merchandise
+  },
+  manga: {
+    id: 'manga',
+    name: 'Manga',
+    slug: 'manga',
+    accentColor: 'var(--color-manga)',
+    heroImage: heroImg7,
+    description: 'The source material. Read the stories that inspire the anime and dive into ongoing serializations.',
+    featuredContent: trending[1],
+    trendingContent: [trending[1], trending[1], trending[1], trending[1]],
+    characters: characterSpotlight,
+    articles: [articles[2], articles[2], articles[2]],
+    trailers: trailers,
+    events: events,
+    merchandise: merchandise
+  }
+};

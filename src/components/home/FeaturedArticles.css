@@ -1,0 +1,60 @@
+.fv-articles-layout {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: var(--space-lg);
+}
+
+.fv-article-featured {
+  aspect-ratio: auto;
+  min-height: 400px;
+  justify-content: flex-end;
+}
+
+.fv-article-featured .fv-card-image-wrapper {
+  position: absolute;
+  inset: 0;
+  height: 100%;
+}
+
+.fv-article-hero-title {
+  font-family: var(--font-family-display);
+  font-size: 32px;
+  line-height: 1.2;
+  margin: var(--space-sm) 0;
+  color: #fff;
+  white-space: normal; /* Override card default */
+}
+
+.fv-article-supporting {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+
+.fv-article-small {
+  flex: 1;
+  aspect-ratio: auto;
+  justify-content: flex-end;
+}
+
+.fv-article-small .fv-card-image-wrapper {
+  position: absolute;
+  inset: 0;
+  height: 100%;
+}
+
+.fv-article-small .fv-card-title {
+  white-space: normal;
+}
+
+.fv-article-content-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+@media (max-width: 1024px) {
+  .fv-articles-layout {
+    grid-template-columns: 1fr;
+  }
+}

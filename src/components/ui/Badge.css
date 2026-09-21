@@ -1,0 +1,28 @@
+.fv-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+}
+
+.fv-badge-default {
+  background-color: var(--color-bg-elevated);
+  color: var(--color-text-secondary);
+  border: 1px solid var(--color-border);
+}
+
+.fv-badge-primary {
+  background-color: var(--color-accent-primary);
+  color: #fff;
+}
+
+.fv-badge-accent {
+  background-color: var(--color-accent-secondary);
+  color: #fff;
+}

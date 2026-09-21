@@ -1,0 +1,45 @@
+.fv-events-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: var(--space-lg);
+}
+
+.fv-event-card {
+  flex-direction: row;
+  align-items: center;
+  padding: 0;
+}
+
+.fv-event-card .fv-card-content {
+  display: none; /* Hide default content padding since we do custom layout */
+}
+
+.fv-event-date-block {
+  background: var(--color-bg-surface);
+  padding: var(--space-xl);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-right: 1px solid var(--color-border);
+  min-width: 120px;
+}
+
+.fv-event-date {
+  font-family: var(--font-family-display);
+  font-size: 24px;
+  font-weight: 800;
+  text-align: center;
+  color: var(--color-accent-primary);
+}
+
+.fv-event-details {
+  padding: var(--space-lg);
+  display: flex;
+  flex-direction: column;
+}
+
+@media (max-width: 768px) {
+  .fv-events-grid {
+    grid-template-columns: 1fr;
+  }
+}

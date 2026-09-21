@@ -1,0 +1,18 @@
+.fv-container {
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 var(--space-2xl);
+}
+
+@media (max-width: 1024px) {
+  .fv-container {
+    padding: 0 var(--space-xl);
+  }
+}
+
+@media (max-width: 768px) {
+  .fv-container {
+    padding: 0 var(--space-md);
+  }
+}
