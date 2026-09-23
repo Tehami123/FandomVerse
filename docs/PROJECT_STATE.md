@@ -24,13 +24,13 @@ Movies, TV Shows, K-Pop, Comics, and Manga.
 
 # CURRENT PHASE
 
-Phase: 8C — Content Detail Workflows
+Phase: 8F.1 — Demo LocalStorage Authentication
 
 Status: COMPLETED
 
 Current Goal:
-Provide stable article, trailer, and event detail workflows using existing local
-data without redesigning the frozen visual systems.
+Provide a small frontend-only localStorage authentication walkthrough without
+redesigning the frozen visual systems.
 
 ---
 
@@ -140,7 +140,7 @@ NONE required for the chatbot
 
 # CURRENT TASK
 
-Phase 8C — Content Detail Workflows completed. Phase 8D has not started.
+Phase 8F.1 — Demo LocalStorage Authentication completed. Stop here until Phase 8G is explicitly started.
 
 ---
 
@@ -186,14 +186,171 @@ Phase 7A is complete. Stop here until Phase 7B is explicitly started.
 - Phase 8A: Audited implementation, routes, data counts, SRS gaps, accessibility evidence, and submission readiness without changing application code.
 - Phase 8B: Replaced verified homepage console-only and `href="#"` interactions with existing search/category destinations while preserving frozen visuals.
 - Phase 8C: Added stable-ID article, trailer, and event detail routes with deterministic related content and invalid-ID states.
+- Phase 8D: Added a reusable responsive Gallery with a keyboard-accessible lightbox, single-image fallback, thumbnails, navigation, and lazy-loaded thumbnails.
+- Phase 8D: Added a local-only MediaPlayer with native video/audio controls when a valid local source is supplied and an explicit unavailable state otherwise.
+- Phase 8D: Integrated gallery presentation into article, event, and trailer detail workflows without changing the frozen layouts or protected hero/category components.
+- Phase 8E: Added a centralized seven-category release dataset and responsive `/releases` calendar with category/status filters, chronological sorting, URL-backed state, accessible controls, and an empty state.
+- Phase 8E: Added a linked Upcoming Releases homepage section and Releases navigation access without changing the protected homepage hero or category architecture.
+- Phase 8E: Added Release records to global search and scripted chatbot navigation.
+- Phase 8F: Added About, Contact, Login, and Signup pages with real routes, local validation, accessible form errors, and explicit frontend/demo-only success states.
+- Phase 8F: Replaced footer placeholder company links and navbar sign-in controls with real About, Contact, Login, and Signup navigation.
+- Phase 8F.1: Added a reusable AuthContext with prefixed localStorage demo user/session keys, signup/login validation, session restoration, and logout behavior.
+- Phase 8F.1: Connected the existing Login and Signup forms and navbar account control to the local demo session without changing the visual system.
 
 ---
 
 # NEXT TASK
 
-Phase 8D — SRS Gap Remediation (not started)
+Phase 8G — not started. Do not begin until explicitly requested.
 
-Phase 8C is complete. Stop here until remediation priorities are explicitly started.
+## PHASE 8F.1 DEMO LOCALSTORAGE AUTHENTICATION
+
+### Files Changed
+- `src/context/AuthContext.jsx`
+- `src/context/authContext.js`
+- `src/context/useAuth.js`
+- `src/App.jsx`
+- `src/pages/Login.jsx`
+- `src/pages/Signup.jsx`
+- `src/components/navigation/Navbar.jsx`
+- `docs/PROJECT_STATE.md`
+
+### Demo Authentication Behavior
+- Added `AuthProvider` and `useAuth()` with `user`, `isAuthenticated`, `login()`, `signup()`, and `logout()`.
+- Uses only FandomVerse-specific keys: `fandomverse_demo_user` and `fandomverse_demo_session`.
+- Signup stores the demo profile and a deterministic demo credential fingerprint, establishes a local session, shows the existing success state, and navigates home.
+- Login checks the locally registered demo profile, gives a clear no-account or invalid-credentials error, establishes the session, and navigates home.
+- Refresh and SPA navigation restore the authenticated state. Logout clears only the session and preserves the registered demo profile for a later login.
+- The navbar preserves its existing structure while switching the existing sign-in control to a logout control when authenticated.
+
+### Privacy and Limitations
+- This is explicitly demo authentication, not production security or a real account system.
+- No backend, database, API, JWT, OAuth, email verification, password recovery, or network request was added.
+- The deterministic credential fingerprint is only a local demo convenience and is not a secure password hash.
+
+### Tests Performed
+- `npm run build`: passed after the auth integration and credential-fingerprint patch.
+- Browser-tested clean signup, session creation, home redirect, refresh persistence, SPA navigation, logout, login with the registered demo account, invalid credentials, and mobile layout.
+- Verified local storage contains no raw `demoPassword`, retains the prefixed demo profile, and clears only `fandomverse_demo_session` on logout.
+- Existing major routes and UI surfaces remained untouched; browser console retained only previously documented global warnings (`whileHover` DOM prop and `THREE.Clock` deprecation).
+
+## PHASE 8F ABOUT + CONTACT + DUMMY AUTH
+
+### Files Changed
+- `src/pages/About.jsx`
+- `src/pages/About.css`
+- `src/pages/Contact.jsx`
+- `src/pages/Contact.css`
+- `src/pages/Login.jsx`
+- `src/pages/Signup.jsx`
+- `src/pages/Auth.css`
+- `src/App.jsx`
+- `src/components/navigation/Navbar.jsx`
+- `src/components/navigation/Footer.jsx`
+- `docs/PROJECT_STATE.md`
+
+### Functionality
+- Added `/about` with the Portal for Fandom World concept, all seven supported categories, platform capabilities, and a non-fabricated FandomVerse Team presentation.
+- Added `/contact` with required name, email, subject, and message validation, demo-only success messaging, reset flow, and a clearly labeled unavailable map preview without an invented address or API key.
+- Added `/login` and `/signup` with required-field, email-format, password-length, and password-confirmation validation.
+- Login and signup success states explicitly identify themselves as demos; passwords and submissions are not sent or stored.
+- Added real footer links for About, Contact, Login, and Signup, plus navbar sign-in routing and auth-page navigation.
+
+### Accessibility and Responsive Behavior
+- All new form fields have associated labels, keyboard-accessible controls, useful validation messaging, `aria-invalid`, and `aria-describedby` where errors are present.
+- New pages were tested at desktop and mobile widths with no horizontal overflow.
+
+### Tests Performed
+- `npm run build`: passed.
+- Direct load and refresh tested for `/about`, `/contact`, `/login`, and `/signup`.
+- Contact, login, and signup invalid submissions and successful demo states tested.
+- Footer and login/signup navigation tested.
+- Mobile and desktop layout checks completed; new pages have no horizontal overflow.
+- Keyboard focus interaction tested.
+- Regression smoke-tested homepage, all major content routes, search, bookmarks, cart, and releases.
+- Browser console reviewed; existing unrelated warnings remain from `whileHover` being forwarded to a DOM element and the deprecated `THREE.Clock` API.
+
+### Remaining Limitations
+- Contact has no configured physical location or map API, so it uses a demo placeholder.
+- Authentication is intentionally non-persistent and has no backend, database, or real session.
+- The frozen `/category/anime` route still reports an existing mobile horizontal-overflow condition; this phase did not alter category architecture.
+
+## PHASE 8E UPCOMING RELEASES WORKFLOW
+
+### Files Changed
+- `src/data/releaseData.js`
+- `src/pages/Releases.jsx`
+- `src/pages/Releases.css`
+- `src/components/home/ReleasesSection.jsx`
+- `src/components/home/ReleasesSection.css`
+- `src/pages/Home.jsx`
+- `src/App.jsx`
+- `src/utils/contentData.js`
+- `src/components/navigation/Navbar.jsx`
+- `src/components/chatbot/chatbotData.js`
+- `docs/PROJECT_STATE.md`
+
+### Release Scope
+- 7 releases are defined with normalized `id`, `title`, `category`, `franchise`, `releaseDate`, `status`, `description`, `image`, and `tags` fields.
+- Categories covered: Anime, Gaming, Movies, TV Shows, K-Pop, Comics, and Manga.
+- Records use existing local reference artwork only. No external media URLs, API calls, or live release claims were added.
+
+### Workflow Behavior
+- `/releases` supports URL-backed category filtering, Upcoming/Current status filtering, soonest-first chronological sorting, latest-first sorting, and a clear empty state.
+- Homepage release cards link to the relevant filtered release view.
+- Release records are searchable through the existing global search index as `Release` content.
+- The scripted chatbot recognizes release-calendar requests and navigates to `/releases`.
+- Navbar desktop and mobile navigation include Releases access.
+
+### Accessibility and Responsive Behavior
+- Semantic page headings, labelled filter controls, keyboard-accessible links/buttons, meaningful image alt text, live result summaries, and visible existing focus styles are preserved.
+- Desktop and mobile layouts were browser-tested with no horizontal overflow on the releases page.
+
+### Tests Performed
+- `npm run build`: passed.
+- Direct `/releases` load and refresh: passed.
+- Category filter, status filter, and chronological/latest sorting: passed.
+- Homepage Upcoming Releases section and linked cards: passed.
+- Mobile and desktop layout checks: passed with no horizontal overflow.
+- Global search for releases: passed.
+- Scripted chatbot release navigation: passed.
+- Browser console review completed; existing unrelated warnings remain from the app shell (`whileHover` DOM prop) and Three.js (`THREE.Clock` deprecation).
+
+### Remaining Limitations
+- Release artwork currently reuses existing local reference assets pending the dedicated asset integration phase.
+- Release records are static local data and do not claim live availability, regional timing, or external purchase/watch links.
+
+## PHASE 8D GALLERY + MEDIA
+
+### Files Changed
+- `src/components/gallery/Gallery.jsx`
+- `src/components/gallery/Gallery.css`
+- `src/components/media/MediaPlayer.jsx`
+- `src/components/media/MediaPlayer.css`
+- `src/utils/contentData.js`
+- `src/pages/ArticleDetail.jsx`
+- `src/pages/EventDetail.jsx`
+- `src/pages/TrailerDetail.jsx`
+- `docs/PROJECT_STATE.md`
+
+### Data Changes
+- Existing records remain schema-compatible and unchanged because they contain one local image each.
+- `getGalleryImages()` normalizes an optional `gallery` array and falls back to the existing `image` field.
+- No valid local MP4, WebM, MP3, or WAV files were present, so no playable source was added and no external media URL was invented.
+
+### Accessibility Behavior
+- Gallery images have meaningful alt text; thumbnail images are decorative because their parent buttons are labelled.
+- Lightbox uses dialog semantics, visible semantic controls, an image indicator, Escape close, ArrowLeft/ArrowRight navigation, selected-image focus, and background scroll locking.
+- Native media controls are used whenever a local source is provided; unavailable media is exposed as a status message.
+
+### Tests Performed
+- `npm run build`: passed.
+- Browser smoke test: article, event, and trailer detail gallery entry points; lightbox controls; keyboard navigation; close behavior; and trailer unavailable-media state.
+- Responsive smoke test: desktop and mobile gallery layout with no intentional horizontal overflow.
+
+### Remaining Limitations
+- Current local content has one image per detail record, so thumbnails and multi-image navigation are ready but not populated with fabricated artwork.
+- Trailer records have no local playable media source, so the honest unavailable placeholder remains visible.
 
 ---
 

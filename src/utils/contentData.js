@@ -1,5 +1,6 @@
 import { articles, categories, eventsByCategory, merchandise, trailers, trending } from '../data/mockData';
 import { categoryDetails } from '../data/categoryData';
+import { releases } from '../data/releaseData';
 
 const categorySlugs = Object.fromEntries(
   Object.entries(categoryDetails).map(([slug, category]) => [category.name, slug]),
@@ -17,6 +18,7 @@ export const getContentDestination = (item, contentType) => {
   if (contentType === 'Article') return `/article/${item.id}`;
   if (contentType === 'Trailer') return `/trailer/${item.id}`;
   if (contentType === 'Event') return `/event/${item.id}`;
+  if (contentType === 'Release') return `/releases?category=${categorySlugs[item.category] || 'anime'}`;
   return getCategoryDestination(item.category);
 };
 
@@ -25,9 +27,12 @@ export const getContentByType = (contentType, id) => {
     Article: articles,
     Trailer: trailers,
     Event: allEvents,
+    Release: releases,
   };
   return collections[contentType]?.find((item) => item.id === id) || null;
 };
+
+export const getGalleryImages = (item) => (item?.gallery?.length ? item.gallery : item?.image ? [item.image] : []);
 
 export const getRelatedContent = (contentType, item, limit = 3) => {
   const collections = {
@@ -84,6 +89,7 @@ const searchableContent = uniqueById([
   ...trending.map((item) => toSearchResult(item, 'Trending')),
   ...articles.map((item) => toSearchResult(item, 'Article')),
   ...trailers.map((item) => toSearchResult(item, 'Trailer')),
+  ...releases.map((item) => toSearchResult({ ...item, date: item.releaseDate }, 'Release')),
   ...merchandise.map((item) => toSearchResult(item, 'Merchandise')),
   ...Object.values(categoryDetails).flatMap((category) => [
     ...category.characters.map((item) => toSearchResult(item, 'Character', category.name)),

@@ -23,10 +23,10 @@ export function Footer() {
           </div>
           <div className="fv-footer-links">
             <h4>Company</h4>
-            <a href="#">About Us</a>
-            <a href="#">Contact</a>
-            <a href="#">Privacy Policy</a>
-            <a href="#">Terms of Service</a>
+            <Link to="/about">About Us</Link>
+            <Link to="/contact">Contact</Link>
+            <Link to="/login">Login</Link>
+            <Link to="/signup">Sign up</Link>
           </div>
         </div>
         <div className="fv-footer-bottom">

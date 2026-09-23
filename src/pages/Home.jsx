@@ -6,6 +6,7 @@ import { FeaturedArticles } from '../components/home/FeaturedArticles';
 import { CharacterSpotlight } from '../components/home/CharacterSpotlight';
 import { TrailerSection } from '../components/home/TrailerSection';
 import { EventsSection } from '../components/home/EventsSection';
+import { ReleasesSection } from '../components/home/ReleasesSection';
 import { MerchandiseSection } from '../components/home/MerchandiseSection';
 
 export function Home() {
@@ -18,6 +19,7 @@ export function Home() {
       <CharacterSpotlight />
       <TrailerSection />
       <EventsSection />
+      <ReleasesSection />
       <MerchandiseSection />
     </>
   );

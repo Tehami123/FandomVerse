@@ -3,6 +3,7 @@ export const chatbotQuickReplies = [
   { label: 'Explore Gaming', message: 'Open gaming', to: '/category/gaming' },
   { label: 'Browse Movies', message: 'Where are movies?', to: '/category/movies' },
   { label: 'View Events', message: 'Show events', to: '/search?q=event' },
+  { label: 'Upcoming Releases', message: 'Show upcoming releases', to: '/releases' },
   { label: 'Search FandomVerse', message: 'Search FandomVerse', to: '/search' },
   { label: 'View Bookmarks', message: 'Open bookmarks', to: '/bookmarks' },
   { label: 'Browse Merchandise', message: 'Show me merchandise', to: '/search?q=merchandise' },
@@ -24,8 +25,8 @@ export const chatbotIntents = [
   {
     id: 'greeting',
     triggers: ['hello', 'hi', 'hey', 'good morning', 'good evening'],
-    response: 'Welcome to FandomVerse. I can help you explore categories, search the archive, manage bookmarks, browse merchandise, or check events.',
-    quickReplies: chatbotQuickReplies.slice(0, 5),
+    response: 'Welcome to FandomVerse. I can help you explore categories, search the archive, manage bookmarks, browse merchandise, check events, or find upcoming releases.',
+    quickReplies: chatbotQuickReplies.slice(0, 6),
   },
   {
     id: 'about',
@@ -112,6 +113,12 @@ export const chatbotIntents = [
     action: { label: 'Find Trailers', to: '/search?q=trailer' },
   },
   {
+    id: 'releases',
+    triggers: ['releases', 'release calendar', 'release dates', 'upcoming releases'],
+    response: 'The release calendar tracks upcoming and current discoveries across all seven categories.',
+    action: { label: 'Open Releases', to: '/releases' },
+  },
+  {
     id: 'search',
     triggers: ['search', 'find', 'look for'],
     response: 'Use global search to find content across categories and refine results with filters and sorting.',
@@ -126,9 +133,9 @@ export const chatbotIntents = [
   {
     id: 'help',
     triggers: ['help', 'what can you do', 'options'],
-    response: 'I can explain FandomVerse, guide you to categories, search the archive, help with bookmarks, browse merchandise, open your cart, or find events.',
+    response: 'I can explain FandomVerse, guide you to categories, search the archive, help with bookmarks, browse merchandise, open your cart, find events, or check releases.',
     quickReplies: chatbotQuickReplies,
   },
 ];
 
-export const fallbackResponse = 'I can help you explore FandomVerse, find categories, search content, manage bookmarks, browse merchandise, or check events.';
+export const fallbackResponse = 'I can help you explore FandomVerse, find categories, search content, manage bookmarks, browse merchandise, check events, or find upcoming releases.';

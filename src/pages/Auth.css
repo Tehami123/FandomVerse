@@ -1,0 +1,21 @@
+.fv-auth-page { min-height: calc(100vh - 72px); padding: var(--space-3xl) 0 120px; background: var(--color-bg-base); }
+.fv-auth-panel { width: min(100%, 560px); margin: 0 auto; padding: var(--space-2xl); border: 1px solid var(--color-border); background: var(--color-bg-surface); }
+.fv-auth-kicker { margin-bottom: var(--space-md); color: var(--color-text-secondary); font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; }
+.fv-auth-panel h1 { margin-bottom: var(--space-md); font-size: clamp(44px, 7vw, 72px); line-height: 1.05; }
+.fv-auth-intro { margin-bottom: var(--space-xl); line-height: 1.7; }
+.fv-form { display: grid; gap: var(--space-lg); }
+.fv-form-field { display: grid; gap: var(--space-sm); }
+.fv-form-field label { color: var(--color-text-primary); font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; }
+.fv-form-field input, .fv-form-field textarea { width: 100%; min-height: 48px; padding: 12px var(--space-md); border: 1px solid var(--color-border); border-radius: var(--radius-md); background: var(--color-bg-base); color: var(--color-text-primary); font: inherit; resize: vertical; }
+.fv-form-field textarea { min-height: 140px; }
+.fv-form-field input[aria-invalid="true"], .fv-form-field textarea[aria-invalid="true"] { border-color: var(--color-error, #EF4444); }
+.fv-form-error { color: var(--color-error, #EF4444); font-size: 13px; }
+.fv-form-submit { min-height: 48px; padding: 0 var(--space-lg); border: 1px solid var(--color-text-primary); background: var(--color-text-primary); color: var(--color-bg-base); font-weight: 600; cursor: pointer; }
+.fv-form-success { padding: var(--space-lg); border: 1px solid var(--color-border); background: var(--color-bg-base); }
+.fv-form-success strong { display: block; margin-bottom: var(--space-sm); color: var(--color-text-primary); font-family: var(--font-family-display); font-size: 24px; font-weight: 400; }
+.fv-form-success p { margin-bottom: var(--space-lg); }
+.fv-form-success button, .fv-form-success a { display: inline-flex; min-height: 44px; align-items: center; padding: 0 var(--space-md); border: 1px solid var(--color-border); background: transparent; color: var(--color-text-primary); cursor: pointer; }
+.fv-auth-switch { margin-top: var(--space-xl); text-align: center; }
+.fv-auth-switch a, .fv-auth-back { color: var(--color-text-primary); text-decoration: underline; text-underline-offset: 4px; }
+.fv-auth-back { display: block; margin-top: var(--space-lg); text-align: center; font-size: 13px; }
+@media (max-width: 768px) { .fv-auth-page { padding-top: var(--space-2xl); } .fv-auth-panel { padding: var(--space-lg); } }

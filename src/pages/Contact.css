@@ -1,0 +1,13 @@
+.fv-contact-page { min-height: calc(100vh - 72px); padding: var(--space-3xl) 0 120px; background: var(--color-bg-base); }
+.fv-contact-header { max-width: 760px; margin-bottom: var(--space-2xl); }
+.fv-contact-kicker { margin-bottom: var(--space-md); color: var(--color-text-secondary); font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; }
+.fv-contact-header h1 { margin-bottom: var(--space-lg); font-size: clamp(48px, 7vw, 84px); line-height: 1.05; }
+.fv-contact-header p { font-size: 17px; }
+.fv-contact-layout { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(280px, 0.8fr); gap: var(--space-2xl); }
+.fv-contact-form-panel, .fv-contact-location { padding-top: var(--space-xl); border-top: 1px solid var(--color-border); }
+.fv-contact-form-panel h2, .fv-contact-location h2 { margin-bottom: var(--space-lg); font-size: 32px; }
+.fv-contact-location p { line-height: 1.75; }
+.fv-contact-location-art { display: grid; min-height: 220px; place-items: center; align-content: center; gap: var(--space-sm); margin-bottom: var(--space-lg); border: 1px solid var(--color-border); background: linear-gradient(135deg, rgba(99, 102, 241, 0.12), transparent), var(--color-bg-surface); text-align: center; }
+.fv-contact-location-art span { color: var(--color-text-secondary); font-size: 11px; letter-spacing: 0.16em; }
+.fv-contact-location-art strong { font-family: var(--font-family-display); font-size: 24px; font-weight: 400; }
+@media (max-width: 768px) { .fv-contact-page { padding-top: var(--space-2xl); } .fv-contact-layout { grid-template-columns: 1fr; } }

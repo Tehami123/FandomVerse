@@ -1,15 +1,17 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Search, Bookmark, ShoppingCart, User, Menu, X } from 'lucide-react';
+import { Search, Bookmark, ShoppingCart, User, LogOut, Menu, X } from 'lucide-react';
 import { Container } from '../ui/Container';
 import { IconButton } from '../ui/IconButton';
 import { Button } from '../ui/Button';
 import { useCart } from '../../context/CartContext';
+import { useAuth } from '../../context/useAuth';
 import './Navbar.css';
 
 export function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { totalQuantity } = useCart();
+  const { user, isAuthenticated, logout } = useAuth();
 
   return (
     <header className="fv-navbar">
@@ -34,6 +36,7 @@ export function Navbar() {
             <Link to="/category/kpop" className="fv-nav-link">K-POP</Link>
             <Link to="/category/comics" className="fv-nav-link">COMICS</Link>
             <Link to="/category/manga" className="fv-nav-link">MANGA</Link>
+            <Link to="/releases" className="fv-nav-link">RELEASES</Link>
           </nav>
         </div>
 
@@ -49,9 +52,9 @@ export function Navbar() {
             {totalQuantity > 0 && <span className="fv-cart-count" aria-label={`${totalQuantity} items in cart`}>{totalQuantity}</span>}
           </Link>
           <div className="fv-desktop-only">
-            <Button variant="ghost" style={{ padding: '0 16px', height: '40px' }}>Sign In</Button>
+            {isAuthenticated ? <Button variant="ghost" onClick={logout} style={{ padding: '0 16px', height: '40px' }} aria-label={`Log out ${user.name}`}>Log out</Button> : <Link to="/login" onClick={() => setMobileMenuOpen(false)}><Button variant="ghost" style={{ padding: '0 16px', height: '40px' }}>Sign In</Button></Link>}
           </div>
-          <IconButton icon={User} aria-label="Profile" className="fv-mobile-only" />
+          {isAuthenticated ? <IconButton icon={LogOut} aria-label="Log out" className="fv-mobile-only" onClick={logout} /> : <Link to="/login" aria-label="Sign in" className="fv-mobile-only" onClick={() => setMobileMenuOpen(false)}><IconButton icon={User} aria-label="Sign in" /></Link>}
         </div>
       </Container>
 
@@ -65,6 +68,7 @@ export function Navbar() {
           <Link to="/category/kpop" className="fv-nav-link" onClick={() => setMobileMenuOpen(false)}>K-POP</Link>
           <Link to="/category/comics" className="fv-nav-link" onClick={() => setMobileMenuOpen(false)}>COMICS</Link>
           <Link to="/category/manga" className="fv-nav-link" onClick={() => setMobileMenuOpen(false)}>MANGA</Link>
+          <Link to="/releases" className="fv-nav-link" onClick={() => setMobileMenuOpen(false)}>RELEASES</Link>
           <Link to="/bookmarks" className="fv-nav-link" onClick={() => setMobileMenuOpen(false)}>BOOKMARKS</Link>
         </div>
       )}

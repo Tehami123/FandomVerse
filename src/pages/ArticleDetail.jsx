@@ -1,7 +1,8 @@
 import React from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { BookmarkButton } from '../components/ui/BookmarkButton';
-import { getContentByType, getContentDestination, getRelatedContent } from '../utils/contentData';
+import { Gallery } from '../components/gallery/Gallery';
+import { getContentByType, getContentDestination, getGalleryImages, getRelatedContent } from '../utils/contentData';
 import { Container } from '../components/ui/Container';
 import { DetailBackLink, DetailHeader, DetailNotFound, RelatedContent } from './ContentDetail';
 import './ContentDetail.css';
@@ -25,7 +26,7 @@ export function ArticleDetail() {
           metadata={[article.author, article.date, article.readTime]}
         />
         <div className="fv-detail-feature">
-          <img className="fv-detail-image" src={article.image} alt={article.title} />
+          <Gallery images={getGalleryImages(article)} title={article.title} />
           <div className="fv-detail-copy">
             <BookmarkButton item={bookmark} />
             <h2>From the editorial desk</h2>
