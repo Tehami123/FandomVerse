@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Container } from '../ui/Container';
 import { articles } from '../../data/mockData';
 import { Card, CardTitle, CardMeta } from '../ui/Card';
@@ -6,8 +7,10 @@ import { Badge } from '../ui/Badge';
 import './FeaturedArticles.css';
 
 export function FeaturedArticles() {
+  const navigate = useNavigate();
   const featured = articles[0];
   const supporting = articles.slice(1);
+  const openArticle = (article) => navigate(`/article/${article.id}`);
 
   return (
     <section className="fv-section fv-articles-section">
@@ -20,7 +23,7 @@ export function FeaturedArticles() {
             imageSrc={featured.image}
             imageAlt={featured.title}
             className="fv-article-featured"
-            onClick={() => console.log('Read article')}
+            onClick={() => openArticle(featured)}
           >
             <div className="fv-article-content-wrapper">
               <Badge variant="accent">{featured.category}</Badge>
@@ -35,7 +38,7 @@ export function FeaturedArticles() {
                 key={art.id} 
                 imageSrc={art.image} 
                 className="fv-article-small"
-                onClick={() => console.log('Read article')}
+                onClick={() => openArticle(art)}
               >
                 <div className="fv-article-content-wrapper">
                   <Badge variant="default" style={{ alignSelf: 'flex-start' }}>{art.category}</Badge>

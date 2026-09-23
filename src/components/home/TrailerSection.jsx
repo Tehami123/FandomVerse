@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { Container } from '../ui/Container';
 import { trailers } from '../../data/mockData';
 import { Card, CardTitle, CardMeta } from '../ui/Card';
@@ -7,12 +8,13 @@ import { Play } from 'lucide-react';
 import './TrailerSection.css';
 
 export function TrailerSection() {
+  const navigate = useNavigate();
   return (
     <section className="fv-section fv-trailers-section">
       <Container>
         <div className="fv-section-header">
           <h2>Latest Trailers</h2>
-          <a href="#" className="fv-view-all">View All</a>
+          <Link to="/search?type=trailer" className="fv-view-all">View All</Link>
         </div>
         <div className="fv-trailers-grid">
           {trailers.map((trailer) => (
@@ -20,7 +22,7 @@ export function TrailerSection() {
               key={trailer.id} 
               imageSrc={trailer.image} 
               imageAlt={trailer.title}
-              onClick={() => console.log('Play trailer')}
+              onClick={() => navigate(`/trailer/${trailer.id}`)}
               className="fv-trailer-card"
             >
               <div className="fv-play-icon-wrapper">

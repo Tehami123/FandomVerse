@@ -9,6 +9,9 @@ import { CustomCursor } from './components/ui/CustomCursor'
 import { BookmarkProvider } from './context/BookmarkContext'
 import { CartProvider } from './context/CartContext'
 import { CartPage } from './pages/CartPage'
+import { ArticleDetail } from './pages/ArticleDetail'
+import { TrailerDetail } from './pages/TrailerDetail'
+import { EventDetail } from './pages/EventDetail'
 
 function App() {
   return (
@@ -24,6 +27,9 @@ function App() {
               <Route path="/search" element={<SearchPage />} />
               <Route path="/bookmarks" element={<BookmarksPage />} />
               <Route path="/cart" element={<CartPage />} />
+              <Route path="/article/:id" element={<ArticleDetail />} />
+              <Route path="/trailer/:id" element={<TrailerDetail />} />
+              <Route path="/event/:id" element={<EventDetail />} />
             </Routes>
           </AppLayout>
         </CartProvider>

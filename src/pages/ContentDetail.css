@@ -1,0 +1,227 @@
+.fv-detail-page {
+  min-height: calc(100vh - 72px);
+  padding: var(--space-3xl) 0 120px;
+  background: var(--color-bg-base);
+}
+
+.fv-detail-header {
+  max-width: 850px;
+  margin-bottom: var(--space-2xl);
+}
+
+.fv-detail-kicker,
+.fv-detail-section-label {
+  color: var(--color-text-secondary);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.fv-detail-kicker {
+  margin-bottom: var(--space-md);
+}
+
+.fv-detail-header h1,
+.fv-detail-empty h1 {
+  margin-bottom: var(--space-lg);
+  font-size: clamp(46px, 7vw, 84px);
+  font-style: italic;
+  line-height: 1.05;
+}
+
+.fv-detail-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm) var(--space-lg);
+  color: var(--color-text-secondary);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.fv-detail-meta span + span::before {
+  margin-right: var(--space-lg);
+  color: var(--color-border);
+  content: '/';
+}
+
+.fv-detail-feature {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(280px, 0.75fr);
+  gap: var(--space-2xl);
+  align-items: start;
+  margin-bottom: var(--space-3xl);
+}
+
+.fv-detail-image {
+  width: 100%;
+  max-height: 580px;
+  object-fit: cover;
+  border: 1px solid var(--color-border);
+  background: var(--color-bg-elevated);
+}
+
+.fv-detail-copy {
+  padding-top: var(--space-lg);
+}
+
+.fv-detail-copy h2 {
+  margin-bottom: var(--space-md);
+  font-size: 28px;
+}
+
+.fv-detail-copy p {
+  margin-bottom: var(--space-lg);
+  font-size: 16px;
+  line-height: 1.75;
+}
+
+.fv-detail-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-xl);
+}
+
+.fv-detail-tag {
+  padding: 6px 10px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-full);
+  color: var(--color-text-secondary);
+  font-size: 11px;
+}
+
+.fv-detail-back {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-sm);
+  color: var(--color-text-primary);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.fv-detail-back:hover,
+.fv-detail-back:focus-visible {
+  color: var(--color-text-secondary);
+}
+
+.fv-detail-related {
+  padding-top: var(--space-xl);
+  border-top: 1px solid var(--color-border);
+}
+
+.fv-detail-section-label {
+  margin-bottom: var(--space-lg);
+}
+
+.fv-detail-related-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1px;
+  border-top: 1px solid var(--color-border);
+  border-left: 1px solid var(--color-border);
+}
+
+.fv-detail-related-card {
+  position: relative;
+  min-width: 0;
+  padding-bottom: var(--space-lg);
+  border-right: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+  background: var(--color-bg-surface);
+}
+
+.fv-detail-related-card img {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  margin-bottom: var(--space-md);
+}
+
+.fv-detail-related-card span,
+.fv-detail-related-card h3 {
+  display: block;
+  margin-right: var(--space-lg);
+  margin-left: var(--space-lg);
+}
+
+.fv-detail-related-card span {
+  margin-bottom: var(--space-sm);
+  color: var(--color-text-secondary);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.fv-detail-related-card h3 {
+  font-size: 22px;
+  line-height: 1.15;
+}
+
+.fv-detail-related-card > svg {
+  position: absolute;
+  right: var(--space-lg);
+  bottom: var(--space-lg);
+  color: var(--color-text-secondary);
+}
+
+.fv-detail-media {
+  display: grid;
+  min-height: 360px;
+  place-items: center;
+  margin-bottom: var(--space-2xl);
+  border: 1px solid var(--color-border);
+  background:
+    linear-gradient(135deg, rgba(99, 102, 241, 0.12), transparent),
+    var(--color-bg-surface);
+  color: var(--color-text-secondary);
+  text-align: center;
+}
+
+.fv-detail-media strong {
+  display: block;
+  margin-bottom: var(--space-sm);
+  color: var(--color-text-primary);
+  font-family: var(--font-family-display);
+  font-size: 28px;
+  font-weight: 400;
+}
+
+.fv-detail-media p {
+  margin: 0;
+  font-size: 13px;
+}
+
+.fv-detail-empty {
+  max-width: 720px;
+  padding: 120px 0;
+}
+
+.fv-detail-empty p {
+  margin-bottom: var(--space-xl);
+  font-size: 17px;
+}
+
+@media (max-width: 768px) {
+  .fv-detail-page {
+    padding-top: var(--space-2xl);
+  }
+
+  .fv-detail-header h1,
+  .fv-detail-empty h1 {
+    font-size: 48px;
+  }
+
+  .fv-detail-feature {
+    grid-template-columns: 1fr;
+  }
+
+  .fv-detail-related-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .fv-detail-media {
+    min-height: 250px;
+  }
+}

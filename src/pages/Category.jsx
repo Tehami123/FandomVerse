@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useParams, Navigate, Link } from 'react-router-dom';
+import { useParams, Navigate, Link, useNavigate } from 'react-router-dom';
 import { motion, useScroll, useTransform } from 'motion/react';
 import { Container } from '../components/ui/Container';
 import { categoryDetails } from '../data/categoryData';
@@ -7,10 +7,12 @@ import { TextReveal } from '../components/ui/TextReveal';
 import { ArrowRight, Play } from 'lucide-react';
 import { BookmarkButton } from '../components/ui/BookmarkButton';
 import { AddToCartButton } from '../components/ui/AddToCartButton';
+import { getContentDestination } from '../utils/contentData';
 import './Category.css';
 
 export function Category() {
   const { categoryId } = useParams();
+  const navigate = useNavigate();
   const category = categoryDetails[categoryId];
 
   useEffect(() => {
@@ -28,7 +30,7 @@ export function Category() {
     title: item.title || item.name,
     category: category.name,
     contentType,
-    destination: `/category/${category.slug}`,
+    destination: getContentDestination({ ...item, category: category.name }, contentType),
   });
 
   return (
@@ -249,6 +251,7 @@ export function Category() {
                 transition={{ delay: idx * 0.1 }}
                 whileHover={{ y: -4 }}
                 style={{ cursor: 'pointer', position: 'relative' }}
+                onClick={() => navigate(`/article/${item.id}`)}
               >
                 <BookmarkButton item={bookmarkItem(item, 'Article')} className="fv-category-bookmark" style={{ position: 'absolute', top: 8, right: 8, zIndex: 3 }} />
                 <div style={{ position: 'relative', overflow: 'hidden', borderRadius: 'var(--radius-md)' }} className="fv-card-image-wrapper">
@@ -288,6 +291,7 @@ export function Category() {
                 viewport={{ once: true }}
                 transition={{ delay: idx * 0.1 }}
                 style={{ position: 'relative' }}
+                onClick={() => navigate(`/trailer/${item.id}`)}
               >
                 <BookmarkButton item={bookmarkItem(item, 'Trailer')} className="fv-category-bookmark" style={{ position: 'absolute', top: 8, right: 8, zIndex: 3 }} />
                 <div className="fv-trailer-wrapper">
@@ -327,6 +331,7 @@ export function Category() {
                 viewport={{ once: true }}
                 transition={{ delay: idx * 0.1 }}
                 style={{ position: 'relative' }}
+                onClick={() => navigate(`/event/${item.id}`)}
               >
                 <BookmarkButton item={bookmarkItem(item, 'Event')} className="fv-category-bookmark" style={{ position: 'absolute', top: 8, right: 8, zIndex: 3 }} />
                 <div className="fv-event-date-col">

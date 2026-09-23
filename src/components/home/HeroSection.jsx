@@ -1,4 +1,5 @@
 import React, { Suspense } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { motion, useScroll, useTransform } from 'motion/react';
 import { Container } from '../ui/Container';
 import { Button } from '../ui/Button';
@@ -10,6 +11,7 @@ import heroBg from '../../../design-references/cec84c245679037.69b2c06f3fdd7.png
 import './HeroSection.css';
 
 export function HeroSection() {
+  const navigate = useNavigate();
   const { scrollYProgress } = useScroll();
   const yBg = useTransform(scrollYProgress, [0, 1], ['0%', '20%']);
   const yObj = useTransform(scrollYProgress, [0, 1], ['0%', '40%']);
@@ -88,7 +90,7 @@ export function HeroSection() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 1.2 }}
             >
-              <button className="fv-hero-cta-btn">
+              <button className="fv-hero-cta-btn" type="button" onClick={() => navigate('/search')}>
                 <span className="fv-hero-cta-icon"><ArrowRight size={18} strokeWidth={1} /></span>
                 <span className="fv-hero-cta-text">EXPLORE THE VERSE</span>
                 <span className="fv-hero-cta-line"></span>

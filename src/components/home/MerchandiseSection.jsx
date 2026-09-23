@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Container } from '../ui/Container';
 import { merchandise } from '../../data/mockData';
 import { Card, CardTitle, CardMeta } from '../ui/Card';
@@ -11,7 +12,7 @@ export function MerchandiseSection() {
       <Container>
         <div className="fv-section-header">
           <h2>Exclusive Merchandise</h2>
-          <a href="#" className="fv-view-all">Shop All</a>
+          <Link to="/search?q=merchandise" className="fv-view-all">Shop All</Link>
         </div>
         <div className="fv-merch-grid">
           {merchandise.map((item) => (

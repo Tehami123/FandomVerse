@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Container } from '../ui/Container';
 import './Footer.css';
 
@@ -15,10 +16,10 @@ export function Footer() {
           </div>
           <div className="fv-footer-links">
             <h4>Explore</h4>
-            <a href="#">Anime</a>
-            <a href="#">Gaming</a>
-            <a href="#">Movies</a>
-            <a href="#">K-Pop</a>
+            <Link to="/category/anime">Anime</Link>
+            <Link to="/category/gaming">Gaming</Link>
+            <Link to="/category/movies">Movies</Link>
+            <Link to="/category/kpop">K-Pop</Link>
           </div>
           <div className="fv-footer-links">
             <h4>Company</h4>

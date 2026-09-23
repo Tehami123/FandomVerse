@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useEffect, useMemo, useState } from 'react';
+import { getContentDestination } from '../utils/contentData';
 
 const STORAGE_KEY = 'fandomverse_bookmarks';
 const BookmarkContext = createContext(null);
@@ -17,16 +18,23 @@ const readBookmarks = () => {
   }
 };
 
-const normalizeBookmark = (item) => ({
+const normalizeBookmark = (item) => {
+  const contentType = item.contentType || item.type || 'Content';
+  const destination = ['Article', 'Trailer', 'Event'].includes(contentType)
+    ? getContentDestination(item, contentType)
+    : item.destination || (item.categorySlug ? `/category/${item.categorySlug}` : '/search');
+
+  return {
   id: item.id,
   title: item.title || item.name,
   name: item.name || item.title,
   image: item.image || '',
   description: item.description || item.biography || '',
   category: item.category || '',
-  contentType: item.contentType || item.type || 'Content',
-  destination: item.destination || (item.categorySlug ? `/category/${item.categorySlug}` : '/search'),
-});
+  contentType,
+  destination,
+  };
+};
 
 export function BookmarkProvider({ children }) {
   const [bookmarks, setBookmarks] = useState(readBookmarks);

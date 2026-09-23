@@ -1,4 +1,4 @@
-import { articles, categories, merchandise, trailers, trending } from '../data/mockData';
+import { articles, categories, eventsByCategory, merchandise, trailers, trending } from '../data/mockData';
 import { categoryDetails } from '../data/categoryData';
 
 const categorySlugs = Object.fromEntries(
@@ -10,6 +10,47 @@ export const uniqueById = (items) => [...new Map(
 ).values()];
 
 export const getCategory = (slug) => categoryDetails[slug];
+
+const allEvents = uniqueById(Object.values(eventsByCategory).flat());
+
+export const getContentDestination = (item, contentType) => {
+  if (contentType === 'Article') return `/article/${item.id}`;
+  if (contentType === 'Trailer') return `/trailer/${item.id}`;
+  if (contentType === 'Event') return `/event/${item.id}`;
+  return getCategoryDestination(item.category);
+};
+
+export const getContentByType = (contentType, id) => {
+  const collections = {
+    Article: articles,
+    Trailer: trailers,
+    Event: allEvents,
+  };
+  return collections[contentType]?.find((item) => item.id === id) || null;
+};
+
+export const getRelatedContent = (contentType, item, limit = 3) => {
+  const collections = {
+    Article: articles,
+    Trailer: trailers,
+    Event: allEvents,
+  };
+  const source = collections[contentType] || [];
+  const sourceTags = item.tags || [];
+  const related = source
+    .filter((candidate) => candidate.id !== item.id)
+    .map((candidate) => {
+      const sharedTags = (candidate.tags || []).filter((tag) => sourceTags.includes(tag)).length;
+      const sameCategory = candidate.category && candidate.category === item.category ? 2 : 0;
+      const sameFranchise = item.franchise && (candidate.franchise === item.franchise || candidate.series === item.franchise) ? 2 : 0;
+      return { candidate, score: sharedTags + sameCategory + sameFranchise };
+    })
+    .sort((left, right) => right.score - left.score || left.candidate.title.localeCompare(right.candidate.title))
+    .slice(0, limit)
+    .map(({ candidate }) => candidate);
+
+  return related;
+};
 
 const getCategoryDestination = (category) => `/category/${categorySlugs[category] || 'anime'}`;
 const getSortableDate = (date) => {
@@ -34,7 +75,7 @@ const toSearchResult = (item, contentType, category = item.category) => ({
   popularity: typeof item.popularity === 'number' ? item.popularity : null,
   featured: item.featured === true,
   metadata: item.date || item.location || item.status || item.price || item.readTime || '',
-  destination: getCategoryDestination(category),
+  destination: getContentDestination({ ...item, category }, contentType),
 });
 
 // Keep intentional cross-rail references as one result for future search consumers.

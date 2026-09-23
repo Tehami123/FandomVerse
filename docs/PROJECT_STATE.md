@@ -24,13 +24,13 @@ Movies, TV Shows, K-Pop, Comics, and Manga.
 
 # CURRENT PHASE
 
-Phase: 7G — Scripted FanVerse Chatbot
+Phase: 8C — Content Detail Workflows
 
 Status: COMPLETED
 
 Current Goal:
-Provide a frontend-only scripted chatbot for FAQ help, recommendations, and
-navigation without changing the frozen homepage, category, search, or hero UI.
+Provide stable article, trailer, and event detail workflows using existing local
+data without redesigning the frozen visual systems.
 
 ---
 
@@ -140,7 +140,7 @@ NONE required for the chatbot
 
 # CURRENT TASK
 
-Phase 7G — Scripted FanVerse Chatbot completed. Phase 7H has not started.
+Phase 8C — Content Detail Workflows completed. Phase 8D has not started.
 
 ---
 
@@ -183,14 +183,17 @@ Phase 7A is complete. Stop here until Phase 7B is explicitly started.
 - Phase 7E: Added in-memory bookmark notes and native JSON export without persisting or exporting notes.
 - Phase 7F: Added a shared temporary merchandise cart with quantity controls, totals, persistence, and a dedicated route.
 - Phase 7G: Added a local rule-based chatbot widget with centralized intents, quick replies, navigation actions, search extraction, and deterministic recommendations.
+- Phase 8A: Audited implementation, routes, data counts, SRS gaps, accessibility evidence, and submission readiness without changing application code.
+- Phase 8B: Replaced verified homepage console-only and `href="#"` interactions with existing search/category destinations while preserving frozen visuals.
+- Phase 8C: Added stable-ID article, trailer, and event detail routes with deterministic related content and invalid-ID states.
 
 ---
 
 # NEXT TASK
 
-Phase 7H — Next Feature (not started)
+Phase 8D — SRS Gap Remediation (not started)
 
-Phase 7G is complete. Stop here until the next phase is explicitly started.
+Phase 8C is complete. Stop here until remediation priorities are explicitly started.
 
 ---
 
@@ -622,6 +625,73 @@ Not selected
 
 Article artwork:
 Not selected
+
+---
+
+# PHASE 8A SRS COMPLIANCE AUDIT
+
+Status: COMPLETED — audit only; no application code, CSS, data, dependency, or route changes were made.
+
+## Executive Summary
+
+- Complete: frozen homepage/category foundation, normalized data thresholds, global search/filter/sort, bookmarks/notes/export, temporary cart, scripted chatbot, and production build.
+- Partial: homepage/category card interactions, article/trailer/event presentation, accessibility evidence, documentation deliverables, and production asset readiness.
+- Missing: galleries/lightbox/carousel, media playback, article detail/related content, upcoming-release calendar, Contact, About, dummy Auth, visitor counter, real-time clock, map/GPS, and full demo/submission materials.
+
+## Verified Data Counts
+
+- Top-level seed data: 7 categories, 4 trending items, 3 articles, 3 homepage events, 4 merchandise products.
+- Every category: 5 characters, 3 events, 3 articles, 3 trailers, 4 merchandise items, 4 trending items, 3 discovery items, and 1 featured item.
+- No category fails the 5+ character or 3+ event thresholds.
+
+## Priority Gaps
+
+- P0: Contact/About/Auth deliverables if mandatory in the final SRS; article detail and media/gallery requirements if judged as core workflows.
+- P1: Real article/trailer/event destinations, gallery/lightbox/carousel, release calendar, trailer status/category controls, and footer/navigation placeholder links.
+- P2: Visitor counter, real-time clock, related suggestions, production asset replacement, Lighthouse/accessibility measurement, report/diagrams/demo video/project URL packaging.
+
+## Evidence and Risks
+
+- `npm run build` passes; repository is clean at checkpoint `phase-7g-core-functionality`.
+- Existing console/lint risks remain: React `whileHover` DOM-prop warning, Three.js deprecation warning, Vite large-chunk warning, and pre-existing lint errors.
+- `README.md` remains the default Vite template; `SRS_CHECKLIST.md` is empty. These are submission-readiness risks.
+- Current UI uses reference artwork from `design-references/`; final production media is not present.
+
+## PHASE 8B UI BUG + PLACEHOLDER CLEANUP
+
+### Files Changed
+- `src/components/home/HeroSection.jsx`
+- `src/components/home/FeaturedArticles.jsx`
+- `src/components/home/TrailerSection.jsx`
+- `src/components/home/EventsSection.jsx`
+- `src/components/home/TrendingSection.jsx`
+- `src/components/home/MerchandiseSection.jsx`
+- `src/components/navigation/Footer.jsx`
+- `docs/PROJECT_STATE.md`
+
+### Bugs Fixed
+- Hero `EXPLORE THE VERSE` now navigates to `/search`.
+- Featured article cards now navigate to title-based search results.
+- Trailer cards now navigate to title-based search results; `View All` uses `/search?type=trailer`.
+- Event cards now navigate to title-based search results; `All Events` uses `/search?q=event`.
+- Trending cards now navigate to title-based search results; `View All` uses popularity sorting.
+- Merchandise `Shop All` now uses `/search?q=merchandise`.
+- Existing footer category links now navigate to their real category routes.
+- About, Contact, privacy, terms, and future detail destinations remain untouched because no valid routes exist yet.
+
+### Verification
+- `npm run build`: passed.
+- Fresh homepage rendered the 3D canvas and Upcoming Events.
+- Hero, article, trailer, event, trending, merchandise, and footer interactions were browser-tested.
+- Search URL state remained valid after interaction navigation.
+- Homepage, search/filter/sort, bookmarks, cart, chatbot, and all seven category routes rendered.
+- Mobile viewport had no horizontal overflow.
+- No new interaction-specific console errors were introduced; existing frozen UI warnings remain.
+
+### Known Remaining Issues
+- Article, trailer, and event detail pages/media playback do not yet exist; interactions intentionally route to existing search destinations.
+- Remaining `href="#"` links are future About/Contact/legal destinations without current routes.
+- Existing React `whileHover`, Three.js, Vite chunk, and legacy lint warnings remain.
 
 Trailer thumbnails:
 Not selected
