@@ -2,7 +2,7 @@ import React from 'react';
 import { Container } from '../ui/Container';
 import { merchandise } from '../../data/mockData';
 import { Card, CardTitle, CardMeta } from '../ui/Card';
-import { Button } from '../ui/Button';
+import { AddToCartButton } from '../ui/AddToCartButton';
 import './MerchandiseSection.css';
 
 export function MerchandiseSection() {
@@ -29,7 +29,7 @@ export function MerchandiseSection() {
                 </div>
               </div>
               <div className="fv-merch-hover-action">
-                <Button variant="ghost" style={{ width: '100%' }}>Add to Cart</Button>
+                <AddToCartButton product={item} style={{ width: '100%' }} />
               </div>
             </Card>
           ))}

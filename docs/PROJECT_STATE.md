@@ -24,14 +24,13 @@ Movies, TV Shows, K-Pop, Comics, and Manga.
 
 # CURRENT PHASE
 
-Phase: 4 — Core Application Pages
+Phase: 7G — Scripted FanVerse Chatbot
 
 Status: COMPLETED
 
 Current Goal:
-Set up the React/Vite project, establish the folder structure,
-install only required dependencies, and establish the project's
-persistent documentation/state system.
+Provide a frontend-only scripted chatbot for FAQ help, recommendations, and
+navigation without changing the frozen homepage, category, search, or hero UI.
 
 ---
 
@@ -141,7 +140,7 @@ NONE required for the chatbot
 
 # CURRENT TASK
 
-Phase 4 — Core Application Pages
+Phase 7G — Scripted FanVerse Chatbot completed. Phase 7H has not started.
 
 ---
 
@@ -160,6 +159,8 @@ Phase 4 — Core Application Pages
 
 Phase 7 — Search & Discovery
 
+Phase 7A is complete. Stop here until Phase 7B is explicitly started.
+
 ---
 
 # RECENT FIXES
@@ -170,18 +171,348 @@ Phase 7 — Search & Discovery
 - Added K-Pop, Comics, and Manga links to the main navigation (Navbar.jsx) and implemented a basic responsive mobile menu.
 - Verified all 7 categories are correctly represented in the Category Explorer (mockData.js).
 - Fixed the homepage "Upcoming Events" section bug by correcting CSS layout that hid `.fv-card-content` and added a third event to `mockData.js`.
+- Phase 7A: Audited and normalized local content data while preserving existing component-facing fields and homepage events.
+- Phase 7A: Added category-specific character and event collections for all seven category slugs.
+- Phase 7A: Added deduplicated content access in `src/utils/contentData.js` for future search consumers.
+- Phase 7B: Implemented URL-backed global search at `/search?q=<query>` across all categories and normalized content types.
+- Phase 7B: Added minimal Navbar search navigation without changing the existing Navbar layout or visual styling.
+- Phase 7C: Added URL-backed category, content-type, tag/franchise, and sorting controls to the existing search page.
+- Phase 7C: Added reusable client-side filter/sort processing to the normalized content utility.
+- Phase 7D: Added shared localStorage-backed bookmark state and reusable bookmark controls across content surfaces.
+- Phase 7D: Added the dedicated `/bookmarks` route with persistent collection, removal, source navigation, and empty state.
+- Phase 7E: Added in-memory bookmark notes and native JSON export without persisting or exporting notes.
+- Phase 7F: Added a shared temporary merchandise cart with quantity controls, totals, persistence, and a dedicated route.
+- Phase 7G: Added a local rule-based chatbot widget with centralized intents, quick replies, navigation actions, search extraction, and deterministic recommendations.
 
 ---
 
 # NEXT TASK
 
-Phase 7 — Search & Discovery
+Phase 7H — Next Feature (not started)
+
+Phase 7G is complete. Stop here until the next phase is explicitly started.
 
 ---
 
 # BLOCKERS
 
 None.
+
+## PHASE 7A DATA AUDIT
+
+### Completed
+- Verified category keys and routes: `anime`, `gaming`, `movies`, `tv`, `kpop`, `comics`, and `manga`.
+- Verified 5 characters and 3 events for every category.
+- Preserved homepage event records `e1`, `e2`, and `e3`; the homepage still consumes the `events` export.
+- Added consistent IDs and common metadata where relevant: descriptions, types, tags, dates, featured flags, popularity, series/franchise, and merchandise names/types.
+- Added compatibility aliases for category fields: `accent`, `hero`, `featured`, `trending`, and `discovery`.
+- Added `uniqueById`, `getCategory`, and `getSearchableContent` in `src/utils/contentData.js`; repeated cross-rail references are collapsed by ID for future search.
+
+### Files Changed
+- `src/data/mockData.js`
+- `src/data/categoryData.js`
+- `src/utils/contentData.js`
+- `docs/PROJECT_STATE.md`
+
+### Inconsistencies Discovered
+- All category pages previously reused the same five-character roster and three homepage events.
+- Category rails reused the same trending objects, which would create duplicate search results if flattened naively.
+- Legacy records used abbreviated IDs and had uneven metadata across content types.
+- Existing image imports point to `design-references/` placeholder artwork rather than final production assets.
+
+### Normalization Counts
+- Anime: 5 characters, 3 events
+- Gaming: 5 characters, 3 events
+- Movies: 5 characters, 3 events
+- TV Shows: 5 characters, 3 events
+- K-Pop: 5 characters, 3 events
+- Comics: 5 characters, 3 events
+- Manga: 5 characters, 3 events
+
+### Verification
+- `npm run build`: passed.
+- Source audit: 35 category character records and 21 category event records, including the 3 preserved homepage event records.
+- No duplicate IDs in the normalized searchable collections when consumed through `getSearchableContent()`.
+- `npm run lint`: existing project-wide errors remain in legacy React imports/hooks and are unrelated to Phase 7A data changes.
+- Visual systems were not modified. No browser screenshot pass was run in this data-only phase.
+
+### Remaining Limitations
+- Artwork remains placeholder/reference imagery in `design-references/`; production asset replacement is deferred.
+- Filters, sorting, authentication, and backend/database work remain intentionally unimplemented where not already completed.
+
+## PHASE 7C SEARCH FILTERING + SORTING
+
+### Completed
+- Added category filtering for Anime, Gaming, Movies, TV Shows, K-Pop, Comics, and Manga using existing category slugs.
+- Added dynamic content-type filtering from the normalized search dataset.
+- Added dynamic tag/franchise filtering from existing `tags`, `franchise`, and `series` fields.
+- Added alphabetical, newest, popularity, featured, and relevance ordering.
+- Added missing-value-safe sorting; only existing parseable dates and popularity values affect their sort orders.
+- Added active refinement chips and clear-all behavior while preserving the search query.
+- Added filtered-empty messaging distinct from no-text-match messaging.
+- Preserved URL state through refresh and browser history using the existing `useSearchParams` routing approach.
+
+### Files Changed
+- `src/pages/SearchPage.jsx`
+- `src/pages/SearchPage.css`
+- `src/utils/contentData.js`
+- `docs/PROJECT_STATE.md`
+
+### Search Processing
+- Build the cached normalized search dataset.
+- Apply text search.
+- Apply category, content-type, and tag/franchise filters.
+- Apply the selected sort.
+- Render the existing result cards.
+
+### Verification
+- Exact queries checked: `anime`, `gaming`, `naruto`, `event`, `merchandise`, and `character`.
+- Category, content-type, and combined filters checked.
+- Sort modes checked: `alphabetical`, `newest`, `popularity`, and `featured`.
+- Dynamic tag/franchise filtering checked with `Stellar Drifters`.
+- Filtered-empty state checked with `category=manga&type=event`.
+- Clear-all, refresh persistence, browser back/forward, mixed query state, and result navigation checked.
+- Mobile viewport checked with no horizontal overflow.
+- Fresh homepage checked for the 3D canvas and Upcoming Events.
+- All seven category routes rendered after the changes.
+- `npm run build`: passed.
+- Touched source files have no editor diagnostics.
+
+### Known Issues
+- The project-wide lint command retains pre-existing React import/hook errors.
+- Browser console retains the pre-existing `whileHover` DOM-prop warning from frozen UI code.
+- Event dates are display-only strings without years, so newest sorting uses parseable existing dates and leaves those display-only values after dated records rather than inventing dates.
+
+## PHASE 7D BOOKMARKS
+
+### Completed
+- Added `BookmarkProvider` and `useBookmarks` for shared bookmark state across the application.
+- Persisted normalized bookmark records under the localStorage key `fandomverse_bookmarks`.
+- Added malformed-storage and unavailable-storage guards; in-memory state remains usable when persistence is unavailable.
+- Added reusable accessible `BookmarkButton` with add/remove labels, `aria-pressed`, keyboard support, and visual state feedback.
+- Integrated bookmark controls into search results and category featured, trending, discovery, character, article, trailer, event, and merchandise surfaces.
+- Added `/bookmarks` with count, responsive collection grid, source navigation, immediate removal, and polished empty state.
+- Added desktop and mobile Navbar access to `/bookmarks` without changing the existing visual identity.
+
+### Files Changed
+- `src/App.jsx`
+- `src/context/BookmarkContext.jsx`
+- `src/components/ui/BookmarkButton.jsx`
+- `src/components/ui/BookmarkButton.css`
+- `src/components/navigation/Navbar.jsx`
+- `src/pages/SearchPage.jsx`
+- `src/pages/SearchPage.css`
+- `src/pages/Category.jsx`
+- `src/pages/BookmarksPage.jsx`
+- `src/pages/BookmarksPage.css`
+- `docs/PROJECT_STATE.md`
+
+### Bookmark Architecture
+- Bookmark records reuse the normalized content shape and retain only render/navigation fields: ID, title/name, image, description, category, content type, and destination.
+- A single provider owns toggle, remove, lookup, and persistence behavior for all routes.
+- Duplicate clicks toggle the same stable ID instead of creating duplicate records.
+
+### Routes Added
+- `/bookmarks`
+
+### Verification
+- Category bookmark add tested and persisted to localStorage.
+- Cross-route category-to-search bookmark state tested.
+- Search-origin bookmark tested and navigated back to its category source.
+- Duplicate toggle behavior tested.
+- `/bookmarks` refresh persistence tested.
+- Removal from `/bookmarks` updated UI and localStorage immediately.
+- Empty bookmarks state tested.
+- Malformed localStorage data failed safely to the empty state.
+- Desktop and mobile layouts tested; mobile had no horizontal overflow.
+- Homepage fresh load still rendered the 3D canvas and Upcoming Events.
+- All seven category routes rendered after bookmark integration.
+- Existing search/filter/sort route state still rendered correctly.
+- `npm run build`: passed.
+- Touched files have no editor diagnostics.
+
+### Known Issues
+- The project-wide lint command retains pre-existing React import/hook errors.
+- Browser console retains the pre-existing `whileHover` DOM-prop warning and Three.js deprecation warning from frozen UI code.
+- Vite continues to report the existing large JavaScript chunk warning.
+
+## PHASE 7E BOOKMARK NOTES + EXPORT
+
+### Completed
+- Added session-only note state to `BookmarkProvider` using an in-memory `{ [bookmarkId]: note }` map.
+- Added inline Add note, Edit note, Save note, Cancel, and Delete note controls to `/bookmarks`.
+- Trimmed notes before saving, rejected whitespace-only notes by removing the note, and capped notes at a generous 2,000 characters.
+- Added accessible labels for note textareas and keyboard-accessible note actions.
+- Added native Blob/download export as `fandomverse-bookmarks.json`.
+- Export format includes `app`, ISO `exportedAt`, and current bookmark metadata only.
+- Explicitly excluded session notes, localStorage internals, and React state from exports.
+- Export action is unavailable when the collection is empty and reports lightweight success feedback after export.
+
+### Files Changed
+- `src/context/BookmarkContext.jsx`
+- `src/pages/BookmarksPage.jsx`
+- `src/pages/BookmarksPage.css`
+- `docs/PROJECT_STATE.md`
+
+### State Separation
+- Persistent bookmarks remain in localStorage under `fandomverse_bookmarks`.
+- Notes exist only in the mounted React provider and disappear on a full refresh/browser session end.
+- Export reads the current persistent bookmark collection and never reads or serializes notes.
+
+### Verification
+- Added, edited, deleted, and whitespace-cleared notes.
+- Verified notes persist across SPA route navigation.
+- Verified notes are absent from localStorage.
+- Verified full refresh clears notes while bookmarks remain.
+- Verified exported JSON parses, includes current bookmarks and valid `exportedAt`, and excludes note text.
+- Verified export feedback appears and empty collections have no export action.
+- Tested multiple bookmarks and long notes.
+- Tested desktop and mobile; mobile had no horizontal overflow.
+- Homepage, fresh 3D hero, Upcoming Events, all seven category routes, search, filtering, sorting, and bookmark navigation remained functional.
+- `npm run build`: passed.
+- Touched files have no editor diagnostics.
+
+### Known Issues
+- The project-wide lint command retains pre-existing React import/hook errors.
+- Browser console retains the pre-existing `whileHover` DOM-prop warning and Three.js deprecation warning from frozen UI code.
+- Vite continues to report the existing large JavaScript chunk warning.
+
+## PHASE 7F MERCHANDISE CART
+
+### Completed
+- Added `CartProvider` and `useCart` with minimal `{ productId, quantity }` cart lines.
+- Reused the existing normalized `merchandise` data for product details, prices, images, and categories.
+- Added guarded client-side persistence under `fandomverse_cart`; this is temporary convenience state, not an account or order system.
+- Added safe handling for malformed cart data, stale product IDs, invalid quantities, and invalid/missing prices.
+- Added reusable `AddToCartButton` to homepage and category merchandise cards.
+- Duplicate adds increase quantity on one product line rather than creating duplicate rows.
+- Added cart count badge to the existing Navbar; count represents total quantity.
+- Added `/cart` with product details, quantity controls, line totals, subtotal, total, remove actions, continue-discovery action, and empty state.
+- Added a disabled `Checkout Demo` CTA with explicit no-payment messaging; no real checkout or transaction flow exists.
+
+### Files Changed
+- `src/context/CartContext.jsx`
+- `src/components/ui/AddToCartButton.jsx`
+- `src/components/home/MerchandiseSection.jsx`
+- `src/pages/Category.jsx`
+- `src/components/navigation/Navbar.jsx`
+- `src/components/navigation/Navbar.css`
+- `src/pages/CartPage.jsx`
+- `src/pages/CartPage.css`
+- `src/App.jsx`
+- `docs/PROJECT_STATE.md`
+
+### Cart Architecture
+- Product lookup remains centralized in the existing merchandise data; persisted state stores only product IDs and quantities.
+- Derived cart items calculate unit prices, line totals, total quantity, and subtotal from current product data.
+- Cart storage uses `fandomverse_cart` and remains independent from `fandomverse_bookmarks` and session-only bookmark notes.
+
+### Route Added
+- `/cart`
+
+### Verification
+- Added one merchandise product from the homepage and verified count, line, unit price, and total.
+- Added the same product twice and verified one line with quantity 2 and cart count 2.
+- Added multiple products and verified total quantity, line totals, and subtotal.
+- Increased and decreased quantity; totals updated immediately.
+- Removed all products and verified the empty-cart state.
+- Refreshed `/cart` and verified temporary cart persistence.
+- Malformed cart storage safely rendered the empty state.
+- Merchandise search and filter controls remained functional.
+- Bookmark storage remained independent while cart state changed.
+- Category merchandise surfaces exposed four Add to Cart controls.
+- Mobile cart and Navbar tested with no horizontal overflow after responsive adjustment.
+- Fresh homepage 3D canvas and Upcoming Events remained present.
+- `npm run build`: passed.
+- Touched source files have no editor diagnostics.
+
+### Known Issues
+- The project-wide lint command retains pre-existing React import/hook errors.
+- Browser console retains the pre-existing `whileHover` DOM-prop warning and Three.js deprecation warning from frozen UI code.
+- Vite continues to report the existing large JavaScript chunk warning.
+
+## PHASE 7G SCRIPTED FANVERSE CHATBOT
+
+### Completed
+- Replaced the existing console-only `ChatbotTrigger` behavior with a reusable compact `ChatbotWidget`.
+- Added centralized local knowledge base at `src/components/chatbot/chatbotData.js`.
+- Added deterministic intent matching and recommendation/search utilities at `src/components/chatbot/chatbotUtils.js`.
+- Added FAQ intents for greeting, about, categories, all seven categories, search, bookmarks, merchandise, cart, events, trailers, help, recommendations, and fallback.
+- Added context-sensitive quick replies for discovery, bookmarks, cart, merchandise, events, search, and help.
+- Added valid navigation actions for all category routes, `/search`, `/bookmarks`, `/cart`, and event/trailer search destinations.
+- Added deterministic recommendations from existing featured/trending/article/character records; no fabricated or AI-generated content is claimed.
+- Kept conversation history in React memory only; no localStorage or external service is used.
+
+### Files Changed
+- `src/components/chatbot/chatbotData.js`
+- `src/components/chatbot/chatbotUtils.js`
+- `src/components/chatbot/ChatbotWidget.jsx`
+- `src/components/chatbot/ChatbotWidget.css`
+- `src/components/ui/ChatbotTrigger.jsx`
+- `docs/PROJECT_STATE.md`
+
+### Supported Actions
+- Category navigation: Anime, Gaming, Movies, TV Shows, K-Pop, Comics, Manga.
+- Search navigation, including deterministic `Search Naruto` -> `/search?q=Naruto`.
+- Bookmark page, cart page, merchandise search, event search, and trailer search.
+
+### Verification
+- Open/close chatbot and clear conversation controls tested.
+- FAQ responses tested for purpose, categories, bookmarks, merchandise, cart, events, search, and fallback.
+- Recommendation request returned an existing local item and action.
+- Category, bookmarks, cart, and search navigation actions tested.
+- Search query URL encoding tested with `Search Naruto`.
+- Quick replies and keyboard form submission path tested.
+- Fresh homepage 3D canvas and Upcoming Events remained present.
+- All seven category routes rendered after integration.
+- Existing search/filter/sort, bookmarks/notes/export, and cart surfaces remained functional.
+- Mobile chatbot tested with no horizontal overflow.
+- `npm run build`: passed.
+- Touched chatbot files have no editor diagnostics.
+
+### Known Issues
+- The project-wide lint command retains pre-existing React import/hook errors.
+- Browser console retains the pre-existing `whileHover` DOM-prop warning and Three.js deprecation warning from frozen UI code.
+- Vite continues to report the existing large JavaScript chunk warning.
+
+## PHASE 7B GLOBAL SEARCH
+
+### Completed
+- Added `/search` route with query state read from and written to `?q=`.
+- Added case-insensitive, whitespace-normalized, partial matching across title/name, description, category, content type, type, tags, franchise/series, and location.
+- Reused `uniqueById` and normalized data collections from `src/utils/contentData.js` to avoid duplicate results.
+- Added result models with IDs, image, title/name, category, content type, description, metadata, and safe category destinations.
+- Added submit, Enter-key, clear, refresh persistence, empty-query, and no-result states.
+- Added responsive editorial result cards with category accent colors and restrained Motion entrance effects.
+
+### Files Changed
+- `src/App.jsx`
+- `src/components/navigation/Navbar.jsx`
+- `src/pages/SearchPage.jsx`
+- `src/pages/SearchPage.css`
+- `src/utils/contentData.js`
+- `docs/PROJECT_STATE.md`
+
+### Search Architecture
+- `getSearchableContent()` creates one deduplicated result collection from categories, trending content, articles, trailers, merchandise, characters, and events.
+- `searchContent(query)` normalizes the query and searches only explicitly supported content fields.
+- Results navigate to existing category routes because dedicated detail routes do not yet exist.
+
+### Verification
+- `npm run build`: passed.
+- Search checks passed for `anime`, `gaming`, `event`, `merchandise`, `character`, and partial `neon` queries.
+- Mixed case and surrounding whitespace passed.
+- `naruto` produced the intentional no-results state.
+- Empty query and clear behavior passed.
+- Refresh preserved `/search?q=gaming` and its results.
+- Desktop and mobile search rendered; mobile had no horizontal overflow.
+- Homepage and all seven category routes rendered after the search changes.
+- Result navigation reached an existing `/category/anime` route.
+- Touched files have no editor diagnostics.
+
+### Known Issues
+- `npm run lint` remains blocked by pre-existing project-wide React import/hook errors.
+- Browser verification still reports the pre-existing React `whileHover` DOM-prop warning from frozen UI code; no new search-specific console error was introduced.
 
 ---
 

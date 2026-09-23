@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Search, Bookmark, User, Menu, X } from 'lucide-react';
+import { Search, Bookmark, ShoppingCart, User, Menu, X } from 'lucide-react';
 import { Container } from '../ui/Container';
 import { IconButton } from '../ui/IconButton';
 import { Button } from '../ui/Button';
+import { useCart } from '../../context/CartContext';
 import './Navbar.css';
 
 export function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { totalQuantity } = useCart();
 
   return (
     <header className="fv-navbar">
@@ -36,8 +38,16 @@ export function Navbar() {
         </div>
 
         <div className="fv-navbar-right">
-          <IconButton icon={Search} aria-label="Search" />
-          <IconButton icon={Bookmark} aria-label="Bookmarks" className="fv-desktop-only" />
+          <Link to="/search" aria-label="Search" onClick={() => setMobileMenuOpen(false)}>
+            <IconButton icon={Search} aria-label="Search" />
+          </Link>
+          <Link to="/bookmarks" aria-label="Bookmarks" className="fv-desktop-only" onClick={() => setMobileMenuOpen(false)}>
+            <IconButton icon={Bookmark} aria-label="Bookmarks" />
+          </Link>
+          <Link to="/cart" aria-label={`Cart${totalQuantity ? `, ${totalQuantity} items` : ''}`} className="fv-cart-link" onClick={() => setMobileMenuOpen(false)}>
+            <IconButton icon={ShoppingCart} aria-label="Cart" />
+            {totalQuantity > 0 && <span className="fv-cart-count" aria-label={`${totalQuantity} items in cart`}>{totalQuantity}</span>}
+          </Link>
           <div className="fv-desktop-only">
             <Button variant="ghost" style={{ padding: '0 16px', height: '40px' }}>Sign In</Button>
           </div>
@@ -55,6 +65,7 @@ export function Navbar() {
           <Link to="/category/kpop" className="fv-nav-link" onClick={() => setMobileMenuOpen(false)}>K-POP</Link>
           <Link to="/category/comics" className="fv-nav-link" onClick={() => setMobileMenuOpen(false)}>COMICS</Link>
           <Link to="/category/manga" className="fv-nav-link" onClick={() => setMobileMenuOpen(false)}>MANGA</Link>
+          <Link to="/bookmarks" className="fv-nav-link" onClick={() => setMobileMenuOpen(false)}>BOOKMARKS</Link>
         </div>
       )}
     </header>

@@ -5,6 +5,8 @@ import { Container } from '../components/ui/Container';
 import { categoryDetails } from '../data/categoryData';
 import { TextReveal } from '../components/ui/TextReveal';
 import { ArrowRight, Play } from 'lucide-react';
+import { BookmarkButton } from '../components/ui/BookmarkButton';
+import { AddToCartButton } from '../components/ui/AddToCartButton';
 import './Category.css';
 
 export function Category() {
@@ -21,6 +23,13 @@ export function Category() {
 
   const { scrollYProgress } = useScroll();
   const yBg = useTransform(scrollYProgress, [0, 1], ['0%', '20%']);
+  const bookmarkItem = (item, contentType) => ({
+    ...item,
+    title: item.title || item.name,
+    category: category.name,
+    contentType,
+    destination: `/category/${category.slug}`,
+  });
 
   return (
     <div className="fv-category-page" style={{ '--cat-accent': category.accentColor }}>
@@ -80,6 +89,7 @@ export function Category() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
             >
+              <BookmarkButton item={bookmarkItem(category.featuredContent, 'Featured')} style={{ position: 'absolute', top: 16, right: 16, zIndex: 3 }} />
               <img src={category.featuredContent.image} alt={category.featuredContent.title} />
               <div className="fv-featured-overlay">
                 <span className="fv-featured-meta">{category.featuredContent.type}</span>
@@ -127,8 +137,9 @@ export function Category() {
                 viewport={{ once: true }}
                 transition={{ delay: idx * 0.1 }}
                 whileHover={{ y: -5 }}
-                style={{ cursor: 'pointer' }}
+                style={{ cursor: 'pointer', position: 'relative' }}
               >
+                <BookmarkButton item={bookmarkItem(item, 'Trending')} className="fv-category-bookmark" style={{ position: 'absolute', top: 8, right: 8, zIndex: 3 }} />
                 <div style={{ position: 'relative', overflow: 'hidden', borderRadius: 'var(--radius-md)', aspectRatio: '16/9' }}>
                   <img src={item.image} alt={item.title} style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.4s ease' }} />
                   <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(5,5,5,0.7), transparent)', opacity: 0.7 }} />
@@ -164,8 +175,9 @@ export function Category() {
                 viewport={{ once: true }}
                 transition={{ delay: idx * 0.1 }}
                 whileHover={{ y: -5 }}
-                style={{ cursor: 'pointer' }}
+                style={{ cursor: 'pointer', position: 'relative' }}
               >
+                <BookmarkButton item={bookmarkItem(item, 'Discovery')} className="fv-category-bookmark" style={{ position: 'absolute', top: 8, right: 8, zIndex: 3 }} />
                 <div style={{ position: 'relative', overflow: 'hidden', borderRadius: 'var(--radius-md)', aspectRatio: '16/9' }}>
                   <img src={item.image} alt={item.title} style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.4s ease' }} />
                 </div>
@@ -198,8 +210,9 @@ export function Category() {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: idx * 0.1 }}
-                style={{ cursor: 'pointer' }}
+                style={{ cursor: 'pointer', position: 'relative' }}
               >
+                <BookmarkButton item={bookmarkItem(item, 'Character')} className="fv-category-bookmark" style={{ position: 'absolute', top: 8, right: 8, zIndex: 3 }} />
                 <div className="fv-character-card">
                   <img src={item.image} alt={item.name} />
                   <div className="fv-character-overlay">
@@ -235,8 +248,9 @@ export function Category() {
                 viewport={{ once: true }}
                 transition={{ delay: idx * 0.1 }}
                 whileHover={{ y: -4 }}
-                style={{ cursor: 'pointer' }}
+                style={{ cursor: 'pointer', position: 'relative' }}
               >
+                <BookmarkButton item={bookmarkItem(item, 'Article')} className="fv-category-bookmark" style={{ position: 'absolute', top: 8, right: 8, zIndex: 3 }} />
                 <div style={{ position: 'relative', overflow: 'hidden', borderRadius: 'var(--radius-md)' }} className="fv-card-image-wrapper">
                   <img src={item.image} alt={item.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                 </div>
@@ -273,7 +287,9 @@ export function Category() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: idx * 0.1 }}
+                style={{ position: 'relative' }}
               >
+                <BookmarkButton item={bookmarkItem(item, 'Trailer')} className="fv-category-bookmark" style={{ position: 'absolute', top: 8, right: 8, zIndex: 3 }} />
                 <div className="fv-trailer-wrapper">
                   <img src={item.image} alt={item.title} />
                   <div className="fv-trailer-overlay">
@@ -310,7 +326,9 @@ export function Category() {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: idx * 0.1 }}
+                style={{ position: 'relative' }}
               >
+                <BookmarkButton item={bookmarkItem(item, 'Event')} className="fv-category-bookmark" style={{ position: 'absolute', top: 8, right: 8, zIndex: 3 }} />
                 <div className="fv-event-date-col">
                   <span>{item.date}</span>
                 </div>
@@ -347,7 +365,9 @@ export function Category() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: idx * 0.1 }}
+                style={{ position: 'relative' }}
               >
+                <BookmarkButton item={bookmarkItem(item, 'Merchandise')} className="fv-category-bookmark" style={{ position: 'absolute', top: 8, right: 8, zIndex: 3 }} />
                 <div className="fv-merch-img">
                   <img src={item.image} alt={item.title} />
                 </div>
@@ -355,6 +375,7 @@ export function Category() {
                   <div style={{ fontSize: '11px', color: 'var(--color-text-secondary)', marginBottom: '4px', textTransform: 'uppercase' }}>{item.status}</div>
                   <h4>{item.title}</h4>
                   <div className="fv-merch-price">{item.price}</div>
+                  <AddToCartButton product={item} style={{ width: '100%', marginTop: '12px' }} />
                 </div>
               </motion.div>
             ))}
