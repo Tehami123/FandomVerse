@@ -11,7 +11,10 @@
 }
 
 .fv-event-card .fv-card-content {
-  display: none; /* Hide default content padding since we do custom layout */
+  padding: 0;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
 }
 
 .fv-event-date-block {

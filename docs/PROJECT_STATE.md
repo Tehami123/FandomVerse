@@ -156,13 +156,26 @@ Phase 4 — Core Application Pages
 
 # IN PROGRESS
 
-Phase 5 — Category Architecture
+# IN PROGRESS
+
+Phase 7 — Search & Discovery
+
+---
+
+# RECENT FIXES
+
+- Phase 6B: Implemented complete cinematic UI redesign for all category pages (Hero, Featured, Rails, Characters, Articles, Trailers, Events, Merchandise).
+- Updated Category.css and Category.jsx with advanced DOM structures and CSS variables for category accents.
+- Verified all 7 routes properly apply their unique accent colors and cinematic layouts.
+- Added K-Pop, Comics, and Manga links to the main navigation (Navbar.jsx) and implemented a basic responsive mobile menu.
+- Verified all 7 categories are correctly represented in the Category Explorer (mockData.js).
+- Fixed the homepage "Upcoming Events" section bug by correcting CSS layout that hid `.fv-card-content` and added a third event to `mockData.js`.
 
 ---
 
 # NEXT TASK
 
-Phase 5 — Category Pages & Navigation
+Phase 7 — Search & Discovery
 
 ---
 

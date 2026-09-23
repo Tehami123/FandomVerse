@@ -1,4 +1,4 @@
-import { trending, articles, characterSpotlight, trailers, events, merchandise } from './mockData';
+import { trending, articles, characterSpotlight, characterRoster, trailers, events, merchandise } from './mockData';
 import heroImg1 from '../../design-references/0b72e5f07125a921159f0b5dbc184597.webp';
 import heroImg2 from '../../design-references/3d5657abee8d862f79660b657c0dad51.webp';
 import heroImg3 from '../../design-references/41d76481d4b984ecf038a53c156885fd.webp';
@@ -18,8 +18,9 @@ export const categoryDetails = {
     description: 'Explore the vast worlds of Japanese animation. From high-octane shounen battles to deep psychological thrillers, discover your next obsession.',
     featuredContent: trending[1],
     trendingContent: [trending[1], trending[1], trending[1], trending[1]],
-    characters: characterSpotlight,
-    articles: [articles[0], articles[0], articles[0]],
+    latestContent: [trending[1], trending[0], trending[2]],
+    characters: characterRoster,
+    articles: [articles[0], articles[1], articles[2]],
     trailers: trailers,
     events: events,
     merchandise: merchandise
@@ -33,8 +34,9 @@ export const categoryDetails = {
     description: 'Dive into digital realms. The latest releases, deepest lore, and competitive scenes from across the gaming multiverse.',
     featuredContent: trending[0],
     trendingContent: [trending[0], trending[0], trending[0], trending[0]],
-    characters: characterSpotlight,
-    articles: [articles[1], articles[1], articles[1]],
+    latestContent: [trending[0], trending[1], trending[2]],
+    characters: characterRoster,
+    articles: [articles[1], articles[2], articles[0]],
     trailers: trailers,
     events: events,
     merchandise: merchandise
@@ -48,8 +50,9 @@ export const categoryDetails = {
     description: 'Cinematic experiences that define generations. Blockbusters, indie darlings, and deep-cut classics await.',
     featuredContent: trending[2],
     trendingContent: [trending[2], trending[2], trending[2], trending[2]],
-    characters: characterSpotlight,
-    articles: [articles[2], articles[2], articles[2]],
+    latestContent: [trending[2], trending[3], trending[0]],
+    characters: characterRoster,
+    articles: [articles[2], articles[0], articles[1]],
     trailers: trailers,
     events: events,
     merchandise: merchandise
@@ -63,7 +66,8 @@ export const categoryDetails = {
     description: 'Binge-worthy narratives and episodic adventures. Step into ongoing worlds of premium television.',
     featuredContent: trending[3],
     trendingContent: [trending[3], trending[3], trending[3], trending[3]],
-    characters: characterSpotlight,
+    latestContent: [trending[3], trending[2], trending[1]],
+    characters: characterRoster,
     articles: [articles[0], articles[1], articles[2]],
     trailers: trailers,
     events: events,
@@ -78,8 +82,9 @@ export const categoryDetails = {
     description: 'The global phenomenon. Music videos, group spotlights, and the culture surrounding Korean pop.',
     featuredContent: trending[3],
     trendingContent: [trending[3], trending[3], trending[3], trending[3]],
-    characters: characterSpotlight,
-    articles: [articles[0], articles[0], articles[0]],
+    latestContent: [trending[3], trending[0], trending[1]],
+    characters: characterRoster,
+    articles: [articles[1], articles[0], articles[2]],
     trailers: trailers,
     events: events,
     merchandise: merchandise
@@ -93,8 +98,9 @@ export const categoryDetails = {
     description: 'Sequential storytelling at its finest. From superhero epics to grounded indie graphic novels.',
     featuredContent: trending[0],
     trendingContent: [trending[0], trending[0], trending[0], trending[0]],
-    characters: characterSpotlight,
-    articles: [articles[1], articles[1], articles[1]],
+    latestContent: [trending[0], trending[2], trending[3]],
+    characters: characterRoster,
+    articles: [articles[2], articles[1], articles[0]],
     trailers: trailers,
     events: events,
     merchandise: merchandise
@@ -108,8 +114,9 @@ export const categoryDetails = {
     description: 'The source material. Read the stories that inspire the anime and dive into ongoing serializations.',
     featuredContent: trending[1],
     trendingContent: [trending[1], trending[1], trending[1], trending[1]],
-    characters: characterSpotlight,
-    articles: [articles[2], articles[2], articles[2]],
+    latestContent: [trending[1], trending[0], trending[2]],
+    characters: characterRoster,
+    articles: [articles[0], articles[2], articles[1]],
     trailers: trailers,
     events: events,
     merchandise: merchandise

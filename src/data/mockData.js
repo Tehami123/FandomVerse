@@ -19,7 +19,7 @@ export const categories = [
   { id: 'anime', title: 'Anime', image: img1 },
   { id: 'gaming', title: 'Gaming', image: img2 },
   { id: 'movies', title: 'Movies', image: img3 },
-  { id: 'tvshows', title: 'TV Shows', image: img4 },
+  { id: 'tv', title: 'TV Shows', image: img4 },
   { id: 'kpop', title: 'K-Pop', image: img5 },
   { id: 'comics', title: 'Comics', image: img6 },
   { id: 'manga', title: 'Manga', image: img7 },
@@ -47,6 +47,14 @@ export const characterSpotlight = {
   image: img15
 };
 
+export const characterRoster = [
+  { id: 'c1', name: 'Kaien Vance', franchise: 'Void Runner 2099', class: 'Cyber-Shinobi', traits: ['Stealth', 'Agility'], image: img15, biography: 'Ex-operative of the Neo-Kyoto Cybernetic Defense Command.' },
+  { id: 'c2', name: 'Aria Sol', franchise: 'Stellar Drifters', class: 'Pilot', traits: ['Leadership', 'Tactics'], image: img10, biography: 'Ace pilot of the Drifter vanguard.' },
+  { id: 'c3', name: 'Jin', franchise: 'Neon Rhythms', class: 'Vocalist', traits: ['Charisma', 'Dance'], image: img11, biography: 'Lead singer with an undeniable stage presence.' },
+  { id: 'c4', name: 'Elara', franchise: 'The Last Epoch', class: 'Survivor', traits: ['Resourceful', 'Willpower'], image: img13, biography: 'One of the few remaining survivors of the great calamity.' },
+  { id: 'c5', name: 'Rael', franchise: 'Eclipse of Eden', class: 'Mage', traits: ['Magic', 'Wisdom'], image: img12, biography: 'A mysterious spellcaster seeking the lost texts.' }
+];
+
 export const trailers = [
   { id: 'tr1', title: 'Eclipse of Eden', status: 'Premiering Tomorrow', image: img16 },
   { id: 'tr2', title: 'Void Runner: 2099', status: 'Live Now', image: img1 },
@@ -56,6 +64,7 @@ export const trailers = [
 export const events = [
   { id: 'e1', title: 'Global Esports Final', date: 'OCT 24', location: 'Tokyo, Japan', category: 'Gaming', image: img3 },
   { id: 'e2', title: 'Anime Expo Winter', date: 'NOV 12', location: 'Los Angeles, USA', category: 'Anime', image: img4 },
+  { id: 'e3', title: 'Comic-Con International', date: 'DEC 05', location: 'San Diego, USA', category: 'Comics', image: img5 },
 ];
 
 export const merchandise = [
