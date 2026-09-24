@@ -1,11 +1,61 @@
 import { trending, articles, charactersByCategory, trailers, eventsByCategory, merchandise } from './mockData';
-import heroImg1 from '../../design-references/0b72e5f07125a921159f0b5dbc184597.webp';
-import heroImg2 from '../../design-references/3d5657abee8d862f79660b657c0dad51.webp';
-import heroImg3 from '../../design-references/41d76481d4b984ecf038a53c156885fd.webp';
-import heroImg4 from '../../design-references/44cdc4c432e8385d9bfec5c691a8ce90.webp';
-import heroImg5 from '../../design-references/6b1371c55b89a2c351d9416935faf085.webp';
-import heroImg6 from '../../design-references/7acf74c51e317ed64a46d21fef8c2eb8 (1).webp';
-import heroImg7 from '../../design-references/914bb14146d4d8591cd886f9589d146b.webp';
+const heroImg1 = '/assets/anime/anime-hero.jpg';
+const heroImg2 = '/assets/gaming/gaming-hero.jpg';
+const heroImg3 = '/assets/movies/movies-hero.jpg';
+const heroImg4 = '/assets/tv/tv-hero.jpg';
+const heroImg5 = '/assets/kpop/kpop-hero.jpg';
+const heroImg6 = '/assets/comics/comics-hero.jpg';
+const heroImg7 = '/assets/manga/manga-hero.jpg';
+
+const categoryMedia = {
+  anime: {
+    articles: ['/assets/anime/articles/article-anime-1.jpg', '/assets/anime/articles/article-anime-2.jpg'],
+    trailers: '/assets/anime/trailers/trailer-anime-1.jpg',
+    events: '/assets/anime/events/anime-convention-event.jpg',
+    merchandise: ['/assets/anime/merchandise/anime-collectible-merchandise.jpg', '/assets/anime/merchandise/anime-poster-merchandise.jpg'],
+  },
+  gaming: {
+    articles: ['/assets/gaming/articles/article-gaming-1.jpg', '/assets/gaming/articles/article-gaming-2.jpg'],
+    trailers: '/assets/gaming/trailers/trailer-gaming-1.jpg',
+    events: '/assets/gaming/events/gaming-expo-event.jpg',
+    merchandise: ['/assets/gaming/merchandise/gaming-desk-figure-merchandise.jpg', '/assets/gaming/merchandise/gaming-hoodie-merchandise.jpg'],
+  },
+  movies: {
+    articles: ['/assets/movies/articles/article-movies-1.jpg', '/assets/movies/articles/article-movies-2.jpg'],
+    events: '/assets/movies/events/tv-fan-gathering-event.jpg',
+    merchandise: ['/assets/movies/merchandise/movie-art-print-merchandise.jpg'],
+  },
+  tv: {
+    articles: ['/assets/tv/articles/article-tv-1.jpg', '/assets/tv/articles/article-tv-2.jpg'],
+    trailers: '/assets/tv/trailers/trailer-movies-1.jpg',
+    merchandise: ['/assets/tv/merchandise/tv-collectible-merchandise.jpg'],
+  },
+  kpop: {
+    articles: ['/assets/kpop/articles/article-kpop-1.jpg', '/assets/kpop/articles/article-kpop-2.jpg'],
+    trailers: '/assets/kpop/trailers/trailer-kpop-1.jpg',
+    events: '/assets/kpop/events/kpop-concert-event.jpg',
+    merchandise: ['/assets/kpop/merchandise/kpop-lightstick-merchandise.jpg'],
+  },
+  comics: {
+    articles: ['/assets/comics/articles/article-comics-1.jpg', '/assets/comics/articles/article-comics-2.jpg'],
+    trailers: '/assets/comics/trailers/trailer-comics-1.jpg',
+    events: '/assets/comics/events/comic-convention-event.jpg',
+    merchandise: ['/assets/comics/merchandise/comics-figure-merchandise.jpg'],
+  },
+  manga: {
+    articles: ['/assets/manga/articles/article-manga-1.jpg', '/assets/manga/articles/article-manga-2.jpg'],
+    trailers: '/assets/manga/trailers/trailer-manga-1.jpg',
+    events: '/assets/manga/events/manga-exhibition-event.jpg',
+    merchandise: ['/assets/manga/merchandise/manga-art-book-merchandise.jpg'],
+  },
+};
+
+const withCategoryMedia = (items, category, field) => items.map((item, index) => ({
+  ...item,
+  image: Array.isArray(categoryMedia[category][field])
+    ? categoryMedia[category][field][index % categoryMedia[category][field].length]
+    : categoryMedia[category][field] || item.image,
+}));
 
 // Reusing global mock data to populate category pages
 export const categoryDetails = {
@@ -25,10 +75,10 @@ export const categoryDetails = {
     latestContent: [trending[1], trending[0], trending[2]],
     discovery: [trending[1], trending[0], trending[2]],
     characters: charactersByCategory.anime,
-    articles: [articles[0], articles[1], articles[2]],
-    trailers: trailers,
+    articles: withCategoryMedia([articles[0], articles[1], articles[2]], 'anime', 'articles'),
+    trailers: withCategoryMedia(trailers, 'anime', 'trailers'),
     events: eventsByCategory.anime,
-    merchandise: merchandise
+    merchandise: withCategoryMedia(merchandise, 'anime', 'merchandise')
   },
   gaming: {
     id: 'gaming',
@@ -46,10 +96,10 @@ export const categoryDetails = {
     latestContent: [trending[0], trending[1], trending[2]],
     discovery: [trending[0], trending[1], trending[2]],
     characters: charactersByCategory.gaming,
-    articles: [articles[1], articles[2], articles[0]],
-    trailers: trailers,
+    articles: withCategoryMedia([articles[1], articles[2], articles[0]], 'gaming', 'articles'),
+    trailers: withCategoryMedia(trailers, 'gaming', 'trailers'),
     events: eventsByCategory.gaming,
-    merchandise: merchandise
+    merchandise: withCategoryMedia(merchandise, 'gaming', 'merchandise')
   },
   movies: {
     id: 'movies',
@@ -67,10 +117,10 @@ export const categoryDetails = {
     latestContent: [trending[2], trending[3], trending[0]],
     discovery: [trending[2], trending[3], trending[0]],
     characters: charactersByCategory.movies,
-    articles: [articles[2], articles[0], articles[1]],
+    articles: withCategoryMedia([articles[2], articles[0], articles[1]], 'movies', 'articles'),
     trailers: trailers,
     events: eventsByCategory.movies,
-    merchandise: merchandise
+    merchandise: withCategoryMedia(merchandise, 'movies', 'merchandise')
   },
   tv: {
     id: 'tv',
@@ -88,10 +138,10 @@ export const categoryDetails = {
     latestContent: [trending[3], trending[2], trending[1]],
     discovery: [trending[3], trending[2], trending[1]],
     characters: charactersByCategory.tv,
-    articles: [articles[0], articles[1], articles[2]],
-    trailers: trailers,
+    articles: withCategoryMedia([articles[0], articles[1], articles[2]], 'tv', 'articles'),
+    trailers: withCategoryMedia(trailers, 'tv', 'trailers'),
     events: eventsByCategory.tv,
-    merchandise: merchandise
+    merchandise: withCategoryMedia(merchandise, 'tv', 'merchandise')
   },
   kpop: {
     id: 'kpop',
@@ -109,10 +159,10 @@ export const categoryDetails = {
     latestContent: [trending[3], trending[0], trending[1]],
     discovery: [trending[3], trending[0], trending[1]],
     characters: charactersByCategory.kpop,
-    articles: [articles[1], articles[0], articles[2]],
-    trailers: trailers,
+    articles: withCategoryMedia([articles[1], articles[0], articles[2]], 'kpop', 'articles'),
+    trailers: withCategoryMedia(trailers, 'kpop', 'trailers'),
     events: eventsByCategory.kpop,
-    merchandise: merchandise
+    merchandise: withCategoryMedia(merchandise, 'kpop', 'merchandise')
   },
   comics: {
     id: 'comics',
@@ -130,10 +180,10 @@ export const categoryDetails = {
     latestContent: [trending[0], trending[2], trending[3]],
     discovery: [trending[0], trending[2], trending[3]],
     characters: charactersByCategory.comics,
-    articles: [articles[2], articles[1], articles[0]],
-    trailers: trailers,
+    articles: withCategoryMedia([articles[2], articles[1], articles[0]], 'comics', 'articles'),
+    trailers: withCategoryMedia(trailers, 'comics', 'trailers'),
     events: eventsByCategory.comics,
-    merchandise: merchandise
+    merchandise: withCategoryMedia(merchandise, 'comics', 'merchandise')
   },
   manga: {
     id: 'manga',
@@ -151,9 +201,9 @@ export const categoryDetails = {
     latestContent: [trending[1], trending[0], trending[2]],
     discovery: [trending[1], trending[0], trending[2]],
     characters: charactersByCategory.manga,
-    articles: [articles[0], articles[2], articles[1]],
-    trailers: trailers,
+    articles: withCategoryMedia([articles[0], articles[2], articles[1]], 'manga', 'articles'),
+    trailers: withCategoryMedia(trailers, 'manga', 'trailers'),
     events: eventsByCategory.manga,
-    merchandise: merchandise
+    merchandise: withCategoryMedia(merchandise, 'manga', 'merchandise')
   }
 };

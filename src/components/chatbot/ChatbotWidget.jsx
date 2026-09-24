@@ -111,14 +111,14 @@ export function ChatbotWidget() {
 
       <motion.button
         className="fv-chatbot-trigger"
-        whileHover={{ scale: 1.08 }}
-        whileTap={{ scale: 0.92 }}
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.98 }}
         aria-label={open ? 'Close FandomVerse Assistant' : 'Open FandomVerse Assistant'}
         aria-expanded={open}
         onClick={() => setOpen((current) => !current)}
       >
-        {open ? <ChevronDown size={24} color="#fff" aria-hidden="true" /> : <MessageSquare size={24} color="#fff" aria-hidden="true" />}
-        {!open && <span className="fv-chatbot-indicator" />}
+        {open ? <X size={20} color="#fff" aria-hidden="true" /> : <Bot size={20} color="#fff" aria-hidden="true" />}
+        {!open && <span className="fv-chatbot-trigger-text">ASK FV</span>}
       </motion.button>
     </>
   );

@@ -13,16 +13,15 @@ import img12 from '../../design-references/ee32a4245679037.69b2c06f43742.png';
 import img13 from '../../design-references/original-047d7eb2cc34cc971406604bf0179023.webp';
 import img14 from '../../design-references/original-6ac5def4f15f7c2fee272143c182ce51.webp';
 import img15 from '../../design-references/original-6af0daaf9208a482624515d6cece79fd.webp';
-import img16 from '../../design-references/still-56638036f565c533630ea27322aeb232.webp';
 
 export const categories = [
-  { id: 'anime', title: 'Anime', image: img1 },
-  { id: 'gaming', title: 'Gaming', image: img2 },
-  { id: 'movies', title: 'Movies', image: img3 },
-  { id: 'tv', title: 'TV Shows', image: img4 },
-  { id: 'kpop', title: 'K-Pop', image: img5 },
-  { id: 'comics', title: 'Comics', image: img6 },
-  { id: 'manga', title: 'Manga', image: img7 },
+  { id: 'anime', title: 'Anime', image: '/assets/anime/anime-hero.jpg' },
+  { id: 'gaming', title: 'Gaming', image: '/assets/gaming/gaming-hero.jpg' },
+  { id: 'movies', title: 'Movies', image: '/assets/movies/movies-hero.jpg' },
+  { id: 'tv', title: 'TV Shows', image: '/assets/tv/tv-hero.jpg' },
+  { id: 'kpop', title: 'K-Pop', image: '/assets/kpop/kpop-hero.jpg' },
+  { id: 'comics', title: 'Comics', image: '/assets/comics/comics-hero.jpg' },
+  { id: 'manga', title: 'Manga', image: '/assets/manga/manga-hero.jpg' },
 ];
 
 export const trending = [
@@ -33,9 +32,9 @@ export const trending = [
 ];
 
 export const articles = [
-  { id: 'a1', title: 'The Evolution of Mecha Design in Modern Anime', description: 'How silhouette, scale, and motion changed the language of giant robots.', author: 'A. Halloway', readTime: '5 min read', category: 'Anime', type: 'Article', tags: ['anime', 'design'], date: '2026-08-14', featured: true, image: img12 },
-  { id: 'a2', title: 'Top 10 Upcoming RPGs of 2027', description: 'The role-playing worlds already on our radar for next year.', author: 'J. Curry', readTime: '8 min read', category: 'Gaming', type: 'Article', tags: ['gaming', 'RPG'], date: '2026-08-21', featured: true, image: img13 },
-  { id: 'a3', title: 'Deconstructing the Cinematic Universe', description: 'Why interconnected stories still matter when every screen is crowded.', author: 'S. Oneill', readTime: '12 min read', category: 'Movies', type: 'Article', tags: ['movies', 'analysis'], date: '2026-08-29', featured: true, image: img14 },
+  { id: 'a1', title: 'The Evolution of Mecha Design in Modern Anime', description: 'How silhouette, scale, and motion changed the language of giant robots.', author: 'A. Halloway', readTime: '5 min read', category: 'Anime', type: 'Article', tags: ['anime', 'design'], date: '2026-08-14', featured: true, image: '/assets/anime/articles/article-anime-1.jpg', gallery: ['/assets/anime/gallery/anime-shrine-gallery.jpg', '/assets/anime/gallery/anime-city-gallery.jpg'] },
+  { id: 'a2', title: 'Top 10 Upcoming RPGs of 2027', description: 'The role-playing worlds already on our radar for next year.', author: 'J. Curry', readTime: '8 min read', category: 'Gaming', type: 'Article', tags: ['gaming', 'RPG'], date: '2026-08-21', featured: true, image: '/assets/gaming/articles/article-gaming-1.jpg', gallery: ['/assets/gaming/gallery/gaming-megacity-gallery.jpg', '/assets/gaming/gallery/gaming-arena-gallery.jpg'] },
+  { id: 'a3', title: 'Deconstructing the Cinematic Universe', description: 'Why interconnected stories still matter when every screen is crowded.', author: 'S. Oneill', readTime: '12 min read', category: 'Movies', type: 'Article', tags: ['movies', 'analysis'], date: '2026-08-29', featured: true, image: '/assets/movies/articles/article-movies-1.jpg', gallery: ['/assets/movies/gallery/movie-theater-gallery.jpg'] },
 ];
 
 export const characterSpotlight = {
@@ -112,19 +111,38 @@ export const charactersByCategory = {
 };
 
 export const trailers = [
-  { id: 'tr1', title: 'Eclipse of Eden', status: 'Premiering Tomorrow', type: 'Trailer', category: 'Anime', description: 'A new chapter begins beneath a dying sky.', image: img16 },
-  { id: 'tr2', title: 'Void Runner: 2099', status: 'Live Now', type: 'Trailer', category: 'Gaming', description: 'The city core is watching.', image: img1 },
+  { id: 'tr1', title: 'Eclipse of Eden', status: 'Premiering Tomorrow', type: 'Trailer', category: 'Anime', description: 'A new chapter begins beneath a dying sky.', image: '/assets/anime/trailers/trailer-anime-1.jpg', gallery: ['/assets/anime/gallery/anime-shrine-gallery.jpg', '/assets/anime/gallery/anime-city-gallery.jpg'] },
+  { id: 'tr2', title: 'Void Runner: 2099', status: 'Live Now', type: 'Trailer', category: 'Gaming', description: 'The city core is watching.', image: '/assets/gaming/trailers/trailer-gaming-1.jpg', gallery: ['/assets/gaming/gallery/gaming-megacity-gallery.jpg', '/assets/gaming/gallery/gaming-arena-gallery.jpg'] },
   { id: 'tr3', title: 'Silent Chorus', status: 'Coming Soon', type: 'Trailer', category: 'Movies', description: 'Some signals are never meant to be answered.', image: img2 },
 ];
 
+const eventGalleryByCategory = {
+  Anime: ['/assets/anime/gallery/anime-shrine-gallery.jpg', '/assets/anime/gallery/anime-city-gallery.jpg'],
+  Gaming: ['/assets/gaming/gallery/gaming-megacity-gallery.jpg', '/assets/gaming/gallery/gaming-arena-gallery.jpg'],
+  Movies: ['/assets/movies/gallery/movie-theater-gallery.jpg'],
+  'TV Shows': ['/assets/tv/gallery/tv-city-gallery.jpg'],
+  'K-Pop': ['/assets/kpop/gallery/kpop-stage-gallery.jpg'],
+  Comics: ['/assets/comics/gallery/comic-city-gallery.jpg'],
+  Manga: ['/assets/manga/gallery/manga-street-gallery.jpg'],
+};
+
+const eventAssetByCategory = {
+  Anime: 'anime-convention-event.jpg',
+  Gaming: 'gaming-expo-event.jpg',
+  Movies: 'tv-fan-gathering-event.jpg',
+  'K-Pop': 'kpop-concert-event.jpg',
+  Comics: 'comic-convention-event.jpg',
+  Manga: 'manga-exhibition-event.jpg',
+};
+
 export const events = [
-  { id: 'e1', title: 'Global Esports Final', date: 'OCT 24', location: 'Tokyo, Japan', description: 'The world championship closes out the competitive season.', category: 'Gaming', type: 'Event', image: img3 },
-  { id: 'e2', title: 'Anime Expo Winter', date: 'NOV 12', location: 'Los Angeles, USA', description: 'Panels, premieres, and creator showcases from across anime.', category: 'Anime', type: 'Event', image: img4 },
-  { id: 'e3', title: 'Comic-Con International', date: 'DEC 05', location: 'San Diego, USA', description: 'A weekend of comics, creators, and exclusive reveals.', category: 'Comics', type: 'Event', image: img5 },
+  { id: 'e1', title: 'Global Esports Final', date: 'OCT 24', location: 'Tokyo, Japan', description: 'The world championship closes out the competitive season.', category: 'Gaming', type: 'Event', image: '/assets/gaming/events/gaming-expo-event.jpg', gallery: eventGalleryByCategory.Gaming },
+  { id: 'e2', title: 'Anime Expo Winter', date: 'NOV 12', location: 'Los Angeles, USA', description: 'Panels, premieres, and creator showcases from across anime.', category: 'Anime', type: 'Event', image: '/assets/anime/events/anime-convention-event.jpg', gallery: eventGalleryByCategory.Anime },
+  { id: 'e3', title: 'Comic-Con International', date: 'DEC 05', location: 'San Diego, USA', description: 'A weekend of comics, creators, and exclusive reveals.', category: 'Comics', type: 'Event', image: '/assets/comics/events/comic-convention-event.jpg', gallery: eventGalleryByCategory.Comics },
 ];
 
 const createEvent = (id, title, date, location, description, category, image) => ({
-  id, title, date, location, description, category, type: 'Event', image,
+  id, title, date, location, description, category, type: 'Event', image: eventAssetByCategory[category] ? `/assets/${category === 'TV Shows' ? 'tv' : category.toLowerCase().replace(' ', '-')}/events/${eventAssetByCategory[category]}` : image, gallery: eventGalleryByCategory[category] || [],
 });
 
 export const eventsByCategory = {
@@ -138,8 +156,8 @@ export const eventsByCategory = {
 };
 
 export const merchandise = [
-  { id: 'm1', title: 'Void Runner Katana Replica', name: 'Void Runner Katana Replica', description: 'A display replica inspired by the Neo-Kyoto defense line.', category: 'Gaming', type: 'Collectible', price: '$129.99', status: 'In Stock', image: img5 },
-  { id: 'm2', title: 'Stellar Drifters Artbook', name: 'Stellar Drifters Artbook', description: 'Concept art and production notes from the Drifter vanguard.', category: 'Anime', type: 'Artbook', price: '$45.00', status: 'Pre-order', image: img6 },
-  { id: 'm3', title: 'Neon Rhythms Hoodie', name: 'Neon Rhythms Hoodie', description: 'Limited tour apparel from the Neon Rhythms era.', category: 'K-Pop', type: 'Apparel', price: '$65.00', status: 'Limited Edition', image: img7 },
-  { id: 'm4', title: 'The Last Epoch Steelbook', name: 'The Last Epoch Steelbook', description: 'A collector steelbook edition of the cinematic survival epic.', category: 'Movies', type: 'Home Video', price: '$29.99', status: 'In Stock', image: img8 },
+  { id: 'm1', title: 'Void Runner Katana Replica', name: 'Void Runner Katana Replica', description: 'A display replica inspired by the Neo-Kyoto defense line.', category: 'Gaming', type: 'Collectible', price: '$129.99', status: 'In Stock', image: '/assets/gaming/merchandise/gaming-desk-figure-merchandise.jpg' },
+  { id: 'm2', title: 'Stellar Drifters Artbook', name: 'Stellar Drifters Artbook', description: 'Concept art and production notes from the Drifter vanguard.', category: 'Anime', type: 'Artbook', price: '$45.00', status: 'Pre-order', image: '/assets/anime/merchandise/anime-poster-merchandise.jpg' },
+  { id: 'm3', title: 'Neon Rhythms Hoodie', name: 'Neon Rhythms Hoodie', description: 'Limited tour apparel from the Neon Rhythms era.', category: 'K-Pop', type: 'Apparel', price: '$65.00', status: 'Limited Edition', image: '/assets/kpop/merchandise/kpop-lightstick-merchandise.jpg' },
+  { id: 'm4', title: 'The Last Epoch Steelbook', name: 'The Last Epoch Steelbook', description: 'A collector steelbook edition of the cinematic survival epic.', category: 'Movies', type: 'Home Video', price: '$29.99', status: 'In Stock', image: '/assets/movies/merchandise/movie-art-print-merchandise.jpg' },
 ];

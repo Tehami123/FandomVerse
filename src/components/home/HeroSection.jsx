@@ -7,7 +7,7 @@ import { Scene3D } from '../visuals/Scene3D';
 import { TextReveal } from '../ui/TextReveal';
 import { FloatingElement } from '../ui/FloatingElement';
 import { ArrowRight } from 'lucide-react';
-import heroBg from '../../../design-references/cec84c245679037.69b2c06f3fdd7.png';
+const heroBg = '/assets/homepage/homepage-hero.jpg';
 import './HeroSection.css';
 
 export function HeroSection() {

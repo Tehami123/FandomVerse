@@ -24,12 +24,12 @@ Movies, TV Shows, K-Pop, Comics, and Manga.
 
 # CURRENT PHASE
 
-Phase: 8F.1 — Demo LocalStorage Authentication
+Phase: 9B — Asset Integration
 
 Status: COMPLETED
 
 Current Goal:
-Provide a small frontend-only localStorage authentication walkthrough without
+Integrate category-safe generated assets into the existing data flows without
 redesigning the frozen visual systems.
 
 ---
@@ -196,12 +196,107 @@ Phase 7A is complete. Stop here until Phase 7B is explicitly started.
 - Phase 8F: Replaced footer placeholder company links and navbar sign-in controls with real About, Contact, Login, and Signup navigation.
 - Phase 8F.1: Added a reusable AuthContext with prefixed localStorage demo user/session keys, signup/login validation, session restoration, and logout behavior.
 - Phase 8F.1: Connected the existing Login and Signup forms and navbar account control to the local demo session without changing the visual system.
+- Phase 9A: Audited `public/assets/`, legacy `design-references/` imports, current data records, image consumers, and gallery fallback behavior without integrating assets.
+- Phase 9A: Added `docs/ASSET_MANIFEST.md` with generated asset inventory, category/data counts, mapping statuses, mismatches, unused assets, SRS content counts, and Phase 9B recommendations.
+- Phase 9B: Integrated 52 category-safe generated assets across the homepage hero, category heroes, article/trailer/event/merchandise presentation, and detail galleries without changing visual architecture.
+- Phase 9B: Preserved ambiguous character, Movies trailer, homepage-only, and release assets on existing imagery rather than inventing identities.
 
 ---
 
 # NEXT TASK
 
-Phase 8G — not started. Do not begin until explicitly requested.
+Phase 9C — not started. Do not begin until explicitly requested.
+
+## PHASE 9B ASSET INTEGRATION
+
+### Integration Counts
+- Generated assets available: 71.
+- Unique generated assets integrated: 52.
+- Generated assets still unmapped: 19.
+- Unique legacy assets still consumed: 15.
+- Retained but no-longer-consumed legacy import: `img16`.
+- Broken generated image requests in browser smoke test: 0.
+
+### Files Changed
+- `src/components/home/HeroSection.jsx`
+- `src/data/categoryData.js`
+- `src/data/mockData.js`
+- `docs/ASSET_MANIFEST.md`
+- `docs/PROJECT_STATE.md`
+
+### Integration Details
+- Replaced the protected homepage hero source with `/assets/homepage/homepage-hero.jpg` while preserving composition, Scene3D, motion, typography, and overlays.
+- Replaced all seven category hero sources with their exact generated category hero paths.
+- Added category-safe generated article, trailer, event, and merchandise presentation mappings.
+- Added normalized gallery arrays to canonical article/trailer/event records using category-appropriate generated gallery assets.
+- Kept character candidates unmapped because category filenames do not establish named-character identity.
+- Kept the ambiguous Movies trailer candidate and all release artwork unchanged.
+- Kept `design-references/` intact; no assets were renamed, moved, or deleted.
+
+### Verification
+- `npm run build`: passed.
+- Browser-smoke-tested homepage, all seven category routes, search, bookmarks, cart, releases, About, Contact, Login, Signup, article, trailer, and event details.
+- Browser found 0 broken image requests across tested routes.
+- Article gallery lightbox opened with generated gallery assets and correct indicator/navigation.
+- Mobile check: new generated assets did not introduce broken images; the existing category-page horizontal overflow remains across the frozen category architecture.
+
+### Remaining Limitations
+- 19 generated assets remain unmapped: seven character candidates, three homepage event candidates, five homepage gallery candidates, three homepage merchandise candidates, and one Movies trailer candidate.
+- TV category events retain legacy imagery because no generated TV event asset exists.
+- Release records retain legacy imagery because no release-specific generated assets exist.
+- Existing global console warnings remain unrelated to this phase (`whileHover` DOM prop and `THREE.Clock` deprecation).
+
+### Recommended Next Phase
+- Phase 9C should be a targeted cleanup/asset review pass only: remove verified unused legacy imports, resolve the ambiguous Movies trailer filename, and decide whether homepage gallery/merchandise/event assets need explicit data records.
+
+## PHASE 9A ASSET + DATA MAPPING AUDIT
+
+### Audit Result
+- Generated assets found under `public/assets/`: **71**.
+- Generated assets currently referenced by source: **0**.
+- Generated assets currently unused/unmapped: **71**.
+- Legacy source images: 16 files imported from `design-references/` through `mockData.js`, `categoryData.js`, `releaseData.js`, and the protected `HeroSection.jsx`.
+- No current source record has a null `image` field in the inspected primary collections; the issue is legacy source location, shared image reuse, and missing identity mapping.
+- No explicit `gallery` records or `gallery` fields exist. Detail pages currently use the one-image fallback from `getGalleryImages()`.
+
+### Current Data Counts
+- Categories: 7.
+- Characters: 35 category records, 5 per category.
+- Events: 21 category records, 3 per category.
+- Articles: 3 unique global records, reused as 3 placements per category.
+- Trailers: 3 unique global records, reused as 3 placements per category.
+- Merchandise: 4 unique global records, reused as 4 placements per category.
+- Galleries: 0 explicit records; article/event/trailer detail pages have one-image fallback behavior.
+- Upcoming releases: 7, one per category.
+
+### Generated Asset Counts
+- Homepage: 12 assets.
+- Category heroes: 7.
+- Category character candidates: 7.
+- Category article candidates: 14.
+- Category trailer-folder candidates: 7, including one event-labelled Movies file.
+- Category event candidates: 7.
+- Category merchandise candidates: 10.
+- Category gallery candidates: 9, plus 5 homepage gallery assets.
+
+### Mapping Findings
+- No generated asset can be marked `MATCHED` because filenames do not contain current IDs or exact current titles and no source references point to `public/assets/`.
+- Character coverage is insufficient for the 35 named records: 7 category candidates exist, leaving 28 records without a confirmed candidate even before identity review.
+- Article, trailer, event, and merchandise candidates exist, but exact record mapping is unconfirmed because current data IDs/titles do not match filenames and category views reuse global records.
+- `movies/trailers/film-festival-event.jpg` requires verification because its filename conflicts with its trailer directory.
+- All 14 generated gallery candidates are currently unmapped because current data has no explicit gallery records.
+
+### Files Changed
+- `docs/ASSET_MANIFEST.md`
+- `docs/PROJECT_STATE.md`
+
+### Verification
+- `npm run build`: passed; no source changes were made during the audit.
+- Visual spot-check performed on homepage hero, category hero, character, article, trailer-folder candidate, and gallery candidate.
+- No assets were renamed, moved, deleted, or integrated.
+
+### Recommended Next Step
+- Phase 9B should confirm record identity and update only the relevant data/image fields in `src/data/mockData.js`, `src/data/categoryData.js`, and `src/data/releaseData.js`, then add explicit gallery metadata. `HeroSection.jsx` remains protected until its replacement is explicitly confirmed.
 
 ## PHASE 8F.1 DEMO LOCALSTORAGE AUTHENTICATION
 
