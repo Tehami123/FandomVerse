@@ -1,77 +1,8 @@
-import { useRef, Suspense } from 'react';
+import { Suspense } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { Environment, Float, MeshDistortMaterial, Stars, Sparkles, Sphere } from '@react-three/drei';
+import { Environment, Stars, Sparkles } from '@react-three/drei';
 import * as THREE from 'three';
-
-function FandomCore() {
-  const coreRef = useRef();
-  const ring1Ref = useRef();
-  const ring2Ref = useRef();
-  
-  useFrame((state) => {
-    const t = state.clock.getElapsedTime();
-    const pointer = state.pointer;
-    
-    // Subtle autonomous motion
-    coreRef.current.rotation.y = t * 0.1;
-    coreRef.current.rotation.x = t * 0.05;
-    
-    ring1Ref.current.rotation.x = t * 0.15;
-    ring1Ref.current.rotation.y = t * 0.1;
-    
-    ring2Ref.current.rotation.z = t * 0.1;
-    ring2Ref.current.rotation.y = t * 0.2;
-
-    // Mouse parallax
-    const targetX = (pointer.x * Math.PI) / 10;
-    const targetY = (pointer.y * Math.PI) / 10;
-    
-    coreRef.current.rotation.z = THREE.MathUtils.lerp(coreRef.current.rotation.z, targetX, 0.05);
-    ring1Ref.current.position.x = THREE.MathUtils.lerp(ring1Ref.current.position.x, targetX * -1, 0.05);
-    ring1Ref.current.position.y = THREE.MathUtils.lerp(ring1Ref.current.position.y, targetY * 1, 0.05);
-  });
-
-  return (
-    <group>
-      <Float speed={1.5} rotationIntensity={0.2} floatIntensity={0.5}>
-        <group ref={coreRef} position={[3, 0, -3]}>
-          {/* Core */}
-          <Sphere args={[0.8, 64, 64]}>
-            <MeshDistortMaterial 
-              color="#0A0A0C" 
-              envMapIntensity={1} 
-              clearcoat={1} 
-              clearcoatRoughness={0.1} 
-              metalness={0.9}
-              roughness={0.2}
-              distort={0.4}
-              speed={1.5}
-            />
-          </Sphere>
-          
-          {/* Outer glow sphere */}
-          <Sphere args={[0.9, 32, 32]}>
-            <meshBasicMaterial color="#6366F1" transparent opacity={0.1} blending={THREE.AdditiveBlending} />
-          </Sphere>
-        </group>
-      </Float>
-
-      {/* Orbital Rings */}
-      <Float speed={1} rotationIntensity={0.5} floatIntensity={0.5}>
-        <group position={[3, 0, -3]}>
-          <mesh ref={ring1Ref}>
-            <torusGeometry args={[1.5, 0.01, 16, 100]} />
-            <meshBasicMaterial color="#EC4899" transparent opacity={0.3} blending={THREE.AdditiveBlending} />
-          </mesh>
-          <mesh ref={ring2Ref} rotation={[Math.PI / 3, 0, 0]}>
-            <torusGeometry args={[2, 0.01, 16, 100]} />
-            <meshBasicMaterial color="#3B82F6" transparent opacity={0.2} blending={THREE.AdditiveBlending} />
-          </mesh>
-        </group>
-      </Float>
-    </group>
-  );
-}
+import { FandomCore } from './FandomCore';
 
 function CameraRig() {
   useFrame((state) => {

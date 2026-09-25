@@ -23,6 +23,8 @@ import { Signup } from './pages/Signup'
 import { ArchiveHub } from './pages/ArchiveHub'
 import { AuthProvider } from './context/AuthContext.jsx'
 import { ScrollToTop } from './components/navigation/ScrollToTop'
+import { Summon } from './pages/Summon'
+import { FandomDNA } from './pages/FandomDNA'
 
 function RouteTitle() {
   const location = useLocation();
@@ -39,6 +41,8 @@ function RouteTitle() {
                     : path === '/trailers' ? 'Trailers | FandomVerse'
                       : path === '/events' ? 'Events | FandomVerse'
                         : path === '/characters' ? 'Characters | FandomVerse'
+                          : path === '/summon' ? 'Summon | FandomVerse'
+                          : path === '/fandom-dna' ? 'Fandom DNA | FandomVerse'
                           : path === '/merchandise' ? 'Merchandise | FandomVerse'
                 : path === '/about' ? 'About | FandomVerse'
                   : path === '/contact' ? 'Contact | FandomVerse'
@@ -82,6 +86,8 @@ function AnimatedRoutes() {
           <Route path="/trailers" element={<ArchiveHub hub="trailers" />} />
           <Route path="/events" element={<ArchiveHub hub="events" />} />
           <Route path="/characters" element={<ArchiveHub hub="characters" />} />
+          <Route path="/summon" element={<Summon />} />
+          <Route path="/fandom-dna" element={<FandomDNA />} />
           <Route path="/merchandise" element={<ArchiveHub hub="merchandise" />} />
           <Route path="/release/:id" element={<ReleaseDetail />} />
           <Route path="/about" element={<About />} />
