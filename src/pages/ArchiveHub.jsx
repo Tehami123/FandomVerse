@@ -4,6 +4,7 @@ import { Container } from '../components/ui/Container';
 import { ContentCard } from '../components/ui/ContentCards';
 import { articles, charactersByCategory, eventsByCategory, merchandise, trailers } from '../data/mockData';
 import { getContentDestination, uniqueById } from '../utils/contentData';
+import { AmbientFandomBackground } from '../components/visuals/AmbientFandomBackground';
 import './ArchiveHub.css';
 
 const eventArchive = uniqueById(Object.values(eventsByCategory).flat());
@@ -52,6 +53,7 @@ const getItemCategory = (item) => item.category || '';
 
 export function ArchiveHub({ hub }) {
   const config = HUBS[hub];
+  const ambientVariant = ['articles', 'events', 'trailers', 'characters'].includes(hub) ? hub : null;
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
   const category = searchParams.get('category') || '';
@@ -81,7 +83,9 @@ export function ArchiveHub({ hub }) {
 
   return (
     <main className="fv-archive-hub-page">
-      <Container>
+      {ambientVariant ? <AmbientFandomBackground category="archive" type={config.type} variant={ambientVariant} /> : null}
+      <div className="fv-archive-hub-content">
+        <Container>
         <header className="fv-archive-hub-header">
           <div className="fv-archive-hub-kicker">{config.eyebrow}</div>
           <h1>{config.title}</h1>
@@ -145,7 +149,8 @@ export function ArchiveHub({ hub }) {
             <button type="button" onClick={() => setSearchParams({})}>Clear filters</button>
           </section>
         )}
-      </Container>
+        </Container>
+      </div>
     </main>
   );
 }

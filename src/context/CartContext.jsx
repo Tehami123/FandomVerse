@@ -1,6 +1,6 @@
 /* eslint-disable react-refresh/only-export-components */
 import { createContext, useContext, useEffect, useMemo, useState } from 'react';
-import { charactersByCategory, merchandise } from '../data/mockData';
+import { merchandise } from '../data/mockData';
 
 const STORAGE_KEY = 'fandomverse_cart';
 const CART_TYPE = {
@@ -9,25 +9,21 @@ const CART_TYPE = {
 };
 const CartContext = createContext(null);
 const productsById = new Map(merchandise.map((product) => [product.id, product]));
-const charactersById = new Map(
-  Object.values(charactersByCategory).flat().map((character) => [character.id, character]),
-);
 
 const canUseStorage = () => typeof window !== 'undefined' && typeof window.localStorage !== 'undefined';
 
-const getCatalog = (type) => (type === CART_TYPE.character ? charactersById : productsById);
+const getCatalog = () => productsById;
 
-const normalizeType = (type) => (type === CART_TYPE.character ? CART_TYPE.character : CART_TYPE.merchandise);
+const normalizeType = () => CART_TYPE.merchandise;
 
 const normalizeLine = (line) => {
   const quantity = line?.quantity;
   const itemId = line?.itemId || line?.productId;
   if (!itemId || !Number.isInteger(quantity) || quantity <= 0) return null;
 
-  const type = normalizeType(line.type);
-  if (!getCatalog(type).has(itemId)) return null;
+  if (!productsById.has(itemId)) return null;
 
-  return { itemId, type, quantity };
+  return { itemId, type: CART_TYPE.merchandise, quantity };
 };
 
 const readCart = () => {
@@ -49,23 +45,6 @@ const parsePrice = (price) => {
 };
 
 const resolveCartItem = (line) => {
-  if (line.type === CART_TYPE.character) {
-    const character = charactersById.get(line.itemId);
-    if (!character) return null;
-
-    return {
-      id: character.id,
-      title: character.name,
-      name: character.name,
-      image: character.image,
-      category: character.category,
-      type: CART_TYPE.character,
-      description: character.biography || '',
-      quantity: line.quantity,
-      unitPrice: parsePrice(character.price),
-    };
-  }
-
   const product = productsById.get(line.itemId);
   if (!product) return null;
 
@@ -77,7 +56,7 @@ const resolveCartItem = (line) => {
   };
 };
 
-const matchesLine = (line, itemId, type) => line.itemId === itemId && line.type === normalizeType(type);
+const matchesLine = (line, itemId, type = CART_TYPE.merchandise) => line.itemId === itemId && line.type === normalizeType(type);
 
 export function CartProvider({ children }) {
   const [lines, setLines] = useState(readCart);
@@ -104,7 +83,7 @@ export function CartProvider({ children }) {
       subtotal,
       addToCart: (itemId, type = CART_TYPE.merchandise) => setLines((current) => {
         const cartType = normalizeType(type);
-        if (!getCatalog(cartType).has(itemId)) return current;
+        if (!getCatalog().has(itemId)) return current;
         const existing = current.find((line) => matchesLine(line, itemId, cartType));
         return existing
           ? current.map((line) => (matchesLine(line, itemId, cartType) ? { ...line, quantity: line.quantity + 1 } : line))

@@ -98,7 +98,6 @@ function App() {
   return (
     <>
       <CustomCursor />
-      <div className="fv-grain-overlay" />
       <RouteTitle />
       <BookmarkProvider>
         <AuthProvider>

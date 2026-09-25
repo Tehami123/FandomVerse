@@ -5,6 +5,7 @@ import { motion } from 'motion/react';
 import { Container } from '../components/ui/Container';
 import { categoryDetails } from '../data/categoryData';
 import { filterAndSortContent, getSearchFilterOptions, searchContent } from '../utils/contentData';
+import { Scene3D } from '../components/visuals/Scene3D';
 import { ContentCard } from '../components/ui/ContentCards';
 import './SearchPage.css';
 
@@ -191,6 +192,7 @@ export function SearchPage() {
 
         {hasQuery && results.length === 0 && (
           <div className="fv-search-empty fv-search-empty-results">
+            <div className="fv-search-empty-scene" aria-hidden="true"><Scene3D /></div>
             <span className="fv-search-empty-number">00</span>
             <h2>{unfilteredResults.length > 0 ? 'No matches with these filters' : 'No results'}</h2>
             <p>{unfilteredResults.length > 0 ? 'Try removing a filter or clearing all refinements.' : `Nothing in the FandomVerse archive matches "${query.trim()}".`}</p>

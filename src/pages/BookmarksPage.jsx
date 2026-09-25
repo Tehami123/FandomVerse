@@ -4,7 +4,20 @@ import { Link } from 'react-router-dom';
 import { Container } from '../components/ui/Container';
 import { BookmarkButton } from '../components/ui/BookmarkButton';
 import { useBookmarks } from '../context/BookmarkContext';
+import { Scene3D } from '../components/visuals/Scene3D';
 import './BookmarksPage.css';
+
+const isCharacterBookmark = (bookmark) => String(bookmark.contentType).toLowerCase() === 'character';
+
+const getCharacterDownloadFilename = (bookmark) => {
+  const name = (bookmark.name || bookmark.title || 'character')
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-|-$/g, '') || 'character';
+  const extension = bookmark.image?.split('?')[0].split('.').pop()?.toLowerCase();
+  const safeExtension = extension && /^[a-z0-9]{2,5}$/.test(extension) ? extension : 'jpg';
+  return `fandomverse-character-${name}.${safeExtension}`;
+};
 
 export function BookmarksPage() {
   const { bookmarks, notes, saveNote, removeNote } = useBookmarks();
@@ -68,7 +81,7 @@ export function BookmarksPage() {
         {bookmarks.length > 0 ? (
           <div className="fv-bookmarks-grid">
             {bookmarks.map((bookmark) => (
-              <article className="fv-bookmark-card" key={bookmark.id}>
+              <article className={`fv-bookmark-card${isCharacterBookmark(bookmark) ? ' fv-bookmark-card-character' : ''}`} key={bookmark.id}>
                 <div className="fv-bookmark-card-image">
                   {bookmark.image ? <img src={bookmark.image} alt={bookmark.title} /> : <div className="fv-bookmark-card-placeholder">FANDOMVERSE</div>}
                   <BookmarkButton item={bookmark} className="fv-bookmark-card-action" />
@@ -119,15 +132,28 @@ export function BookmarksPage() {
                       )}
                     </div>
                   )}
-                  <Link to={bookmark.destination} className="fv-bookmark-card-link">
-                    Visit source <ArrowRight size={16} aria-hidden="true" />
-                  </Link>
+                  <div className="fv-bookmark-card-links">
+                    <Link to={bookmark.destination} className="fv-bookmark-card-link">
+                      {isCharacterBookmark(bookmark) ? 'View character' : 'Visit source'} <ArrowRight size={16} aria-hidden="true" />
+                    </Link>
+                    {isCharacterBookmark(bookmark) && bookmark.image && (
+                      <a
+                        href={bookmark.image}
+                        className="fv-bookmark-card-download"
+                        download={getCharacterDownloadFilename(bookmark)}
+                        aria-label={`Download image for ${bookmark.title}`}
+                      >
+                        <Download size={15} aria-hidden="true" /> Download image
+                      </a>
+                    )}
+                  </div>
                 </div>
               </article>
             ))}
           </div>
         ) : (
           <section className="fv-bookmarks-empty">
+            <div className="fv-bookmarks-empty-scene" aria-hidden="true"><Scene3D /></div>
             <BookmarkX size={28} aria-hidden="true" />
             <span className="fv-bookmarks-empty-number">00</span>
             <h2>No saved worlds</h2>

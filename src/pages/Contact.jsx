@@ -1,5 +1,7 @@
 import { useState } from 'react';
+import { motion } from 'framer-motion';
 import { Container } from '../components/ui/Container';
+import { Scene3D } from '../components/visuals/Scene3D';
 import './Contact.css';
 import './Auth.css';
 
@@ -37,11 +39,27 @@ export function Contact() {
 
   return (
     <main className="fv-contact-page">
-      <Container>
-        <header className="fv-contact-header"><div className="fv-contact-kicker">CONTACT / FANDOMVERSE</div><h1>Open a conversation</h1><p>This local contact form is a frontend demonstration. It does not send or store messages.</p></header>
+      <div className="fv-contact-scene" aria-hidden="true"><Scene3D /></div>
+      <div className="fv-contact-decor fv-contact-decor--one" aria-hidden="true" />
+      <div className="fv-contact-decor fv-contact-decor--two" aria-hidden="true" />
+      <Container className="fv-contact-shell">
+        <motion.header
+          className="fv-contact-header"
+          initial={{ opacity: 0, y: 18 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+        >
+          <div className="fv-contact-kicker">CONTACT / FANDOMVERSE</div>
+          <h1>Contact the universe</h1>
+          <p>This local contact form is a frontend demonstration and does not send or store messages. The project remains a demo-first archive experience.</p>
+        </motion.header>
+
         <div className="fv-contact-layout">
-          <section className="fv-contact-form-panel" aria-labelledby="contact-form-heading">
-            <h2 id="contact-form-heading">Send a message</h2>
+          <motion.section className="fv-contact-form-panel" aria-labelledby="contact-form-heading" initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.2 }} transition={{ duration: 0.5 }}>
+            <div className="fv-contact-panel-header">
+              <div className="fv-contact-section-kicker">01 / SEND A MESSAGE</div>
+              <h2 id="contact-form-heading">Open a conversation</h2>
+            </div>
             {submitted ? (
               <div className="fv-form-success" role="status"><strong>Message submitted successfully in demo mode.</strong><p>No message was sent or stored.</p><button type="button" onClick={resetForm}>Send another message</button></div>
             ) : (
@@ -53,9 +71,36 @@ export function Contact() {
                 <button className="fv-form-submit" type="submit">Submit message</button>
               </form>
             )}
-          </section>
-          <aside className="fv-contact-location" aria-labelledby="contact-location-heading"><div className="fv-contact-location-art" role="img" aria-label="Static map placeholder for the online FandomVerse archive"><span>ONLINE / WORLDWIDE</span><strong>Digital archive</strong></div><h2 id="contact-location-heading">A digital home for fandom</h2><p>No physical studio address is configured for this local project. FandomVerse is an online frontend experience.</p><a className="fv-contact-map-link" href="https://www.openstreetmap.org/search?query=FandomVerse" target="_blank" rel="noreferrer">Search OpenStreetMap <span aria-hidden="true">-&gt;</span></a></aside>
+          </motion.section>
+
+          <motion.aside className="fv-contact-location" aria-labelledby="contact-location-heading" initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.2 }} transition={{ duration: 0.5 }}>
+            <div className="fv-contact-location-art" role="img" aria-label="Stylized location frame for the online FandomVerse archive"><span>ONLINE / WORLDWIDE</span><strong>Digital archive</strong></div>
+            <div className="fv-contact-location-copy">
+              <div className="fv-contact-section-kicker">02 / LOCATION</div>
+              <h2 id="contact-location-heading">A digital home for fandom</h2>
+              <p>No physical studio address is configured for this local project. FandomVerse is an online frontend experience.</p>
+              <a className="fv-contact-map-link" href="https://www.openstreetmap.org/search?query=FandomVerse" target="_blank" rel="noreferrer">Search OpenStreetMap <span aria-hidden="true">-&gt;</span></a>
+            </div>
+          </motion.aside>
         </div>
+
+        <motion.section className="fv-contact-meta-grid" aria-label="Project notes" initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.2 }} transition={{ duration: 0.5 }}>
+          <article className="fv-contact-meta-card">
+            <div className="fv-contact-section-kicker">03 / PROJECT</div>
+            <h3>FandomVerse</h3>
+            <p>A cinematic archive for fandom discovery, release tracking, character browsing, and world-level curation.</p>
+          </article>
+          <article className="fv-contact-meta-card">
+            <div className="fv-contact-section-kicker">04 / RESPONSE</div>
+            <h3>Demo mode</h3>
+            <p>The contact form is local-only and intentionally does not store or deliver submitted messages.</p>
+          </article>
+          <article className="fv-contact-meta-card">
+            <div className="fv-contact-section-kicker">05 / ARCHIVE</div>
+            <h3>Built for discovery</h3>
+            <p>Search, bookmarks, events, trailers, characters, merchandise, and release tracking all live inside the same experience.</p>
+          </article>
+        </motion.section>
       </Container>
     </main>
   );

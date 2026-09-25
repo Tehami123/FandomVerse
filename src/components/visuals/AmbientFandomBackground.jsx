@@ -17,7 +17,20 @@ const VARIANT_LABEL = {
   article: 'FEATURED ARTICLE',
   event: 'EVENT RECORD',
   trailer: 'TRANSMISSION',
+  characters: 'CHARACTER ARCHIVE',
+  articles: 'EDITORIAL ARCHIVE',
+  events: 'FANDOM CALENDAR',
+  trailers: 'TRANSMISSION ARCHIVE',
+  releases: 'RELEASE RADAR',
+  category: 'CATEGORY ARCHIVE',
   default: 'ARCHIVE ENTRY',
+};
+
+const VARIANT_ALIASES = {
+  article: 'articles',
+  event: 'events',
+  trailer: 'trailers',
+  character: 'characters',
 };
 
 export function AmbientFandomBackground({
@@ -27,6 +40,7 @@ export function AmbientFandomBackground({
 }) {
   const catSlug = (category || 'anime').toLowerCase().replace(/\s+/g, '');
   const displayWord = DISPLAY_WORD[catSlug] || catSlug.toUpperCase();
+  const variantKey = VARIANT_ALIASES[variant] || variant;
   const reduceMotion = useReducedMotion();
   const rootRef = useRef(null);
 
@@ -50,7 +64,7 @@ export function AmbientFandomBackground({
   return (
     <div
       ref={rootRef}
-      className={`fv-ambient-background fv-ambient-${variant}${reduceMotion ? ' fv-ambient-static' : ''}`}
+      className={`fv-ambient-background fv-ambient-${variant} fv-ambient-${variantKey}${reduceMotion ? ' fv-ambient-static' : ''}`}
       style={{ '--ambient-accent': `var(--color-${catSlug}, var(--color-accent-primary))` }}
       aria-hidden="true"
     >
@@ -80,12 +94,19 @@ export function AmbientFandomBackground({
         <div className="fv-fragment fv-fragment-bl" />
       </div>
 
+      <div className="fv-ambient-shapes">
+        <span className="fv-ambient-shape fv-ambient-shape-1" />
+        <span className="fv-ambient-shape fv-ambient-shape-2" />
+        <span className="fv-ambient-shape fv-ambient-shape-3" />
+        <span className="fv-ambient-shape fv-ambient-shape-4" />
+        <span className="fv-ambient-shape fv-ambient-shape-5" />
+      </div>
+
       <div className="fv-ambient-marks">
         <span className="fv-mark">ARCHIVE // {displayWord}</span>
         <span className="fv-mark">{VARIANT_LABEL[variant] || VARIANT_LABEL.default} // {String(type).toUpperCase()}</span>
       </div>
 
-      <div className="fv-ambient-grain" />
     </div>
   );
 }

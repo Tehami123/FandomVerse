@@ -1,4 +1,5 @@
 import { useState, useRef } from 'react';
+import { ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { motion } from 'motion/react';
 import { Container } from '../ui/Container';
@@ -146,9 +147,10 @@ export function CategoryExplorer() {
                         className="fv-node-explore"
                         initial={{ opacity: 0, x: -10 }}
                         animate={{ opacity: 1, x: 10 }}
-                        style={{ color: accent }}
+                        style={{ color: accent, display: 'flex', alignItems: 'center', gap: 6 }}
                       >
-                        Explore →
+                        <span>Explore</span>
+                        <ArrowRight size={14} aria-hidden="true" />
                       </motion.div>
                     )}
                   </div>

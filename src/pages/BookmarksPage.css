@@ -108,11 +108,21 @@
   background: var(--color-bg-elevated);
 }
 
+.fv-bookmark-card-character .fv-bookmark-card-image {
+  aspect-ratio: 4 / 5;
+}
+
 .fv-bookmark-card-image img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   transition: transform var(--transition-smooth);
+}
+
+.fv-bookmark-card-character .fv-bookmark-card-image img {
+  padding: var(--space-md);
+  object-fit: contain;
+  object-position: center;
 }
 
 .fv-bookmark-card:hover .fv-bookmark-card-image img {
@@ -229,6 +239,7 @@
 }
 
 .fv-bookmark-card-link,
+.fv-bookmark-card-download,
 .fv-bookmarks-discover {
   display: inline-flex;
   align-items: center;
@@ -239,14 +250,30 @@
   text-transform: uppercase;
 }
 
+.fv-bookmark-card-links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+.fv-bookmark-card-download {
+  color: var(--color-text-secondary);
+  font-size: 11px;
+}
+
 .fv-bookmark-card-link:hover,
 .fv-bookmark-card-link:focus-visible,
+.fv-bookmark-card-download:hover,
+.fv-bookmark-card-download:focus-visible,
 .fv-bookmarks-discover:hover,
 .fv-bookmarks-discover:focus-visible {
   color: var(--color-text-secondary);
 }
 
 .fv-bookmarks-empty {
+  position: relative;
+  isolation: isolate;
   display: flex;
   min-height: 480px;
   flex-direction: column;
@@ -258,6 +285,19 @@
   background: radial-gradient(circle at center, rgba(236, 72, 153, 0.05) 0%, transparent 70%);
   color: var(--color-text-secondary);
   text-align: center;
+}
+
+.fv-bookmarks-empty > *:not(.fv-bookmarks-empty-scene) {
+  position: relative;
+  z-index: 1;
+}
+
+.fv-bookmarks-empty-scene {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.62;
 }
 
 .fv-bookmarks-empty > svg {
@@ -315,6 +355,10 @@
   .fv-bookmarks-empty {
     min-height: 320px;
     padding: var(--space-xl) var(--space-md);
+  }
+
+  .fv-bookmarks-empty-scene {
+    display: none;
   }
 }
 

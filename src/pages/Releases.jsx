@@ -4,6 +4,7 @@ import { Link, useSearchParams } from 'react-router-dom';
 import { Container } from '../components/ui/Container';
 import { releaseCategories, releases } from '../data/releaseData';
 import { getCategorySlug } from '../utils/contentData';
+import { AmbientFandomBackground } from '../components/visuals/AmbientFandomBackground';
 import './Releases.css';
 
 const formatReleaseDate = (releaseDate) => new Intl.DateTimeFormat('en-US', {
@@ -35,7 +36,9 @@ export function Releases() {
 
   return (
     <main className="fv-releases-page">
-      <Container>
+      <AmbientFandomBackground category={category || 'anime'} type="release" variant="releases" />
+      <div className="fv-releases-content">
+        <Container>
         <header className="fv-releases-header">
           <div className="fv-releases-kicker">RELEASES</div>
           <h1>Upcoming transmissions</h1>
@@ -113,7 +116,8 @@ export function Releases() {
             <button type="button" onClick={() => setSearchParams({})}>Clear filters</button>
           </section>
         )}
-      </Container>
+        </Container>
+      </div>
     </main>
   );
 }

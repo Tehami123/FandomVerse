@@ -1,7 +1,6 @@
-import { BookmarkButton } from '../components/ui/BookmarkButton';
 import { AddToCartButton } from '../components/ui/AddToCartButton';
 import { Gallery } from '../components/gallery/Gallery';
-import { getContentByType, getContentDestination, getGalleryImages, getRelatedContent } from '../utils/contentData';
+import { getContentByType, getGalleryImages, getRelatedContent } from '../utils/contentData';
 import { Container } from '../components/ui/Container';
 import { DetailBackLink, DetailNotFound, DetailShell, NextTransmission, RelatedContent } from './ContentDetail';
 import { useParams } from 'react-router-dom';
@@ -15,7 +14,6 @@ export function CharacterDetail() {
   if (!character) return <DetailNotFound contentLabel="Character" />;
 
   const related = getRelatedContent('Character', character, 4);
-  const bookmark = { ...character, contentType: 'Character', destination: getContentDestination(character, 'Character') };
   const metadata = [character.category, character.series, character.franchise]
     .filter(Boolean)
     .filter((value, index, list) => list.indexOf(value) === index);
@@ -61,7 +59,6 @@ export function CharacterDetail() {
                 <AddToCartButton product={character} itemType="character" label="Add to Collection" />
               </div>
 
-              <BookmarkButton item={bookmark} />
               <DetailBackLink />
             </div>
           </div>

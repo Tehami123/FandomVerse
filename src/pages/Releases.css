@@ -11,6 +11,11 @@
   max-width: 100%;
 }
 
+.fv-releases-content {
+  position: relative;
+  z-index: 1;
+}
+
 .fv-releases-header {
   max-width: 760px;
   margin-bottom: var(--space-lg);

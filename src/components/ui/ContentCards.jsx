@@ -1,3 +1,4 @@
+import { ArrowRight, MapPin, Tag } from 'lucide-react';
 import { motion } from 'motion/react';
 import { BookmarkButton } from './BookmarkButton';
 import { AddToCartButton } from './AddToCartButton';
@@ -72,10 +73,10 @@ export function EventCard({ item, bookmarkItem = item, onClick, asEditorial = fa
           <div className="fv-event-editorial-date">{item.date || item.metadata}</div>
           <h4 className="fv-event-editorial-title">{item.title}</h4>
           <div className="fv-event-editorial-meta">
-            <span>📍 {item.location || 'FandomVerse Studio'}</span>
-            <span className="fv-accent">🏷️ {item.category}</span>
+            <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6 }}><MapPin size={14} aria-hidden="true" /> {item.location || 'FandomVerse Studio'}</span>
+            <span className="fv-accent" style={{ display: 'inline-flex', alignItems: 'center', gap: 6 }}><Tag size={14} aria-hidden="true" /> {item.category}</span>
           </div>
-          <div className="fv-event-editorial-action">Explore Event ➔</div>
+          <div className="fv-event-editorial-action" style={{ display: 'inline-flex', alignItems: 'center', gap: 6 }}>Explore Event <ArrowRight size={14} aria-hidden="true" /></div>
         </div>
       </motion.div>
     );
@@ -93,11 +94,13 @@ export function EventCard({ item, bookmarkItem = item, onClick, asEditorial = fa
           <div className="fv-event-date-large">{item.date?.split(' ')[0] || item.metadata?.split(' ')[0] || 'TBA'}</div>
           <div className="fv-event-info">
             <h4 className="fv-event-title">{item.title}</h4>
-            <div className="fv-event-meta">
-              <span>📍 {item.location || 'FandomVerse'}</span>
+            <div className="fv-event-meta" style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+              <MapPin size={14} aria-hidden="true" />
+              <span>{item.location || 'FandomVerse'}</span>
             </div>
-            <div className="fv-event-meta" style={{ marginTop: '4px' }}>
-              <span className="fv-accent">🏷️ {item.category}</span>
+            <div className="fv-event-meta" style={{ marginTop: '4px', display: 'flex', alignItems: 'center', gap: 6 }}>
+              <Tag size={14} aria-hidden="true" />
+              <span className="fv-accent">{item.category}</span>
             </div>
           </div>
         </div>

@@ -9,6 +9,27 @@
     var(--color-bg-base);
 }
 
+.fv-search-empty {
+  position: relative;
+  isolation: isolate;
+}
+
+.fv-search-empty > *:not(.fv-search-empty-scene) {
+  position: relative;
+  z-index: 1;
+}
+
+.fv-search-empty-scene {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 0;
+  width: 54%;
+  pointer-events: none;
+  opacity: 0.6;
+}
+
 .fv-search-header {
   max-width: 760px;
   margin-bottom: var(--space-2xl);
@@ -421,6 +442,9 @@
 }
 
 @media (max-width: 768px) {
+  .fv-search-empty-scene {
+    display: none;
+  }
   .fv-search-page {
     padding-top: var(--space-2xl);
   }

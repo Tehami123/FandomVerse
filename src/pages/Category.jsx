@@ -9,6 +9,7 @@ import { ArrowRight } from 'lucide-react';
 import { BookmarkButton } from '../components/ui/BookmarkButton';
 import { ContentCard, EventCard, ArticleCard } from '../components/ui/ContentCards';
 import { getContentDestination } from '../utils/contentData';
+import { AmbientFandomBackground } from '../components/visuals/AmbientFandomBackground';
 import './Category.css';
 
 const EditorialPlaceholder = ({ label }) => <div className="fv-category-image-placeholder" aria-label={`${label} artwork unavailable`}>FANDOMVERSE</div>;
@@ -57,6 +58,7 @@ export function Category() {
 
   return (
     <div className="fv-category-page" style={{ '--cat-accent': category.accentColor }}>
+      <AmbientFandomBackground category={categoryId} type="category" variant="category" />
       {/* 1. Category Hero */}
       <section className="fv-category-hero">
         <div className="fv-category-hero-bg">
