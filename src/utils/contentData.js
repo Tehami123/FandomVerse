@@ -51,6 +51,12 @@ export const getRelatedContent = (contentType, item, limit = 3) => {
     Character: Object.values(categoryDetails).flatMap((category) => category.characters || []),
   };
   const source = collections[contentType] || [];
+  if (contentType === 'Article' && Array.isArray(item.relatedIds)) {
+    return item.relatedIds
+      .map((relatedId) => source.find((candidate) => candidate.id === relatedId))
+      .filter(Boolean)
+      .slice(0, limit);
+  }
   const sourceTags = item.tags || item.traits || [];
   const related = source
     .filter((candidate) => candidate.id !== item.id)

@@ -145,6 +145,12 @@
   line-height: 1.8;
 }
 
+.fv-character-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+}
+
 @media (max-width: 1024px) {
   .fv-character-layout {
     grid-template-columns: 1fr;

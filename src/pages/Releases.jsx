@@ -75,12 +75,11 @@ export function Releases() {
               <span className="fv-releases-progress" aria-live="polite">{padIndex(filteredReleases.length)} RELEASES</span>
             </div>
             <div className="fv-releases-grid">
-              {filteredReleases.map((release, index) => (
+              {filteredReleases.map((release) => (
                 <Link
                   className="fv-release-card"
                   key={release.id}
                   to={`/release/${release.id}`}
-                  data-featured={index === 0 ? 'true' : undefined}
                   style={{ '--release-accent': `var(--color-${getCategorySlug(release.category)})` }}
                 >
                   <div className={`fv-release-image-wrap${release.image ? '' : ' fv-release-image-placeholder'}`}>

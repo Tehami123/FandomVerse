@@ -1,15 +1,25 @@
 import { useState, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { motion, useScroll, useTransform } from 'motion/react';
 import { Container } from '../ui/Container';
 import { charactersByCategory } from '../../data/mockData';
 import { FloatingElement } from '../ui/FloatingElement';
 import { Button } from '../ui/Button';
+import { BookmarkButton } from '../ui/BookmarkButton';
+import { getContentDestination } from '../../utils/contentData';
 import './CharacterSpotlight.css';
 
 export function CharacterSpotlight() {
+  const navigate = useNavigate();
   const { scrollYProgress } = useScroll();
   const y = useTransform(scrollYProgress, [0, 1], [0, -50]);
   const characterSpotlight = charactersByCategory.gaming[0];
+  const bookmark = {
+    ...characterSpotlight,
+    title: characterSpotlight.name,
+    contentType: 'Character',
+    destination: getContentDestination(characterSpotlight, 'Character'),
+  };
 
   const containerRef = useRef(null);
   const [pointerPos, setPointerPos] = useState({ x: 0, y: 0 });
@@ -134,16 +144,18 @@ export function CharacterSpotlight() {
               viewport={{ once: true }}
               transition={{ delay: 0.3 }}
             >
-              {characterSpotlight.description}
+              {characterSpotlight.biography || characterSpotlight.description}
             </motion.p>
             
             <motion.div
+              className="fv-character-actions"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.4 }}
             >
-              <Button variant="ghost">View Full Profile</Button>
+              <Button variant="ghost" onClick={() => navigate(`/character/${characterSpotlight.id}`)}>View Full Profile</Button>
+              <BookmarkButton item={bookmark} />
             </motion.div>
           </div>
         </div>

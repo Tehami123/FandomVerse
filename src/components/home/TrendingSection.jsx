@@ -1,7 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'motion/react';
 import { Container } from '../ui/Container';
-import { trending } from '../../data/mockData';
+import { articles } from '../../data/mockData';
 import { ContentCard } from '../ui/ContentCards';
 import './TrendingSection.css';
 
@@ -13,7 +13,7 @@ export function TrendingSection() {
         <div className="fv-section-header-editorial">
           <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%', alignItems: 'center' }}>
             <div className="fv-section-number" style={{ marginBottom: 0 }}>02 // TRENDING</div>
-            <Link to="/search?sort=popularity" className="fv-view-all">View All</Link>
+              <Link to="/search?type=article" className="fv-view-all">View All</Link>
           </div>
           <motion.h2 initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}>
             NOW
@@ -21,7 +21,7 @@ export function TrendingSection() {
           <div className="fv-section-divider"></div>
         </div>
         <div className="fv-trending-rail" style={{ display: 'flex', gap: 'var(--space-lg)', overflowX: 'auto', paddingBottom: 'var(--space-xl)', scrollbarWidth: 'thin' }}>
-          {trending.map((item, index) => (
+          {articles.map((item, index) => (
             <motion.div 
               key={item.id} 
               className="fv-trending-rail-item"
@@ -29,7 +29,7 @@ export function TrendingSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
               transition={{ delay: index * 0.1 }}
-              style={{ minWidth: index === 0 || index === 3 ? '400px' : '320px', flexShrink: 0 }}
+              style={{ flex: '0 0 clamp(260px, 31vw, 400px)', width: 'clamp(260px, 31vw, 400px)' }}
             >
               <ContentCard 
                 item={item}

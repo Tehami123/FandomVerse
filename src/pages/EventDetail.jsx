@@ -16,7 +16,7 @@ export function EventDetail() {
   const bookmark = { ...event, contentType: 'Event', destination: getContentDestination(event, 'Event') };
 
   return (
-    <DetailShell category={event.category} variant="event" type="event">
+    <DetailShell category={event.category} variant="event" type="event" ambient={false}>
       <Container>
         <div className="fv-detail-cinematic-header">
           <div className="fv-detail-index"><span>01</span> // EVENT RECORD</div>

@@ -98,8 +98,6 @@
   transition: border-color var(--transition-fast);
 }
 
-.fv-release-card[data-featured="true"] { grid-column: span 2; }
-
 .fv-release-card:hover,
 .fv-release-card:focus-within {
   border-color: var(--release-accent, var(--color-border));
@@ -248,7 +246,6 @@
 
 @media (max-width: 1024px) {
   .fv-releases-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .fv-release-card[data-featured="true"] { grid-column: span 2; }
 }
 
 @media (max-width: 768px) {
@@ -262,6 +259,8 @@
     gap: 10px;
   }
 
+}
+
+@media (max-width: 767px) {
   .fv-releases-grid { grid-template-columns: 1fr; }
-  .fv-release-card[data-featured="true"] { grid-column: auto; }
 }

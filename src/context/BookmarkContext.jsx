@@ -1,6 +1,6 @@
 /* eslint-disable react-refresh/only-export-components */
 import { createContext, useContext, useEffect, useMemo, useState } from 'react';
-import { getContentDestination } from '../utils/contentData';
+import { getContentByType, getContentDestination } from '../utils/contentData';
 
 const STORAGE_KEY = 'fandomverse_bookmarks';
 const NOTES_STORAGE_KEY = 'fandomverse_bookmark_notes';
@@ -33,25 +33,36 @@ const readNotes = () => {
 };
 
 const normalizeBookmark = (item) => {
-  const contentType = item.contentType || item.type || 'Content';
-  const destination = ['Article', 'Trailer', 'Event'].includes(contentType)
-    ? getContentDestination(item, contentType)
+  const rawContentType = item.contentType || item.type || 'Content';
+  const contentType = {
+    article: 'Article',
+    character: 'Character',
+    event: 'Event',
+    trailer: 'Trailer',
+    merchandise: 'Merchandise',
+    release: 'Release',
+  }[String(rawContentType).toLowerCase()] || rawContentType;
+  const resolvedItem = contentType === 'Character'
+    ? getContentByType('Character', item.id) || item
+    : item;
+  const destination = ['Article', 'Character', 'Event', 'Trailer', 'Release'].includes(contentType)
+    ? getContentDestination({ ...item, ...resolvedItem }, contentType)
     : item.destination || (item.categorySlug ? `/category/${item.categorySlug}` : '/search');
 
   return {
   id: item.id,
-  title: item.title || item.name,
-  name: item.name || item.title,
-  image: item.image || '',
-  description: item.description || item.biography || '',
-  category: item.category || '',
+  title: resolvedItem.title || resolvedItem.name || item.title || item.name,
+  name: resolvedItem.name || resolvedItem.title || item.name || item.title,
+  image: resolvedItem.image || item.image || '',
+  description: resolvedItem.description || resolvedItem.biography || item.description || item.biography || '',
+  category: resolvedItem.category || item.category || '',
   contentType,
   destination,
   };
 };
 
 export function BookmarkProvider({ children }) {
-  const [bookmarks, setBookmarks] = useState(readBookmarks);
+  const [bookmarks, setBookmarks] = useState(() => readBookmarks().map(normalizeBookmark));
   const [notes, setNotes] = useState(readNotes);
 
   useEffect(() => {

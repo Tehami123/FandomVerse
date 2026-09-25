@@ -16,7 +16,7 @@ export function TrailerDetail() {
   const bookmark = { ...trailer, contentType: 'Trailer', destination: getContentDestination(trailer, 'Trailer') };
 
   return (
-    <DetailShell category={trailer.category} variant="trailer" type="trailer">
+    <DetailShell category={trailer.category} variant="trailer" type="trailer" ambient={false}>
       <Container>
         <div className="fv-detail-cinematic-header">
           <div className="fv-detail-index"><span>01</span> // TRANSMISSION</div>
@@ -25,21 +25,50 @@ export function TrailerDetail() {
           </div>
           <h1 className="fv-detail-cinematic-title">{trailer.title}</h1>
           <div className="fv-trailer-frame">
-            <MediaPlayer src={trailer.mediaSrc} type={trailer.mediaType || 'video'} title={trailer.title} />
+            <MediaPlayer
+              key={trailer.id}
+              sources={trailer.mediaSources || (trailer.mediaSrc ? [trailer.mediaSrc] : [])}
+              type={trailer.mediaType || 'video'}
+              title={trailer.title}
+            />
             <div className="fv-trailer-frame-meta">
               <span>ARCHIVE CHANNEL // {trailer.category}</span>
               <span>{trailer.status || 'UNVERIFIED SIGNAL'}</span>
             </div>
           </div>
         </div>
-        <div className="fv-detail-copy-centered">
-          <div className="fv-detail-copy">
+        <section className="fv-trailer-info">
+          <div className="fv-trailer-info-heading">
+            <div>
+              <div className="fv-detail-section-label">TRANSMISSION NOTES</div>
+              <h2>{trailer.title}</h2>
+            </div>
             <BookmarkButton item={bookmark} />
-            <h2>{trailer.status}</h2>
-            <p>{trailer.description}</p>
+          </div>
+          <p className="fv-trailer-description">{trailer.description}</p>
+          <div className="fv-trailer-facts">
+            <div>
+              <span>Premiere</span>
+              <strong>{trailer.premiere || trailer.status}</strong>
+            </div>
+            <div>
+              <span>Format</span>
+              <strong>{trailer.format || trailer.type}</strong>
+            </div>
+            <div>
+              <span>Status</span>
+              <strong>{trailer.status}</strong>
+            </div>
+          </div>
+          {trailer.tags?.length > 0 && (
+            <div className="fv-trailer-tags" aria-label="Trailer tags">
+              {trailer.tags.map((tag) => <span key={tag}>{tag}</span>)}
+            </div>
+          )}
+          <div className="fv-trailer-info-footer">
             <DetailBackLink />
           </div>
-        </div>
+        </section>
         <RelatedContent items={related} contentType="Trailer" getPath={(item) => `/trailer/${item.id}`} />
         <NextTransmission item={related[0]} getPath={(item) => `/trailer/${item.id}`} />
       </Container>
