@@ -1,7 +1,9 @@
-import React, { createContext, useContext, useEffect, useMemo, useState } from 'react';
+/* eslint-disable react-refresh/only-export-components */
+import { createContext, useContext, useEffect, useMemo, useState } from 'react';
 import { getContentDestination } from '../utils/contentData';
 
 const STORAGE_KEY = 'fandomverse_bookmarks';
+const NOTES_STORAGE_KEY = 'fandomverse_bookmark_notes';
 const BookmarkContext = createContext(null);
 
 const canUseStorage = () => typeof window !== 'undefined' && typeof window.localStorage !== 'undefined';
@@ -15,6 +17,18 @@ const readBookmarks = () => {
     return Array.isArray(parsed) ? parsed.filter((item) => item?.id && item?.title) : [];
   } catch {
     return [];
+  }
+};
+
+const readNotes = () => {
+  if (!canUseStorage()) return {};
+
+  try {
+    const stored = window.localStorage.getItem(NOTES_STORAGE_KEY);
+    const parsed = stored ? JSON.parse(stored) : {};
+    return parsed && typeof parsed === 'object' && !Array.isArray(parsed) ? parsed : {};
+  } catch {
+    return {};
   }
 };
 
@@ -38,7 +52,7 @@ const normalizeBookmark = (item) => {
 
 export function BookmarkProvider({ children }) {
   const [bookmarks, setBookmarks] = useState(readBookmarks);
-  const [notes, setNotes] = useState({});
+  const [notes, setNotes] = useState(readNotes);
 
   useEffect(() => {
     if (!canUseStorage()) return;
@@ -49,6 +63,16 @@ export function BookmarkProvider({ children }) {
       // Storage can be unavailable or full; the in-memory state remains usable.
     }
   }, [bookmarks]);
+
+  useEffect(() => {
+    if (!canUseStorage()) return;
+
+    try {
+      window.localStorage.setItem(NOTES_STORAGE_KEY, JSON.stringify(notes));
+    } catch {
+      // Storage can be unavailable or full; the in-memory state remains usable.
+    }
+  }, [notes]);
 
   const value = useMemo(() => ({
     bookmarks,
@@ -89,4 +113,4 @@ export function useBookmarks() {
   return context;
 }
 
-export { STORAGE_KEY };
+export { STORAGE_KEY, NOTES_STORAGE_KEY };

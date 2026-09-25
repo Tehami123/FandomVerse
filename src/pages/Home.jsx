@@ -1,4 +1,3 @@
-import React from 'react';
 import { HeroSection } from '../components/home/HeroSection';
 import { CategoryExplorer } from '../components/home/CategoryExplorer';
 import { TrendingSection } from '../components/home/TrendingSection';

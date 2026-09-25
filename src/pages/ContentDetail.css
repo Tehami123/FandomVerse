@@ -139,6 +139,18 @@
   margin-bottom: var(--space-md);
 }
 
+.fv-detail-related-placeholder {
+  display: grid;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  place-items: center;
+  margin-bottom: var(--space-md);
+  background: var(--color-bg-elevated);
+  color: var(--color-text-muted);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+}
+
 .fv-detail-related-card span,
 .fv-detail-related-card h3 {
   display: block;

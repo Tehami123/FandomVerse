@@ -8,7 +8,7 @@
   
   --color-text-primary: #fcfcfc;
   --color-text-secondary: #8a8a93;
-  --color-text-muted: #5e5e66;
+  --color-text-muted: #85858d;
   
   --color-border: #222226;
   --color-focus: #4F46E5;
@@ -193,5 +193,14 @@ button:hover {
   }
   h2, .fv-section-header-editorial h2 {
     font-size: 32px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
   }
 }

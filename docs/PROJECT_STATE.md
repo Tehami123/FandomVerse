@@ -200,21 +200,26 @@ Phase 7A is complete. Stop here until Phase 7B is explicitly started.
 - Phase 9A: Added `docs/ASSET_MANIFEST.md` with generated asset inventory, category/data counts, mapping statuses, mismatches, unused assets, SRS content counts, and Phase 9B recommendations.
 - Phase 9B: Integrated 52 category-safe generated assets across the homepage hero, category heroes, article/trailer/event/merchandise presentation, and detail galleries without changing visual architecture.
 - Phase 9B: Preserved ambiguous character, Movies trailer, homepage-only, and release assets on existing imagery rather than inventing identities.
+- Phase 9C: Normalized all 21 category-scoped event IDs to a single canonical source of truth and verified all `/event/:id` route lookups resolve to the correct event record, gallery, and image.
+- P0 completion pass: Added a clearly labeled localStorage simulated visitor counter, live footer clock, honest online Contact location with external OpenStreetMap search, notes persistence/export, route titles and basic metadata, global reduced-motion and muted-text contrast improvements, nested-main landmark correction, and safe gallery/chatbot focus management.
+- P0 completion pass: Resolved the reported lint errors without changing the protected 3D hero architecture. `npm run lint`, `npm run build`, and `git diff --check` pass. Trailer records intentionally retain the honest unavailable media state because no verified media URLs are available.
+- Final asset integration pass: Mapped all 35 canonical character records to numbered generated character assets, all 21 canonical events to existing generated event assets, all 7 releases to matching generated release assets, and the Movies trailer record to `movies-trailer-01.jpg` without adding media URLs.
+- Final asset integration pass verification: 130 generated files found, 110 actively referenced or assigned at runtime, 20 intentionally unused, 0 missing required record image paths, and 0 active legacy `design-references`/`img1`-`img16` references. The six requested non-existent `*-event-01.jpg` filenames are documented with their available first-event replacements in `docs/ASSET_MANIFEST.md`.
 
 ---
 
 # NEXT TASK
 
-Phase 9C — not started. Do not begin until explicitly requested.
+Final asset integration pass — completed. Remaining follow-up is optional browser smoke verification and review of the existing large JavaScript bundle warning.
 
 ## PHASE 9B ASSET INTEGRATION
 
 ### Integration Counts
-- Generated assets available: 71.
+- Generated assets available: 66.
 - Unique generated assets integrated: 52.
-- Generated assets still unmapped: 19.
-- Unique legacy assets still consumed: 15.
-- Retained but no-longer-consumed legacy import: `img16`.
+- Generated assets still unmapped/unreferenced: 14.
+- Unique legacy assets still consumed by application source: 0.
+- Legacy image imports removed from active source: 22 import references plus the prior direct homepage reference.
 - Broken generated image requests in browser smoke test: 0.
 
 ### Files Changed
@@ -231,7 +236,7 @@ Phase 9C — not started. Do not begin until explicitly requested.
 - Added normalized gallery arrays to canonical article/trailer/event records using category-appropriate generated gallery assets.
 - Kept character candidates unmapped because category filenames do not establish named-character identity.
 - Kept the ambiguous Movies trailer candidate and all release artwork unchanged.
-- Kept `design-references/` intact; no assets were renamed, moved, or deleted.
+- Kept `design-references/` intact as historical/reference material; no assets were renamed, moved, or deleted. No active application source references it.
 
 ### Verification
 - `npm run build`: passed.
@@ -247,7 +252,7 @@ Phase 9C — not started. Do not begin until explicitly requested.
 - Existing global console warnings remain unrelated to this phase (`whileHover` DOM prop and `THREE.Clock` deprecation).
 
 ### Recommended Next Phase
-- Phase 9C should be a targeted cleanup/asset review pass only: remove verified unused legacy imports, resolve the ambiguous Movies trailer filename, and decide whether homepage gallery/merchandise/event assets need explicit data records.
+- Phase 9C should be a targeted asset review pass only: resolve the ambiguous Movies trailer filename and decide whether homepage gallery/merchandise/event assets need explicit data records.
 
 ## PHASE 9A ASSET + DATA MAPPING AUDIT
 

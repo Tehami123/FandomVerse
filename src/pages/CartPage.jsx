@@ -1,4 +1,3 @@
-import React from 'react';
 import { ArrowLeft, Minus, Plus, ShoppingCart, Trash2 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Container } from '../components/ui/Container';
@@ -26,7 +25,7 @@ export function CartPage() {
               {items.map((item) => (
                 <article className="fv-cart-item" key={item.id}>
                   <div className="fv-cart-item-image">
-                    <img src={item.image} alt={item.title} />
+                    {item.image ? <img src={item.image} alt={item.title} /> : <div className="fv-cart-item-placeholder">FANDOMVERSE</div>}
                   </div>
                   <div className="fv-cart-item-info">
                     <div className="fv-cart-item-meta">{item.category} / {item.type}</div>

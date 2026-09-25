@@ -1,4 +1,3 @@
-import React from 'react';
 import { ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Container } from '../ui/Container';
@@ -15,7 +14,7 @@ export function ReleasesSection() {
         <div className="fv-home-releases-grid">
           {releases.slice(0, 4).map((release) => (
             <Link to={`/releases?category=${getCategorySlug(release.category)}`} className="fv-home-release-card" key={release.id}>
-              <img src={release.image} alt={release.title} loading="lazy" />
+              {release.image ? <img src={release.image} alt={release.title} loading="lazy" /> : <span className="fv-home-release-placeholder">FANDOMVERSE / RELEASE RADAR</span>}
               <div className="fv-home-release-overlay"><span>{release.status} / {release.releaseDate}</span><h3>{release.title}</h3><strong>{release.category}</strong></div>
             </Link>
           ))}

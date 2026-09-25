@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Bot, ChevronDown, MessageSquare, Send, Sparkles, X } from 'lucide-react';
+import { useEffect, useRef, useState } from 'react';
+import { Bot, Send, Sparkles, X } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'motion/react';
 import { chatbotQuickReplies } from './chatbotData';
@@ -16,8 +16,25 @@ const initialMessage = {
 export function ChatbotWidget() {
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
+  const inputRef = useRef(null);
+  const triggerRef = useRef(null);
   const [input, setInput] = useState('');
   const [messages, setMessages] = useState([initialMessage]);
+
+  useEffect(() => {
+    if (!open) return undefined;
+
+    inputRef.current?.focus();
+    const trigger = triggerRef.current;
+    const handleKeyDown = (event) => {
+      if (event.key === 'Escape') setOpen(false);
+    };
+    document.addEventListener('keydown', handleKeyDown);
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+      trigger?.focus();
+    };
+  }, [open]);
 
   const navigateAction = (action) => {
     if (!action?.to) return;
@@ -44,6 +61,7 @@ export function ChatbotWidget() {
       {open && (
         <motion.section
           className="fv-chatbot-panel"
+          id="fv-chatbot-panel"
           role="dialog"
           aria-label="FandomVerse Assistant"
           initial={{ opacity: 0, y: 18, scale: 0.96 }}
@@ -95,6 +113,7 @@ export function ChatbotWidget() {
           <form className="fv-chatbot-form" onSubmit={(event) => { event.preventDefault(); sendMessage(input); }}>
             <label className="fv-sr-only" htmlFor="fv-chatbot-input">Message the FandomVerse Assistant</label>
             <input
+              ref={inputRef}
               id="fv-chatbot-input"
               type="text"
               value={input}
@@ -110,11 +129,14 @@ export function ChatbotWidget() {
       )}
 
       <motion.button
+        ref={triggerRef}
         className="fv-chatbot-trigger"
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.98 }}
         aria-label={open ? 'Close FandomVerse Assistant' : 'Open FandomVerse Assistant'}
         aria-expanded={open}
+        aria-controls="fv-chatbot-panel"
+        type="button"
         onClick={() => setOpen((current) => !current)}
       >
         {open ? <X size={20} color="#fff" aria-hidden="true" /> : <Bot size={20} color="#fff" aria-hidden="true" />}

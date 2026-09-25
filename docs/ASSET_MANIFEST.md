@@ -151,11 +151,11 @@ The audit recommendations above were applied conservatively. The original Phase 
 
 | Result | Count |
 |---|---:|
-| Generated assets available | 71 |
+| Generated assets available | 66 |
 | Unique generated assets integrated | 52 |
-| Generated assets still unmapped | 19 |
-| Unique legacy assets still consumed | 15 |
-| Legacy imports no longer consumed but retained | 1 (`img16`, for cleanup review) |
+| Generated assets still unmapped/unreferenced | 14 |
+| Unique legacy assets still consumed | 0 |
+| Legacy imports still consumed by application source | 0 |
 | Broken generated image requests in browser smoke test | 0 |
 
 ### Integrated Mappings
@@ -177,4 +177,46 @@ The audit recommendations above were applied conservatively. The original Phase 
 
 ### Legacy Cleanup Review
 
-`design-references/` was not deleted. Fifteen of its imported files remain consumed by character/trending/fallback content and release imagery. One retained import (`img16`) is no longer consumed after the Anime trailer mapping and can be removed in a later cleanup pass after a separate reference audit.
+`design-references/` was not deleted because this pass only removes application references. It remains as historical/reference material, but application source no longer imports or references it. The historical audit sections above retain the original Phase 9A findings.
+
+## Final Asset Integration Pass
+
+This section is the verified current state after the numbered character/release assets and the Movies trailer asset were integrated. Earlier Phase 9A/9B sections are retained as historical audit records.
+
+### Verified Counts
+
+| Measure | Result |
+|---|---:|
+| Generated files found under `public/assets/` | 130 |
+| Generated files actively referenced or assigned at runtime | 110 |
+| Generated files intentionally unused | 20 |
+| Character records with generated images | 35 / 35 |
+| Event records with generated images | 21 / 21 |
+| Release records with generated images | 7 / 7 |
+| Movies trailer image | Integrated: `/assets/movies/trailers/movies-trailer-01.jpg` |
+| Missing required record image paths | 0 |
+| Active legacy `design-references` or `img1`-`img16` references | 0 |
+
+### Exact Mappings
+
+- Character records retain the canonical IDs `ca1-ca5`, `cg1-cg5`, `cm1-cm5`, `ct1-ct5`, `ck1-ck5`, `cc1-cc5`, and `cn1-cn5`. Within each category, records use the generated `*-character-01.jpg` through `*-character-05.jpg` files in existing record order.
+- Event records retain canonical IDs `ea1-ea3`, `eg1-eg3`, `em1-em3`, `et1-et3`, `ek1-ek3`, `ec1-ec3`, and `en1-en3`. All 21 resolve to existing generated event files.
+- Release records `rel-anime-01`, `rel-gaming-01`, `rel-movies-01`, `rel-tv-01`, `rel-kpop-01`, `rel-comics-01`, and `rel-manga-01` use their matching category release files.
+- Movies trailer record `tr3` uses `/assets/movies/trailers/movies-trailer-01.jpg`. No video or audio URL was invented; its honest unavailable-media state remains unchanged.
+
+### Asset Naming Notes
+
+The requested `anime-event-01.jpg`, `gaming-event-01.jpg`, `movies-event-01.jpg`, `kpop-event-01.jpg`, `comics-event-01.jpg`, and `manga-event-01.jpg` files are absent from the actual asset tree. Their first event records use the available exact category first-event files (`anime-convention-event.jpg`, `gaming-expo-event.jpg`, `tv-fan-gathering-event.jpg`, `kpop-concert-event.jpg`, `comic-convention-event.jpg`, and `manga-exhibition-event.jpg`); event 02/03 files are present and mapped. No broken placeholder paths were introduced.
+
+### Intentionally Unused Generated Files
+
+- Seven duplicate single-image character candidates named `*-character-1.jpg`.
+- Three homepage event assets, five homepage gallery assets, and three homepage merchandise assets without corresponding canonical records.
+- `extra/extra-hero-image.jpg`, which has no current consumer.
+- `movies/trailers/film-festival-event.jpg`, retained as ambiguous because its filename identifies an event while it is stored in the trailer directory.
+
+### Verification
+
+- Data module check: 35 characters, 21 events, 7 releases, and the Movies trailer all have existing image files.
+- Static source search: no active `design-references` or `img1`-`img16` references.
+- Literal asset path check: no missing active generated paths; dynamic character paths were checked against all 35 numbered files.

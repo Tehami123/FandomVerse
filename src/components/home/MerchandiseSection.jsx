@@ -1,8 +1,7 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 import { Container } from '../ui/Container';
 import { merchandise } from '../../data/mockData';
-import { Card, CardTitle, CardMeta } from '../ui/Card';
+import { Card, CardTitle } from '../ui/Card';
 import { AddToCartButton } from '../ui/AddToCartButton';
 import './MerchandiseSection.css';
 

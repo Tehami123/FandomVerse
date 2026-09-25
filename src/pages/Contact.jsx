@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Container } from '../components/ui/Container';
 import './Contact.css';
 import './Auth.css';
@@ -54,7 +54,7 @@ export function Contact() {
               </form>
             )}
           </section>
-          <aside className="fv-contact-location" aria-labelledby="contact-location-heading"><div className="fv-contact-location-art" role="img" aria-label="Map preview unavailable in demo mode"><span>MAP PREVIEW</span><strong>Unavailable in demo mode</strong></div><h2 id="contact-location-heading">A digital home for fandom</h2><p>No physical address is configured for this local project. FandomVerse is currently a frontend experience.</p></aside>
+          <aside className="fv-contact-location" aria-labelledby="contact-location-heading"><div className="fv-contact-location-art" role="img" aria-label="Static map placeholder for the online FandomVerse archive"><span>ONLINE / WORLDWIDE</span><strong>Digital archive</strong></div><h2 id="contact-location-heading">A digital home for fandom</h2><p>No physical studio address is configured for this local project. FandomVerse is an online frontend experience.</p><a className="fv-contact-map-link" href="https://www.openstreetmap.org/search?query=FandomVerse" target="_blank" rel="noreferrer">Search OpenStreetMap <span aria-hidden="true">-&gt;</span></a></aside>
         </div>
       </Container>
     </main>

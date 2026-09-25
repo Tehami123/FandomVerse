@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { AuthContext } from './authContext';
 
 const DEMO_USER_KEY = 'fandomverse_demo_user';
@@ -16,16 +16,15 @@ const readStorage = (key) => {
 
 const writeStorage = (key, value) => localStorage.setItem(key, JSON.stringify(value));
 
-export function AuthProvider({ children }) {
-  const [user, setUser] = useState(null);
-  const [isReady, setIsReady] = useState(false);
+const readInitialUser = () => {
+  const session = readStorage(DEMO_SESSION_KEY);
+  const storedUser = readStorage(DEMO_USER_KEY);
+  return session?.authenticated && storedUser ? storedUser : null;
+};
 
-  useEffect(() => {
-    const session = readStorage(DEMO_SESSION_KEY);
-    const storedUser = readStorage(DEMO_USER_KEY);
-    setUser(session?.authenticated && storedUser ? storedUser : null);
-    setIsReady(true);
-  }, []);
+export function AuthProvider({ children }) {
+  const [user, setUser] = useState(readInitialUser);
+  const [isReady] = useState(true);
 
   const signup = (profile) => {
     const demoUser = {

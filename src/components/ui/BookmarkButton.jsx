@@ -1,4 +1,3 @@
-import React from 'react';
 import { Bookmark, BookmarkCheck } from 'lucide-react';
 import { motion } from 'motion/react';
 import { useBookmarks } from '../../context/BookmarkContext';

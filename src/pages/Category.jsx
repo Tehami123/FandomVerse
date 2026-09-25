@@ -1,14 +1,16 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { useParams, Navigate, Link, useNavigate } from 'react-router-dom';
 import { motion, useScroll, useTransform } from 'motion/react';
 import { Container } from '../components/ui/Container';
 import { categoryDetails } from '../data/categoryData';
 import { TextReveal } from '../components/ui/TextReveal';
-import { ArrowRight, Play } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import { BookmarkButton } from '../components/ui/BookmarkButton';
 import { AddToCartButton } from '../components/ui/AddToCartButton';
 import { getContentDestination } from '../utils/contentData';
 import './Category.css';
+
+const EditorialPlaceholder = ({ label }) => <div className="fv-category-image-placeholder" aria-label={`${label} artwork unavailable`}>FANDOMVERSE</div>;
 
 export function Category() {
   const { categoryId } = useParams();
@@ -19,12 +21,12 @@ export function Category() {
     window.scrollTo(0, 0);
   }, [categoryId]);
 
+  const { scrollYProgress } = useScroll();
+  const yBg = useTransform(scrollYProgress, [0, 1], ['0%', '20%']);
+
   if (!category) {
     return <Navigate to="/" replace />;
   }
-
-  const { scrollYProgress } = useScroll();
-  const yBg = useTransform(scrollYProgress, [0, 1], ['0%', '20%']);
   const bookmarkItem = (item, contentType) => ({
     ...item,
     title: item.title || item.name,
@@ -92,7 +94,7 @@ export function Category() {
               viewport={{ once: true }}
             >
               <BookmarkButton item={bookmarkItem(category.featuredContent, 'Featured')} style={{ position: 'absolute', top: 16, right: 16, zIndex: 3 }} />
-              <img src={category.featuredContent.image} alt={category.featuredContent.title} />
+              {category.featuredContent.image ? <img src={category.featuredContent.image} alt={category.featuredContent.title} /> : <EditorialPlaceholder label={category.featuredContent.title} />}
               <div className="fv-featured-overlay">
                 <span className="fv-featured-meta">{category.featuredContent.type}</span>
                 <h3>{category.featuredContent.title}</h3>
@@ -143,7 +145,7 @@ export function Category() {
               >
                 <BookmarkButton item={bookmarkItem(item, 'Trending')} className="fv-category-bookmark" style={{ position: 'absolute', top: 8, right: 8, zIndex: 3 }} />
                 <div style={{ position: 'relative', overflow: 'hidden', borderRadius: 'var(--radius-md)', aspectRatio: '16/9' }}>
-                  <img src={item.image} alt={item.title} style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.4s ease' }} />
+                  {item.image ? <img src={item.image} alt={item.title} style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.4s ease' }} /> : <EditorialPlaceholder label={item.title} />}
                   <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(5,5,5,0.7), transparent)', opacity: 0.7 }} />
                 </div>
                 <div className="fv-card-content-editorial">
@@ -181,7 +183,7 @@ export function Category() {
               >
                 <BookmarkButton item={bookmarkItem(item, 'Discovery')} className="fv-category-bookmark" style={{ position: 'absolute', top: 8, right: 8, zIndex: 3 }} />
                 <div style={{ position: 'relative', overflow: 'hidden', borderRadius: 'var(--radius-md)', aspectRatio: '16/9' }}>
-                  <img src={item.image} alt={item.title} style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.4s ease' }} />
+                  {item.image ? <img src={item.image} alt={item.title} style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.4s ease' }} /> : <EditorialPlaceholder label={item.title} />}
                 </div>
                 <div className="fv-card-content-editorial">
                   <h4>{item.title}</h4>
@@ -216,7 +218,7 @@ export function Category() {
               >
                 <BookmarkButton item={bookmarkItem(item, 'Character')} className="fv-category-bookmark" style={{ position: 'absolute', top: 8, right: 8, zIndex: 3 }} />
                 <div className="fv-character-card">
-                  <img src={item.image} alt={item.name} />
+                  {item.image ? <img src={item.image} alt={item.name} /> : <EditorialPlaceholder label={item.name} />}
                   <div className="fv-character-overlay">
                     <span className="fv-character-franchise">{item.franchise}</span>
                     <h4 className="fv-character-name">{item.name}</h4>
@@ -255,7 +257,7 @@ export function Category() {
               >
                 <BookmarkButton item={bookmarkItem(item, 'Article')} className="fv-category-bookmark" style={{ position: 'absolute', top: 8, right: 8, zIndex: 3 }} />
                 <div style={{ position: 'relative', overflow: 'hidden', borderRadius: 'var(--radius-md)' }} className="fv-card-image-wrapper">
-                  <img src={item.image} alt={item.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                  {item.image ? <img src={item.image} alt={item.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} /> : <EditorialPlaceholder label={item.title} />}
                 </div>
                 <div className="fv-card-content-editorial">
                   <h4 style={{ fontSize: idx === 0 ? '32px' : '20px' }}>{item.title}</h4>
@@ -295,7 +297,7 @@ export function Category() {
               >
                 <BookmarkButton item={bookmarkItem(item, 'Trailer')} className="fv-category-bookmark" style={{ position: 'absolute', top: 8, right: 8, zIndex: 3 }} />
                 <div className="fv-trailer-wrapper">
-                  <img src={item.image} alt={item.title} />
+                  {item.image ? <img src={item.image} alt={item.title} /> : <EditorialPlaceholder label={item.title} />}
                   <div className="fv-trailer-overlay">
                     <span style={{ fontSize: '11px', textTransform: 'uppercase', color: 'var(--cat-accent)', letterSpacing: '0.1em' }}>{item.status}</span>
                     <div className="fv-play-btn">
@@ -374,7 +376,7 @@ export function Category() {
               >
                 <BookmarkButton item={bookmarkItem(item, 'Merchandise')} className="fv-category-bookmark" style={{ position: 'absolute', top: 8, right: 8, zIndex: 3 }} />
                 <div className="fv-merch-img">
-                  <img src={item.image} alt={item.title} />
+                  {item.image ? <img src={item.image} alt={item.title} /> : <EditorialPlaceholder label={item.title} />}
                 </div>
                 <div className="fv-merch-info">
                   <div style={{ fontSize: '11px', color: 'var(--color-text-secondary)', marginBottom: '4px', textTransform: 'uppercase' }}>{item.status}</div>

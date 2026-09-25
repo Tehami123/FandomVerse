@@ -1,8 +1,6 @@
-import React, { Suspense } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion, useScroll, useTransform } from 'motion/react';
 import { Container } from '../ui/Container';
-import { Button } from '../ui/Button';
 import { Scene3D } from '../visuals/Scene3D';
 import { TextReveal } from '../ui/TextReveal';
 import { FloatingElement } from '../ui/FloatingElement';

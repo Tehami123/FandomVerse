@@ -1,9 +1,8 @@
-import React from 'react';
 import { motion, useScroll, useTransform } from 'motion/react';
 import { Container } from '../ui/Container';
 import { characterSpotlight } from '../../data/mockData';
-import { Button } from '../ui/Button';
 import { FloatingElement } from '../ui/FloatingElement';
+import { Button } from '../ui/Button';
 import './CharacterSpotlight.css';
 
 export function CharacterSpotlight() {
@@ -18,12 +17,7 @@ export function CharacterSpotlight() {
             {characterSpotlight.name.split(' ')[0]}
           </div>
           <div className="fv-character-image-col" style={{ zIndex: 2 }}>
-            <motion.img 
-              src={characterSpotlight.image} 
-              alt={characterSpotlight.name} 
-              className="fv-character-img"
-              style={{ y }}
-            />
+            {characterSpotlight.image ? <motion.img src={characterSpotlight.image} alt={characterSpotlight.name} className="fv-character-img" style={{ y }} /> : <div className="fv-character-img-placeholder">FANDOMVERSE</div>}
             <div className="fv-character-img-overlay" />
           </div>
           <div className="fv-character-info-col">

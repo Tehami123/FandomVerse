@@ -1,9 +1,29 @@
-import React from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Container } from '../ui/Container';
 import './Footer.css';
 
+const VISITOR_COUNT_KEY = 'fandomverse_simulated_visitor_count';
+const INITIAL_VISITOR_COUNT = 1284;
+
+const getInitialVisitorCount = () => {
+  const storedCount = Number.parseInt(window.localStorage.getItem(VISITOR_COUNT_KEY) || '', 10);
+  const nextCount = Number.isFinite(storedCount) && storedCount >= INITIAL_VISITOR_COUNT
+    ? storedCount
+    : INITIAL_VISITOR_COUNT;
+  window.localStorage.setItem(VISITOR_COUNT_KEY, String(nextCount));
+  return nextCount;
+};
+
 export function Footer() {
+  const [visitorCount] = useState(getInitialVisitorCount);
+  const [currentTime, setCurrentTime] = useState(() => new Date());
+
+  useEffect(() => {
+    const timerId = window.setInterval(() => setCurrentTime(new Date()), 1000);
+    return () => window.clearInterval(timerId);
+  }, []);
+
   return (
     <footer className="fv-footer">
       <Container>
@@ -13,6 +33,10 @@ export function Footer() {
             <p className="fv-footer-desc">
               The ultimate sanctuary for fandom discovery. Explore Anime, Gaming, Movies, and beyond in a cinematic experience.
             </p>
+            <div className="fv-footer-status" aria-label="FandomVerse local demo status">
+              <span>Simulated visitors: {visitorCount.toLocaleString()}</span>
+              <time dateTime={currentTime.toISOString()}>{currentTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' })}</time>
+            </div>
           </div>
           <div className="fv-footer-links">
             <h4>Explore</h4>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { ArrowRight, BookmarkX, Download, Edit3, Save, Search, Trash2, X } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Container } from '../components/ui/Container';
@@ -34,7 +34,7 @@ export function BookmarksPage() {
       app: 'FandomVerse',
       exportedAt: new Date().toISOString(),
       bookmarks: bookmarks.map(({ id, title, name, image, description, category, contentType, destination }) => ({
-        id, title, name, image, description, category, contentType, destination,
+        id, title, name, image, description, category, contentType, destination, notes: notes[id] || undefined,
       })),
     };
     const blob = new Blob([JSON.stringify(exportData, null, 2)], { type: 'application/json' });

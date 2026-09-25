@@ -1,4 +1,3 @@
-import React from 'react';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Container } from '../components/ui/Container';
@@ -42,7 +41,7 @@ export function RelatedContent({ items, contentType, getPath }) {
       <div className="fv-detail-related-grid">
         {items.map((item) => (
           <Link to={getPath(item)} className="fv-detail-related-card" key={item.id}>
-            <img src={item.image} alt={item.title} />
+            {item.image ? <img src={item.image} alt={item.title} /> : <div className="fv-detail-related-placeholder">FANDOMVERSE</div>}
             <span>{item.category}</span>
             <h3>{item.title}</h3>
             <ArrowRight size={16} aria-hidden="true" />

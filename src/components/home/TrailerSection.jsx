@@ -1,8 +1,7 @@
-import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Container } from '../ui/Container';
 import { trailers } from '../../data/mockData';
-import { Card, CardTitle, CardMeta } from '../ui/Card';
+import { Card, CardTitle } from '../ui/Card';
 import { Badge } from '../ui/Badge';
 import { Play } from 'lucide-react';
 import './TrailerSection.css';

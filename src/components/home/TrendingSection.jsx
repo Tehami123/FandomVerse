@@ -1,9 +1,8 @@
-import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'motion/react';
 import { Container } from '../ui/Container';
 import { trending } from '../../data/mockData';
-import { Card, CardTitle, CardMeta } from '../ui/Card';
+import { Card, CardMeta } from '../ui/Card';
 import { Badge } from '../ui/Badge';
 import './TrendingSection.css';
 

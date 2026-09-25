@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { ArrowLeft, ArrowRight, X } from 'lucide-react';
 import './Gallery.css';
 
@@ -13,7 +13,8 @@ export function Gallery({ images = [], title = 'Gallery' }) {
   const normalizedImages = normalizeImages(images, title);
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
-  const lightboxImageRef = useRef(null);
+  const lightboxCloseRef = useRef(null);
+  const openButtonRef = useRef(null);
 
   useEffect(() => {
     if (!isOpen) return undefined;
@@ -22,16 +23,31 @@ export function Gallery({ images = [], title = 'Gallery' }) {
       if (event.key === 'Escape') setIsOpen(false);
       if (event.key === 'ArrowLeft') setSelectedIndex((index) => (index - 1 + normalizedImages.length) % normalizedImages.length);
       if (event.key === 'ArrowRight') setSelectedIndex((index) => (index + 1) % normalizedImages.length);
+      if (event.key === 'Tab') {
+        const focusable = Array.from(document.querySelectorAll('.fv-gallery-lightbox button, .fv-gallery-lightbox [tabindex]:not([tabindex="-1"])'));
+        if (!focusable.length) return;
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+        if (event.shiftKey && document.activeElement === first) {
+          event.preventDefault();
+          last.focus();
+        } else if (!event.shiftKey && document.activeElement === last) {
+          event.preventDefault();
+          first.focus();
+        }
+      }
     };
 
     document.addEventListener('keydown', handleKeyDown);
     const previousOverflow = document.body.style.overflow;
+    const opener = openButtonRef.current;
     document.body.style.overflow = 'hidden';
-    lightboxImageRef.current?.focus();
+    lightboxCloseRef.current?.focus();
 
     return () => {
       document.removeEventListener('keydown', handleKeyDown);
       document.body.style.overflow = previousOverflow;
+      opener?.focus();
     };
   }, [isOpen, normalizedImages.length]);
 
@@ -44,7 +60,7 @@ export function Gallery({ images = [], title = 'Gallery' }) {
 
   return (
     <section className="fv-gallery" aria-label={`${title} image gallery`}>
-      <button className="fv-gallery-main" type="button" onClick={() => setIsOpen(true)} aria-label={`Open ${title} image in lightbox`}>
+      <button ref={openButtonRef} className="fv-gallery-main" type="button" onClick={() => setIsOpen(true)} aria-label={`Open ${title} image in lightbox`}>
         <img src={selectedImage.src} alt={selectedImage.alt} />
         <span className="fv-gallery-open-label">View image</span>
       </button>
@@ -67,7 +83,7 @@ export function Gallery({ images = [], title = 'Gallery' }) {
       {isOpen && (
         <div className="fv-gallery-lightbox" role="dialog" aria-modal="true" aria-label={`${title} image viewer`} onMouseDown={(event) => event.target === event.currentTarget && setIsOpen(false)}>
           <div className="fv-gallery-dialog">
-            <button className="fv-gallery-control fv-gallery-close" type="button" onClick={() => setIsOpen(false)} aria-label="Close image viewer">
+            <button ref={lightboxCloseRef} className="fv-gallery-control fv-gallery-close" type="button" onClick={() => setIsOpen(false)} aria-label="Close image viewer">
               <X size={22} aria-hidden="true" />
             </button>
             {hasMultipleImages && (
@@ -75,7 +91,7 @@ export function Gallery({ images = [], title = 'Gallery' }) {
                 <ArrowLeft size={22} aria-hidden="true" />
               </button>
             )}
-            <img ref={lightboxImageRef} className="fv-gallery-lightbox-image" src={selectedImage.src} alt={selectedImage.alt} tabIndex="-1" />
+            <img className="fv-gallery-lightbox-image" src={selectedImage.src} alt={selectedImage.alt} tabIndex="-1" />
             {hasMultipleImages && (
               <button className="fv-gallery-control fv-gallery-next" type="button" onClick={showNext} aria-label="Show next image">
                 <ArrowRight size={22} aria-hidden="true" />

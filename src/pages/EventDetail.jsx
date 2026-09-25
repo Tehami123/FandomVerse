@@ -1,4 +1,3 @@
-import React from 'react';
 import { useParams } from 'react-router-dom';
 import { BookmarkButton } from '../components/ui/BookmarkButton';
 import { Gallery } from '../components/gallery/Gallery';

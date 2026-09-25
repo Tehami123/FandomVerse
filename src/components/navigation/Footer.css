@@ -26,6 +26,20 @@
   color: var(--color-text-secondary);
 }
 
+.fv-footer-status {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-md);
+  margin-top: var(--space-lg);
+  color: var(--color-text-secondary);
+  font-size: 13px;
+}
+
+.fv-footer-status time {
+  color: var(--color-text-primary);
+  font-variant-numeric: tabular-nums;
+}
+
 .fv-footer-links h4 {
   font-size: 14px;
   text-transform: uppercase;

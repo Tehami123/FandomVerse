@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { ArrowRight, Search, X } from 'lucide-react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { motion } from 'motion/react';
@@ -28,6 +28,8 @@ export function SearchPage() {
   const hasActiveRefinement = Boolean(category || type || tag || sort !== 'relevance');
 
   useEffect(() => {
+    // The URL is the source of truth when browser navigation changes the query.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setInputValue(query);
   }, [query]);
 
@@ -179,8 +181,8 @@ export function SearchPage() {
               >
                 <BookmarkButton item={result} className="fv-search-bookmark" />
                 <Link to={result.destination} className="fv-search-result-link">
-                  <div className="fv-search-result-image">
-                    <img src={result.image} alt={result.title} />
+                  <div className={`fv-search-result-image${result.image ? '' : ' fv-search-result-image-placeholder'}`}>
+                    {result.image ? <img src={result.image} alt={result.title} /> : <span>FANDOMVERSE</span>}
                   </div>
                   <div className="fv-search-result-content">
                     <div className="fv-search-result-meta">

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Search, Bookmark, ShoppingCart, User, LogOut, Menu, X } from 'lucide-react';
 import { Container } from '../ui/Container';

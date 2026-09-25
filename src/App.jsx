@@ -1,5 +1,5 @@
-import React from 'react'
-import { Routes, Route } from 'react-router-dom'
+import { useEffect } from 'react'
+import { Routes, Route, useLocation } from 'react-router-dom'
 import { AppLayout } from './layouts/AppLayout'
 import { Home } from './pages/Home'
 import { Category } from './pages/Category'
@@ -19,11 +19,37 @@ import { Login } from './pages/Login'
 import { Signup } from './pages/Signup'
 import { AuthProvider } from './context/AuthContext.jsx'
 
+function RouteTitle() {
+  const location = useLocation();
+
+  useEffect(() => {
+    const path = location.pathname;
+    const title = path === '/' ? 'FandomVerse | Fandom Discovery Archive'
+      : path.startsWith('/category/') ? 'Category | FandomVerse'
+        : path === '/search' ? 'Search | FandomVerse'
+          : path === '/bookmarks' ? 'Bookmarks | FandomVerse'
+            : path === '/cart' ? 'Cart | FandomVerse'
+              : path === '/releases' ? 'Releases | FandomVerse'
+                : path === '/about' ? 'About | FandomVerse'
+                  : path === '/contact' ? 'Contact | FandomVerse'
+                    : path === '/login' ? 'Sign In | FandomVerse'
+                      : path === '/signup' ? 'Sign Up | FandomVerse'
+                        : path.startsWith('/article/') ? 'Article | FandomVerse'
+                          : path.startsWith('/trailer/') ? 'Trailer | FandomVerse'
+                            : path.startsWith('/event/') ? 'Event | FandomVerse'
+                              : 'FandomVerse | Fandom Discovery Archive';
+    document.title = title;
+  }, [location.pathname]);
+
+  return null;
+}
+
 function App() {
   return (
     <>
       <CustomCursor />
       <div className="fv-grain-overlay" />
+      <RouteTitle />
       <BookmarkProvider>
         <AuthProvider>
           <CartProvider>

@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 import { ArrowRight } from 'lucide-react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { Container } from '../components/ui/Container';
@@ -47,7 +47,7 @@ export function Releases() {
             {filteredReleases.map((release) => (
               <article className="fv-release-card" key={release.id}>
                 <Link to={`/releases?category=${categorySlugs[release.category]}`} className="fv-release-card-link">
-                  <div className="fv-release-image-wrap"><img src={release.image} alt={release.title} loading="lazy" /><span className={`fv-release-status fv-release-status-${release.status.toLowerCase()}`}>{release.status}</span></div>
+                  <div className={`fv-release-image-wrap${release.image ? '' : ' fv-release-image-placeholder'}`}>{release.image ? <img src={release.image} alt={release.title} loading="lazy" /> : <span className="fv-release-placeholder-label">FANDOMVERSE / RELEASE RADAR</span>}<span className={`fv-release-status fv-release-status-${release.status.toLowerCase()}`}>{release.status}</span></div>
                   <div className="fv-release-card-content">
                     <div className="fv-release-meta"><span>{release.category}</span><span>/</span><span>{formatReleaseDate(release.releaseDate)}</span></div>
                     <h2>{release.title}</h2><p>{release.description}</p><span className="fv-release-franchise">{release.franchise}</span><ArrowRight className="fv-release-arrow" size={18} aria-hidden="true" />
