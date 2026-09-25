@@ -3,7 +3,7 @@ import { BookmarkButton } from '../components/ui/BookmarkButton';
 import { Gallery } from '../components/gallery/Gallery';
 import { getContentByType, getContentDestination, getGalleryImages, getRelatedContent } from '../utils/contentData';
 import { Container } from '../components/ui/Container';
-import { DetailBackLink, DetailHeader, DetailNotFound, RelatedContent } from './ContentDetail';
+import { DetailBackLink, DetailNotFound, RelatedContent } from './ContentDetail';
 import './ContentDetail.css';
 
 export function ArticleDetail() {
@@ -18,14 +18,18 @@ export function ArticleDetail() {
   return (
     <main className="fv-detail-page">
       <Container>
-        <DetailHeader
-          eyebrow="EDITORIAL / ARTICLE"
-          title={article.title}
-          category={article.category}
-          metadata={[article.author, article.date, article.readTime]}
-        />
-        <div className="fv-detail-feature">
-          <Gallery images={getGalleryImages(article)} title={article.title} />
+        <div className="fv-detail-cinematic-header">
+          <div className="fv-detail-kicker">EDITORIAL / {article.category}</div>
+          <div className="fv-detail-cinematic-image">
+            <Gallery images={getGalleryImages(article)} title={article.title} />
+          </div>
+          <h1 className="fv-detail-cinematic-title">{article.title}</h1>
+          <div className="fv-detail-meta">
+            {[article.author, article.date, article.readTime].filter(Boolean).map((item) => <span key={item}>{item}</span>)}
+          </div>
+        </div>
+
+        <div className="fv-detail-copy-centered">
           <div className="fv-detail-copy">
             <BookmarkButton item={bookmark} />
             <h2>From the editorial desk</h2>

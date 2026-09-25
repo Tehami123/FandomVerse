@@ -4,9 +4,11 @@ export function MediaPlayer({ src, type = 'video', title }) {
   if (!src) {
     return (
       <div className="fv-media-player fv-media-player-unavailable" role="status" aria-label={`Media unavailable for ${title}`}>
-        <div>
-          <strong>Media preview unavailable</strong>
-          <p>No local {type} source is included for this title.</p>
+        <div className="fv-media-transmission-lost">
+          <span className="fv-media-status-dot"></span>
+          <strong>TRANSMISSION LOST</strong>
+          <p>This transmission is not available in the current archive.</p>
+          <div className="fv-media-timestamp">ARCHIVE.TIMESTAMP // {new Date().getFullYear()}</div>
         </div>
       </div>
     );

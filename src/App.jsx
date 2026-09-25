@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import { Routes, Route, useLocation } from 'react-router-dom'
+import { AnimatePresence, motion } from 'framer-motion'
 import { AppLayout } from './layouts/AppLayout'
 import { Home } from './pages/Home'
 import { Category } from './pages/Category'
@@ -44,6 +45,37 @@ function RouteTitle() {
   return null;
 }
 
+function AnimatedRoutes() {
+  const location = useLocation();
+  return (
+    <AnimatePresence mode="wait">
+      <motion.div
+        key={location.pathname}
+        initial={{ opacity: 0, filter: 'blur(4px)' }}
+        animate={{ opacity: 1, filter: 'blur(0px)' }}
+        exit={{ opacity: 0, filter: 'blur(4px)' }}
+        transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+      >
+        <Routes location={location}>
+          <Route path="/" element={<Home />} />
+          <Route path="/category/:categoryId" element={<Category />} />
+          <Route path="/search" element={<SearchPage />} />
+          <Route path="/bookmarks" element={<BookmarksPage />} />
+          <Route path="/cart" element={<CartPage />} />
+          <Route path="/article/:id" element={<ArticleDetail />} />
+          <Route path="/trailer/:id" element={<TrailerDetail />} />
+          <Route path="/event/:id" element={<EventDetail />} />
+          <Route path="/releases" element={<Releases />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+        </Routes>
+      </motion.div>
+    </AnimatePresence>
+  );
+}
+
 function App() {
   return (
     <>
@@ -54,21 +86,7 @@ function App() {
         <AuthProvider>
           <CartProvider>
             <AppLayout>
-              <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/category/:categoryId" element={<Category />} />
-              <Route path="/search" element={<SearchPage />} />
-              <Route path="/bookmarks" element={<BookmarksPage />} />
-              <Route path="/cart" element={<CartPage />} />
-              <Route path="/article/:id" element={<ArticleDetail />} />
-              <Route path="/trailer/:id" element={<TrailerDetail />} />
-              <Route path="/event/:id" element={<EventDetail />} />
-              <Route path="/releases" element={<Releases />} />
-              <Route path="/about" element={<About />} />
-              <Route path="/contact" element={<Contact />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/signup" element={<Signup />} />
-              </Routes>
+              <AnimatedRoutes />
             </AppLayout>
           </CartProvider>
         </AuthProvider>

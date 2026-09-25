@@ -61,6 +61,47 @@
   background: var(--color-bg-elevated);
 }
 
+.fv-detail-cinematic-header {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: var(--space-3xl);
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.fv-detail-cinematic-image {
+  width: 100%;
+  aspect-ratio: 21/9;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  margin-bottom: var(--space-2xl);
+  border: 1px solid var(--color-border);
+  position: relative;
+}
+
+.fv-detail-cinematic-image::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(5,5,5,0.4) 0%, transparent 40%);
+  pointer-events: none;
+}
+
+.fv-detail-cinematic-title {
+  font-size: clamp(48px, 6vw, 84px);
+  font-weight: 800;
+  line-height: 1.05;
+  margin-bottom: var(--space-md);
+  text-transform: uppercase;
+  max-width: 900px;
+}
+
+.fv-detail-copy-centered {
+  max-width: 720px;
+  margin: 0 auto;
+}
+
 .fv-detail-copy {
   padding-top: var(--space-lg);
 }

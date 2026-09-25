@@ -1,11 +1,12 @@
 import { useEffect, useMemo, useState } from 'react';
 import { ArrowRight, Search, X } from 'lucide-react';
-import { Link, useSearchParams } from 'react-router-dom';
+import { Link, useSearchParams, useNavigate } from 'react-router-dom';
 import { motion } from 'motion/react';
 import { Container } from '../components/ui/Container';
 import { BookmarkButton } from '../components/ui/BookmarkButton';
 import { categoryDetails } from '../data/categoryData';
 import { filterAndSortContent, getSearchFilterOptions, searchContent } from '../utils/contentData';
+import { ContentCard } from '../components/ui/ContentCards';
 import './SearchPage.css';
 
 const getCategoryAccent = (category) => {
@@ -14,6 +15,7 @@ const getCategoryAccent = (category) => {
 };
 
 export function SearchPage() {
+  const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
   const query = searchParams.get('q') || '';
   const category = searchParams.get('category') || '';
@@ -175,27 +177,14 @@ export function SearchPage() {
             {results.map((result) => (
               <motion.div
                 key={result.id}
-                className="fv-search-result"
-                style={{ '--result-accent': getCategoryAccent(result.category) }}
+                style={{ '--cat-accent': getCategoryAccent(result.category) }}
                 variants={{ hidden: { opacity: 0, y: 18 }, visible: { opacity: 1, y: 0 } }}
               >
-                <BookmarkButton item={result} className="fv-search-bookmark" />
-                <Link to={result.destination} className="fv-search-result-link">
-                  <div className={`fv-search-result-image${result.image ? '' : ' fv-search-result-image-placeholder'}`}>
-                    {result.image ? <img src={result.image} alt={result.title} /> : <span>FANDOMVERSE</span>}
-                  </div>
-                  <div className="fv-search-result-content">
-                    <div className="fv-search-result-meta">
-                      <span>{result.contentType}</span>
-                      <span className="fv-search-result-dot">/</span>
-                      <span style={{ color: 'var(--result-accent)' }}>{result.category}</span>
-                    </div>
-                    <h2>{result.title}</h2>
-                    {result.description && <p>{result.description}</p>}
-                    {result.metadata && <span className="fv-search-result-detail">{result.metadata}</span>}
-                  </div>
-                  <ArrowRight className="fv-search-result-arrow" size={20} aria-hidden="true" />
-                </Link>
+                <ContentCard 
+                  item={result} 
+                  bookmarkItem={result} 
+                  onClick={() => navigate(result.destination)} 
+                />
               </motion.div>
             ))}
           </motion.div>

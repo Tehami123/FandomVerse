@@ -49,33 +49,29 @@ export function HeroSection() {
         <div className="fv-hero-editorial-layout">
           <div className="fv-hero-left">
             <FloatingElement delay={0} yOffset={5} duration={7}>
-              <div className="fv-hero-metadata">
+              <motion.div
+                className="fv-hero-metadata"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+              >
                 <span>VOL. 01</span>
                 <span className="divider"></span>
                 <span>THE ARCHIVE</span>
-              </div>
+              </motion.div>
             </FloatingElement>
             
             <h1 className="fv-hero-title">
-              <TextReveal text="ENTER THE" delay={0.1} />
+              <TextReveal text="ENTER THE" delay={0.6} />
               <br />
-              <TextReveal text="VERSE" delay={0.3} />
+              <TextReveal text="VERSE" delay={0.8} />
             </h1>
-            
-            <motion.div 
-              className="fv-hero-categories-meta"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.8, duration: 1 }}
-            >
-              ANIME / GAMING / MOVIES / TV / K-POP / COMICS / MANGA
-            </motion.div>
 
             <motion.p 
               className="fv-hero-desc"
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6, delay: 1 }}
+              transition={{ duration: 0.8, delay: 1.2, ease: [0.16, 1, 0.3, 1] }}
             >
               The ultimate destination for every fandom.<br/>
               Explore, discover, and immerse yourself in the culture<br/>
@@ -86,7 +82,7 @@ export function HeroSection() {
               className="fv-hero-actions"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 1.2 }}
+              transition={{ duration: 0.8, delay: 1.4, ease: [0.16, 1, 0.3, 1] }}
             >
               <button className="fv-hero-cta-btn" type="button" onClick={() => navigate('/search')}>
                 <span className="fv-hero-cta-icon"><ArrowRight size={18} strokeWidth={1} /></span>
@@ -94,7 +90,17 @@ export function HeroSection() {
                 <span className="fv-hero-cta-line"></span>
               </button>
             </motion.div>
+
+            <motion.div
+              className="fv-hero-categories-meta"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 1, delay: 1.8 }}
+            >
+              ANIME / GAMING / MOVIES / TV / K-POP / COMICS / MANGA
+            </motion.div>
           </div>
+
 
           <div className="fv-hero-right desktop-only">
             <motion.div 

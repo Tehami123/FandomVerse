@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Search, Bookmark, ShoppingCart, User, LogOut, Menu, X } from 'lucide-react';
 import { Container } from '../ui/Container';
@@ -12,9 +12,18 @@ export function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { totalQuantity } = useCart();
   const { user, isAuthenticated, logout } = useAuth();
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 20);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   return (
-    <header className="fv-navbar">
+    <header className={`fv-navbar ${scrolled ? 'scrolled' : ''}`}>
       <Container className="fv-navbar-inner">
         <div className="fv-navbar-left">
           <IconButton 

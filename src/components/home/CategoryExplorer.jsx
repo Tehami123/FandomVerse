@@ -3,14 +3,18 @@ import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'motion/react';
 import { Container } from '../ui/Container';
 import { categories } from '../../data/mockData';
+import { Scene3D } from '../visuals/Scene3D';
 import './CategoryExplorer.css';
 
 export function CategoryExplorer() {
   const [activeId, setActiveId] = useState(categories[0]?.id || 1);
 
   return (
-    <section className="fv-section fv-categories-section">
-      <Container>
+    <section className="fv-section fv-categories-section" style={{ position: 'relative', overflow: 'hidden' }}>
+      <div style={{ position: 'absolute', inset: 0, zIndex: 0, opacity: 0.3, pointerEvents: 'none' }}>
+        <Scene3D />
+      </div>
+      <Container style={{ position: 'relative', zIndex: 1 }}>
         <div className="fv-section-header-editorial">
           <div className="fv-section-number">01 // EXPLORE</div>
           <motion.h2 initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}>

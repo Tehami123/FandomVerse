@@ -1,4 +1,4 @@
-import { trending, articles, charactersByCategory, trailers, eventsByCategory, merchandise } from './mockData';
+import { trending, articles, charactersByCategory, trailers, eventsByCategory, merchandise, merchandiseByCategory } from './mockData';
 const heroImg1 = '/assets/anime/anime-hero.jpg';
 const heroImg2 = '/assets/gaming/gaming-hero.jpg';
 const heroImg3 = '/assets/movies/movies-hero.jpg';
@@ -78,7 +78,7 @@ export const categoryDetails = {
     articles: withCategoryMedia([articles[0], articles[1], articles[2]], 'anime', 'articles'),
     trailers: withCategoryMedia(trailers, 'anime', 'trailers'),
     events: eventsByCategory.anime,
-    merchandise: withCategoryMedia(merchandise, 'anime', 'merchandise')
+    merchandise: merchandiseByCategory.anime
   },
   gaming: {
     id: 'gaming',
@@ -99,7 +99,7 @@ export const categoryDetails = {
     articles: withCategoryMedia([articles[1], articles[2], articles[0]], 'gaming', 'articles'),
     trailers: withCategoryMedia(trailers, 'gaming', 'trailers'),
     events: eventsByCategory.gaming,
-    merchandise: withCategoryMedia(merchandise, 'gaming', 'merchandise')
+    merchandise: merchandiseByCategory.gaming
   },
   movies: {
     id: 'movies',
@@ -120,7 +120,7 @@ export const categoryDetails = {
     articles: withCategoryMedia([articles[2], articles[0], articles[1]], 'movies', 'articles'),
     trailers: trailers,
     events: eventsByCategory.movies,
-    merchandise: withCategoryMedia(merchandise, 'movies', 'merchandise')
+    merchandise: merchandiseByCategory.movies
   },
   tv: {
     id: 'tv',
@@ -141,7 +141,7 @@ export const categoryDetails = {
     articles: withCategoryMedia([articles[0], articles[1], articles[2]], 'tv', 'articles'),
     trailers: withCategoryMedia(trailers, 'tv', 'trailers'),
     events: eventsByCategory.tv,
-    merchandise: withCategoryMedia(merchandise, 'tv', 'merchandise')
+    merchandise: merchandiseByCategory.tv
   },
   kpop: {
     id: 'kpop',
@@ -162,7 +162,7 @@ export const categoryDetails = {
     articles: withCategoryMedia([articles[1], articles[0], articles[2]], 'kpop', 'articles'),
     trailers: withCategoryMedia(trailers, 'kpop', 'trailers'),
     events: eventsByCategory.kpop,
-    merchandise: withCategoryMedia(merchandise, 'kpop', 'merchandise')
+    merchandise: merchandiseByCategory.kpop
   },
   comics: {
     id: 'comics',
@@ -183,7 +183,7 @@ export const categoryDetails = {
     articles: withCategoryMedia([articles[2], articles[1], articles[0]], 'comics', 'articles'),
     trailers: withCategoryMedia(trailers, 'comics', 'trailers'),
     events: eventsByCategory.comics,
-    merchandise: withCategoryMedia(merchandise, 'comics', 'merchandise')
+    merchandise: merchandiseByCategory.comics
   },
   manga: {
     id: 'manga',
@@ -204,6 +204,6 @@ export const categoryDetails = {
     articles: withCategoryMedia([articles[0], articles[2], articles[1]], 'manga', 'articles'),
     trailers: withCategoryMedia(trailers, 'manga', 'trailers'),
     events: eventsByCategory.manga,
-    merchandise: withCategoryMedia(merchandise, 'manga', 'merchandise')
+    merchandise: merchandiseByCategory.manga
   }
 };

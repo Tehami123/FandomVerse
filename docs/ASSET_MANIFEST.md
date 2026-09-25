@@ -220,3 +220,21 @@ The requested `anime-event-01.jpg`, `gaming-event-01.jpg`, `movies-event-01.jpg`
 - Data module check: 35 characters, 21 events, 7 releases, and the Movies trailer all have existing image files.
 - Static source search: no active `design-references` or `img1`-`img16` references.
 - Literal asset path check: no missing active generated paths; dynamic character paths were checked against all 35 numbered files.
+
+### Phase 3: Merchandise Audit
+- **Audit Findings**: The previous model reused 4 global merchandise records (`m1-m4`) across all 7 categories. This caused category mismatch (e.g., Katana replica showing up in Anime) and forced multiple records to reuse the exact same generated assets.
+- **Action Taken**: Expanded the global merchandise catalog from 4 items to 12 distinct items, utilizing all available generated merchandise assets (9 category + 3 homepage assets).
+- **Mappings Updated**:
+  - `m1`: `gaming/merchandise/gaming-desk-figure-merchandise.jpg` (Void Runner Desk Figure)
+  - `m2`: `gaming/merchandise/gaming-hoodie-merchandise.jpg` (Void Runner Hoodie)
+  - `m3`: `anime/merchandise/anime-poster-merchandise.jpg` (Stellar Drifters Artbook)
+  - `m4`: `anime/merchandise/anime-collectible-merchandise.jpg` (Skyline Zero Collectible)
+  - `m5`: `movies/merchandise/movie-art-print-merchandise.jpg` (The Last Epoch Art Print)
+  - `m6`: `tv/merchandise/tv-collectible-merchandise.jpg` (Signal House Collectible)
+  - `m7`: `kpop/merchandise/kpop-lightstick-merchandise.jpg` (Neon Rhythms Lightstick)
+  - `m8`: `comics/merchandise/comics-figure-merchandise.jpg` (City of Titans Figure)
+  - `m9`: `manga/merchandise/manga-art-book-merchandise.jpg` (Paper Moons Art Book)
+  - `m10`: `homepage/merchandise/fandom-enamel-pins-merchandise.jpg` (FandomVerse Enamel Pins)
+  - `m11`: `homepage/merchandise/fandom-jacket-merchandise.jpg` (FandomVerse Jacket)
+  - `m12`: `homepage/merchandise/fandom-tote-merchandise.jpg` (FandomVerse Tote Bag)
+- **Status**: 12/12 available generated merchandise assets are now properly mapped. Homepage merchandise assets are no longer unused.

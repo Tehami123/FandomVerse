@@ -1,6 +1,6 @@
 import { motion, useScroll, useTransform } from 'motion/react';
 import { Container } from '../ui/Container';
-import { characterSpotlight } from '../../data/mockData';
+import { charactersByCategory } from '../../data/mockData';
 import { FloatingElement } from '../ui/FloatingElement';
 import { Button } from '../ui/Button';
 import './CharacterSpotlight.css';
@@ -8,6 +8,7 @@ import './CharacterSpotlight.css';
 export function CharacterSpotlight() {
   const { scrollYProgress } = useScroll();
   const y = useTransform(scrollYProgress, [0, 1], [0, -50]);
+  const characterSpotlight = charactersByCategory.gaming[0];
 
   return (
     <section className="fv-section fv-character-section">
@@ -53,11 +54,11 @@ export function CharacterSpotlight() {
             >
               <div className="fv-stat">
                 <span className="fv-stat-label">Class</span>
-                <span className="fv-stat-value">{characterSpotlight.class}</span>
+                <span className="fv-stat-value">{characterSpotlight.class || characterSpotlight.traits?.[0]}</span>
               </div>
               <div className="fv-stat">
-                <span className="fv-stat-label">Weapon</span>
-                <span className="fv-stat-value">{characterSpotlight.weapon}</span>
+                <span className="fv-stat-label">Trait</span>
+                <span className="fv-stat-value">{characterSpotlight.traits?.[1] || 'Unknown'}</span>
               </div>
             </motion.div>
             

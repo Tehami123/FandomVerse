@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@400;500;600;700;800&display=swap');
 
 :root {
   /* Colors - Editorial Pass */
@@ -32,7 +32,7 @@
   --gradient-glow: radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.08) 0%, transparent 70%);
 
   /* Typography */
-  --font-family-display: 'Playfair Display', serif;
+  --font-family-display: 'Outfit', sans-serif;
   --font-family-body: 'Inter', sans-serif;
   
   /* Spacing */
@@ -90,14 +90,14 @@ body {
 /* Typography Hierarchy */
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-family-display);
-  font-weight: 400; /* Editorial serif looks better slightly lighter */
+  font-weight: 700;
   line-height: 1.1;
 }
 
 h1 {
   font-size: 80px; /* Oversized */
+  font-weight: 800;
   letter-spacing: -0.02em;
-  font-style: italic;
 }
 
 h2 {

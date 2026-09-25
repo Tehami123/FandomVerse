@@ -7,6 +7,7 @@ import { TextReveal } from '../components/ui/TextReveal';
 import { ArrowRight } from 'lucide-react';
 import { BookmarkButton } from '../components/ui/BookmarkButton';
 import { AddToCartButton } from '../components/ui/AddToCartButton';
+import { ContentCard, EventCard, ArticleCard } from '../components/ui/ContentCards';
 import { getContentDestination } from '../utils/contentData';
 import './Category.css';
 
@@ -133,26 +134,13 @@ export function Category() {
           
           <div className="fv-content-rail">
             {category.trendingContent.map((item, idx) => (
-              <motion.div 
-                key={idx}
-                className="fv-rail-item-16-9"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: idx * 0.1 }}
-                whileHover={{ y: -5 }}
-                style={{ cursor: 'pointer', position: 'relative' }}
-              >
-                <BookmarkButton item={bookmarkItem(item, 'Trending')} className="fv-category-bookmark" style={{ position: 'absolute', top: 8, right: 8, zIndex: 3 }} />
-                <div style={{ position: 'relative', overflow: 'hidden', borderRadius: 'var(--radius-md)', aspectRatio: '16/9' }}>
-                  {item.image ? <img src={item.image} alt={item.title} style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.4s ease' }} /> : <EditorialPlaceholder label={item.title} />}
-                  <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(5,5,5,0.7), transparent)', opacity: 0.7 }} />
-                </div>
-                <div className="fv-card-content-editorial">
-                  <h4>{item.title}</h4>
-                  <span style={{ color: 'var(--cat-accent)' }}>{item.type}</span>
-                </div>
-              </motion.div>
+              <div key={idx} className="fv-rail-card-wrapper">
+                <ContentCard 
+                  item={item}
+                  bookmarkItem={bookmarkItem(item, 'Trending')}
+                  onClick={() => navigate(getContentDestination({...item, category: category.name}, item.type || item.contentType))}
+                />
+              </div>
             ))}
           </div>
         </Container>
@@ -171,25 +159,13 @@ export function Category() {
           
           <div className="fv-content-rail">
             {category.latestContent?.map((item, idx) => (
-              <motion.div 
-                key={idx}
-                className="fv-rail-item-16-9"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: idx * 0.1 }}
-                whileHover={{ y: -5 }}
-                style={{ cursor: 'pointer', position: 'relative' }}
-              >
-                <BookmarkButton item={bookmarkItem(item, 'Discovery')} className="fv-category-bookmark" style={{ position: 'absolute', top: 8, right: 8, zIndex: 3 }} />
-                <div style={{ position: 'relative', overflow: 'hidden', borderRadius: 'var(--radius-md)', aspectRatio: '16/9' }}>
-                  {item.image ? <img src={item.image} alt={item.title} style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.4s ease' }} /> : <EditorialPlaceholder label={item.title} />}
-                </div>
-                <div className="fv-card-content-editorial">
-                  <h4>{item.title}</h4>
-                  <span style={{ color: 'var(--cat-accent)' }}>{item.type}</span>
-                </div>
-              </motion.div>
+              <div key={idx} className="fv-rail-card-wrapper">
+                <ContentCard 
+                  item={item}
+                  bookmarkItem={bookmarkItem(item, 'Discovery')}
+                  onClick={() => navigate(getContentDestination({...item, category: category.name}, item.type || item.contentType))}
+                />
+              </div>
             ))}
           </div>
         </Container>
@@ -208,24 +184,12 @@ export function Category() {
           
           <div className="fv-content-rail">
             {category.characters?.map((item, idx) => (
-              <motion.div 
-                key={idx}
-                initial={{ opacity: 0, x: 20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: idx * 0.1 }}
-                style={{ cursor: 'pointer', position: 'relative' }}
-              >
-                <BookmarkButton item={bookmarkItem(item, 'Character')} className="fv-category-bookmark" style={{ position: 'absolute', top: 8, right: 8, zIndex: 3 }} />
-                <div className="fv-character-card">
-                  {item.image ? <img src={item.image} alt={item.name} /> : <EditorialPlaceholder label={item.name} />}
-                  <div className="fv-character-overlay">
-                    <span className="fv-character-franchise">{item.franchise}</span>
-                    <h4 className="fv-character-name">{item.name}</h4>
-                    <p className="fv-character-bio">{item.biography}</p>
-                  </div>
-                </div>
-              </motion.div>
+              <div key={idx} className="fv-rail-card-wrapper fv-rail-character">
+                <ContentCard 
+                  item={{...item, type: 'character'}}
+                  bookmarkItem={bookmarkItem(item, 'Character')}
+                />
+              </div>
             ))}
           </div>
         </Container>
@@ -244,30 +208,13 @@ export function Category() {
           
           <div className="fv-article-grid">
             {category.articles?.map((item, idx) => (
-              <motion.div 
+              <ArticleCard 
                 key={idx}
-                className={idx === 0 ? "fv-article-lead" : "fv-article-card"}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: idx * 0.1 }}
-                whileHover={{ y: -4 }}
-                style={{ cursor: 'pointer', position: 'relative' }}
+                item={{...item, type: 'article', description: item.description || 'Explore the latest insights from the FandomVerse editorial team in this exclusive dive into the universe.'}}
+                bookmarkItem={bookmarkItem(item, 'Article')}
+                isLead={idx === 0}
                 onClick={() => navigate(`/article/${item.id}`)}
-              >
-                <BookmarkButton item={bookmarkItem(item, 'Article')} className="fv-category-bookmark" style={{ position: 'absolute', top: 8, right: 8, zIndex: 3 }} />
-                <div style={{ position: 'relative', overflow: 'hidden', borderRadius: 'var(--radius-md)' }} className="fv-card-image-wrapper">
-                  {item.image ? <img src={item.image} alt={item.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} /> : <EditorialPlaceholder label={item.title} />}
-                </div>
-                <div className="fv-card-content-editorial">
-                  <h4 style={{ fontSize: idx === 0 ? '32px' : '20px' }}>{item.title}</h4>
-                  <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
-                    <span style={{ color: 'var(--cat-accent)' }}>{item.category || category.name}</span>
-                    <span style={{ color: 'var(--color-border)' }}>•</span>
-                    <span>{item.readTime}</span>
-                  </div>
-                </div>
-              </motion.div>
+              />
             ))}
           </div>
         </Container>
@@ -286,27 +233,12 @@ export function Category() {
           
           <div className="fv-trailer-grid">
             {category.trailers?.map((item, idx) => (
-              <motion.div 
+              <ContentCard 
                 key={idx}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: idx * 0.1 }}
-                style={{ position: 'relative' }}
+                item={{...item, type: 'trailer'}}
+                bookmarkItem={bookmarkItem(item, 'Trailer')}
                 onClick={() => navigate(`/trailer/${item.id}`)}
-              >
-                <BookmarkButton item={bookmarkItem(item, 'Trailer')} className="fv-category-bookmark" style={{ position: 'absolute', top: 8, right: 8, zIndex: 3 }} />
-                <div className="fv-trailer-wrapper">
-                  {item.image ? <img src={item.image} alt={item.title} /> : <EditorialPlaceholder label={item.title} />}
-                  <div className="fv-trailer-overlay">
-                    <span style={{ fontSize: '11px', textTransform: 'uppercase', color: 'var(--cat-accent)', letterSpacing: '0.1em' }}>{item.status}</span>
-                    <div className="fv-play-btn">
-                      <div className="fv-play-icon"></div>
-                    </div>
-                    <h4 style={{ margin: 0, fontFamily: 'var(--font-family-body)', fontSize: '18px', fontWeight: 600 }}>{item.title}</h4>
-                  </div>
-                </div>
-              </motion.div>
+              />
             ))}
           </div>
         </Container>
@@ -325,28 +257,14 @@ export function Category() {
           
           <div className="fv-event-list">
             {category.events?.map((item, idx) => (
-              <motion.div 
+              <EventCard 
                 key={idx}
-                className="fv-event-row"
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: idx * 0.1 }}
-                style={{ position: 'relative' }}
+                item={item}
+                bookmarkItem={bookmarkItem(item, 'Event')}
+                asEditorial={true}
+                index={idx}
                 onClick={() => navigate(`/event/${item.id}`)}
-              >
-                <BookmarkButton item={bookmarkItem(item, 'Event')} className="fv-category-bookmark" style={{ position: 'absolute', top: 8, right: 8, zIndex: 3 }} />
-                <div className="fv-event-date-col">
-                  <span>{item.date}</span>
-                </div>
-                <div className="fv-event-details-col">
-                  <h4 style={{ fontFamily: 'var(--font-family-display)', fontSize: '28px', marginBottom: '4px' }}>{item.title}</h4>
-                  <div style={{ display: 'flex', gap: '16px', color: 'var(--color-text-secondary)', fontSize: '13px' }}>
-                    <span>📍 {item.location}</span>
-                    <span style={{ color: 'var(--cat-accent)' }}>🏷️ {item.category}</span>
-                  </div>
-                </div>
-              </motion.div>
+              />
             ))}
           </div>
         </Container>
@@ -365,26 +283,11 @@ export function Category() {
           
           <div className="fv-merch-grid">
             {category.merchandise?.map((item, idx) => (
-              <motion.div 
+              <ContentCard 
                 key={idx}
-                className="fv-merch-card"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: idx * 0.1 }}
-                style={{ position: 'relative' }}
-              >
-                <BookmarkButton item={bookmarkItem(item, 'Merchandise')} className="fv-category-bookmark" style={{ position: 'absolute', top: 8, right: 8, zIndex: 3 }} />
-                <div className="fv-merch-img">
-                  {item.image ? <img src={item.image} alt={item.title} /> : <EditorialPlaceholder label={item.title} />}
-                </div>
-                <div className="fv-merch-info">
-                  <div style={{ fontSize: '11px', color: 'var(--color-text-secondary)', marginBottom: '4px', textTransform: 'uppercase' }}>{item.status}</div>
-                  <h4>{item.title}</h4>
-                  <div className="fv-merch-price">{item.price}</div>
-                  <AddToCartButton product={item} style={{ width: '100%', marginTop: '12px' }} />
-                </div>
-              </motion.div>
+                item={{...item, type: 'merchandise'}}
+                bookmarkItem={bookmarkItem(item, 'Merchandise')}
+              />
             ))}
           </div>
         </Container>

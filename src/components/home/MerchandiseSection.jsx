@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom';
 import { Container } from '../ui/Container';
-import { merchandise } from '../../data/mockData';
-import { Card, CardTitle } from '../ui/Card';
-import { AddToCartButton } from '../ui/AddToCartButton';
+import { merchandiseByCategory } from '../../data/mockData';
+import { motion } from 'motion/react';
+import { MerchandiseCard } from '../ui/ContentCards';
 import './MerchandiseSection.css';
 
 export function MerchandiseSection() {
@@ -10,28 +10,29 @@ export function MerchandiseSection() {
     <section className="fv-section fv-merch-section">
       <Container>
         <div className="fv-section-header">
-          <h2>Exclusive Merchandise</h2>
+          <motion.h2
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          >
+            Exclusive Merchandise
+          </motion.h2>
           <Link to="/search?q=merchandise" className="fv-view-all">Shop All</Link>
         </div>
-        <div className="fv-merch-grid">
-          {merchandise.map((item) => (
-            <Card 
-              key={item.id} 
-              imageSrc={item.image} 
-              imageAlt={item.title}
-              className="fv-merch-card"
+        <div className="fv-merch-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))', gap: 'var(--space-lg)' }}>
+          {(merchandiseByCategory.homepage || []).map((item, idx) => (
+            <motion.div
+              key={item.id}
+              initial={{ opacity: 0, scale: 0.95, y: 20 }}
+              whileInView={{ opacity: 1, scale: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.5, delay: idx * 0.1 }}
             >
-              <div className="fv-merch-info">
-                <CardTitle className="fv-merch-title">{item.title}</CardTitle>
-                <div className="fv-merch-row">
-                  <span className="fv-merch-price">{item.price}</span>
-                  <span className="fv-merch-status">{item.status}</span>
-                </div>
-              </div>
-              <div className="fv-merch-hover-action">
-                <AddToCartButton product={item} style={{ width: '100%' }} />
-              </div>
-            </Card>
+              <MerchandiseCard 
+                item={item} 
+              />
+            </motion.div>
           ))}
         </div>
       </Container>

@@ -210,8 +210,27 @@ export const eventsByCategory = {
 };
 
 export const merchandise = [
-  { id: 'm1', title: 'Void Runner Katana Replica', name: 'Void Runner Katana Replica', description: 'A display replica inspired by the Neo-Kyoto defense line.', category: 'Gaming', type: 'Collectible', price: '$129.99', status: 'In Stock', image: '/assets/gaming/merchandise/gaming-desk-figure-merchandise.jpg' },
-  { id: 'm2', title: 'Stellar Drifters Artbook', name: 'Stellar Drifters Artbook', description: 'Concept art and production notes from the Drifter vanguard.', category: 'Anime', type: 'Artbook', price: '$45.00', status: 'Pre-order', image: '/assets/anime/merchandise/anime-poster-merchandise.jpg' },
-  { id: 'm3', title: 'Neon Rhythms Hoodie', name: 'Neon Rhythms Hoodie', description: 'Limited tour apparel from the Neon Rhythms era.', category: 'K-Pop', type: 'Apparel', price: '$65.00', status: 'Limited Edition', image: '/assets/kpop/merchandise/kpop-lightstick-merchandise.jpg' },
-  { id: 'm4', title: 'The Last Epoch Steelbook', name: 'The Last Epoch Steelbook', description: 'A collector steelbook edition of the cinematic survival epic.', category: 'Movies', type: 'Home Video', price: '$29.99', status: 'In Stock', image: '/assets/movies/merchandise/movie-art-print-merchandise.jpg' },
+  { id: 'm1', title: 'Void Runner Desk Figure', name: 'Void Runner Desk Figure', description: 'A highly detailed desk figure of Kaien Vance.', category: 'Gaming', type: 'Collectible', price: '$129.99', status: 'In Stock', image: '/assets/gaming/merchandise/gaming-desk-figure-merchandise.jpg' },
+  { id: 'm2', title: 'Void Runner Hoodie', name: 'Void Runner Hoodie', description: 'Premium gaming hoodie with neon accents.', category: 'Gaming', type: 'Apparel', price: '$65.00', status: 'In Stock', image: '/assets/gaming/merchandise/gaming-hoodie-merchandise.jpg' },
+  { id: 'm3', title: 'Stellar Drifters Artbook', name: 'Stellar Drifters Artbook', description: 'Concept art and production notes from the Drifter vanguard.', category: 'Anime', type: 'Artbook', price: '$45.00', status: 'Pre-order', image: '/assets/anime/merchandise/anime-poster-merchandise.jpg' },
+  { id: 'm4', title: 'Skyline Zero Collectible', name: 'Skyline Zero Collectible', description: 'Limited edition anime collectible.', category: 'Anime', type: 'Collectible', price: '$89.99', status: 'In Stock', image: '/assets/anime/merchandise/anime-collectible-merchandise.jpg' },
+  { id: 'm5', title: 'The Last Epoch Art Print', name: 'The Last Epoch Art Print', description: 'A cinematic art print of the survival epic.', category: 'Movies', type: 'Art', price: '$29.99', status: 'In Stock', image: '/assets/movies/merchandise/movie-art-print-merchandise.jpg' },
+  { id: 'm6', title: 'Signal House Collectible', name: 'Signal House Collectible', description: 'Exclusive TV show collectible prop.', category: 'TV Shows', type: 'Collectible', price: '$55.00', status: 'Limited Edition', image: '/assets/tv/merchandise/tv-collectible-merchandise.jpg' },
+  { id: 'm7', title: 'Neon Rhythms Lightstick', name: 'Neon Rhythms Lightstick', description: 'Official tour lightstick for the Neon Rhythms era.', category: 'K-Pop', type: 'Accessory', price: '$45.00', status: 'In Stock', image: '/assets/kpop/merchandise/kpop-lightstick-merchandise.jpg' },
+  { id: 'm8', title: 'City of Titans Figure', name: 'City of Titans Figure', description: 'Premium comic superhero figure.', category: 'Comics', type: 'Collectible', price: '$110.00', status: 'In Stock', image: '/assets/comics/merchandise/comics-figure-merchandise.jpg' },
+  { id: 'm9', title: 'Paper Moons Art Book', name: 'Paper Moons Art Book', description: 'Exclusive manga illustrations and sketches.', category: 'Manga', type: 'Artbook', price: '$35.00', status: 'In Stock', image: '/assets/manga/merchandise/manga-art-book-merchandise.jpg' },
+  { id: 'm10', title: 'FandomVerse Enamel Pins', name: 'FandomVerse Enamel Pins', description: 'Set of signature fandom enamel pins.', category: 'General', type: 'Accessory', price: '$15.00', status: 'In Stock', image: '/assets/homepage/merchandise/fandom-enamel-pins-merchandise.jpg' },
+  { id: 'm11', title: 'FandomVerse Jacket', name: 'FandomVerse Jacket', description: 'Official FandomVerse premium jacket.', category: 'General', type: 'Apparel', price: '$85.00', status: 'Pre-order', image: '/assets/homepage/merchandise/fandom-jacket-merchandise.jpg' },
+  { id: 'm12', title: 'FandomVerse Tote Bag', name: 'FandomVerse Tote Bag', description: 'Canvas tote bag for all your fandom gear.', category: 'General', type: 'Accessory', price: '$25.00', status: 'In Stock', image: '/assets/homepage/merchandise/fandom-tote-merchandise.jpg' },
 ];
+
+export const merchandiseByCategory = {
+  anime: [merchandise.find(m => m.id === 'm3'), merchandise.find(m => m.id === 'm4')],
+  gaming: [merchandise.find(m => m.id === 'm1'), merchandise.find(m => m.id === 'm2')],
+  movies: [merchandise.find(m => m.id === 'm5')],
+  tv: [merchandise.find(m => m.id === 'm6')],
+  kpop: [merchandise.find(m => m.id === 'm7')],
+  comics: [merchandise.find(m => m.id === 'm8')],
+  manga: [merchandise.find(m => m.id === 'm9')],
+  homepage: [merchandise.find(m => m.id === 'm10'), merchandise.find(m => m.id === 'm11'), merchandise.find(m => m.id === 'm12')],
+};

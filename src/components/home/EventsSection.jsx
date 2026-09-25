@@ -1,8 +1,8 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { Container } from '../ui/Container';
 import { events } from '../../data/mockData';
-import { Card, CardTitle, CardMeta } from '../ui/Card';
-import { Badge } from '../ui/Badge';
+import { motion } from 'motion/react';
+import { EventCard } from '../ui/ContentCards';
 import './EventsSection.css';
 
 export function EventsSection() {
@@ -11,27 +11,32 @@ export function EventsSection() {
     <section className="fv-section fv-events-section">
       <Container>
         <div className="fv-section-header">
-          <h2>Upcoming Events</h2>
+          <motion.h2
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          >
+            Upcoming Events
+          </motion.h2>
           <Link to="/search?q=event" className="fv-view-all">All Events</Link>
         </div>
-        <div className="fv-events-grid">
-          {events.map((evt) => (
-            <Card 
-              key={evt.id} 
-              className="fv-event-card"
-              onClick={() => navigate(`/event/${evt.id}`)}
+        <div className="fv-events-grid" style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-md)' }}>
+          {events.map((evt, idx) => (
+            <motion.div
+              key={evt.id}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.5, delay: idx * 0.1 }}
             >
-              <div className="fv-event-date-block">
-                <span className="fv-event-date">{evt.date}</span>
-              </div>
-              <div className="fv-event-details">
-                <Badge variant="primary" style={{ alignSelf: 'flex-start', marginBottom: '8px' }}>
-                  {evt.category}
-                </Badge>
-                <CardTitle>{evt.title}</CardTitle>
-                <CardMeta>{evt.location}</CardMeta>
-              </div>
-            </Card>
+              <EventCard 
+                item={evt}
+                onClick={() => navigate(`/event/${evt.id}`)}
+                asEditorial={true}
+                index={idx}
+              />
+            </motion.div>
           ))}
         </div>
       </Container>

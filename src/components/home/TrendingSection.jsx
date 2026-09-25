@@ -2,8 +2,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'motion/react';
 import { Container } from '../ui/Container';
 import { trending } from '../../data/mockData';
-import { Card, CardMeta } from '../ui/Card';
-import { Badge } from '../ui/Badge';
+import { ContentCard } from '../ui/ContentCards';
 import './TrendingSection.css';
 
 export function TrendingSection() {
@@ -21,55 +20,23 @@ export function TrendingSection() {
           </motion.h2>
           <div className="fv-section-divider"></div>
         </div>
-        <div className="fv-trending-rail">
-          {trending.map((item, index) => {
-            const isFeatured = index === 0 || index === 3;
-            const itemStyle = {
-              minWidth: isFeatured ? '500px' : '320px',
-              height: isFeatured ? '500px' : '420px',
-            };
-            
-            const catAccents = {
-              Anime: 'var(--color-anime)',
-              Gaming: 'var(--color-gaming)',
-              Movies: 'var(--color-movies)',
-              'TV Shows': 'var(--color-tv)',
-              'K-Pop': 'var(--color-kpop)',
-              Comics: 'var(--color-comics)',
-              Manga: 'var(--color-manga)'
-            };
-            const accent = catAccents[item.category] || 'var(--color-border)';
-
-            return (
-              <motion.div 
-                key={item.id} 
-                className="fv-trending-rail-item"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-50px" }}
-                transition={{ delay: index * 0.1 }}
-                style={itemStyle}
-              >
-                <Card 
-                  imageSrc={item.image} 
-                  imageAlt={item.title}
-                  onClick={() => navigate(`/search?q=${encodeURIComponent(item.title)}`)}
-                  className="fv-trending-card"
-                  style={{ borderBottom: `2px solid ${accent}` }}
-                >
-                <div className="fv-trending-card-content">
-                  <Badge variant="primary" style={{ alignSelf: 'flex-start', marginBottom: 'auto' }}>
-                    {item.category}
-                  </Badge>
-                  <div className="fv-trending-card-meta">
-                    <h3 style={{ fontFamily: 'var(--font-family-display)', fontSize: isFeatured ? '32px' : '24px', marginBottom: '8px' }}>{item.title}</h3>
-                    <CardMeta style={{ textTransform: 'uppercase', letterSpacing: '0.1em', fontSize: '11px' }}>{item.type}</CardMeta>
-                  </div>
-                </div>
-              </Card>
+        <div className="fv-trending-rail" style={{ display: 'flex', gap: 'var(--space-lg)', overflowX: 'auto', paddingBottom: 'var(--space-xl)', scrollbarWidth: 'thin' }}>
+          {trending.map((item, index) => (
+            <motion.div 
+              key={item.id} 
+              className="fv-trending-rail-item"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ delay: index * 0.1 }}
+              style={{ minWidth: index === 0 || index === 3 ? '400px' : '320px', flexShrink: 0 }}
+            >
+              <ContentCard 
+                item={item}
+                onClick={() => navigate(`/article/${item.id}`)}
+              />
             </motion.div>
-          );
-        })}
+          ))}
         </div>
       </Container>
     </section>

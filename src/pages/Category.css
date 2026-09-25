@@ -70,6 +70,7 @@
   gap: var(--space-3xl);
   align-items: flex-end;
   width: 100%;
+  max-width: 100%;
 }
 
 .fv-category-hero-left {
@@ -105,6 +106,9 @@
   text-transform: uppercase;
   color: var(--color-text-primary);
   margin: 0;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  hyphens: auto;
 }
 
 .fv-category-hero-right {
@@ -254,7 +258,9 @@
   gap: var(--space-lg);
   overflow-x: auto;
   padding-bottom: var(--space-xl);
+  padding-right: var(--space-2xl);
   scrollbar-width: thin;
+  scroll-snap-type: x mandatory;
 }
 .fv-content-rail::-webkit-scrollbar {
   height: 4px;
@@ -269,6 +275,7 @@
 .fv-rail-item-16-9 {
   min-width: 320px;
   flex-shrink: 0;
+  scroll-snap-align: start;
 }
 .fv-rail-item-16-9 .fv-card-image-wrapper {
   aspect-ratio: 16/9;
@@ -303,10 +310,12 @@
   overflow: hidden;
   border: 1px solid var(--color-border);
   border-bottom: 3px solid transparent;
-  transition: border-color var(--transition-fast);
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+  scroll-snap-align: start;
 }
 .fv-character-card:hover {
   border-bottom-color: var(--cat-accent);
+  box-shadow: 0 0 15px var(--cat-accent);
 }
 
 .fv-character-card img {
@@ -364,6 +373,13 @@
 .fv-article-card .fv-card-image-wrapper,
 .fv-article-lead .fv-card-image-wrapper {
   aspect-ratio: 16/9;
+  overflow: hidden;
+  border-radius: var(--radius-md);
+  transition: box-shadow var(--transition-fast);
+}
+.fv-article-card:hover .fv-card-image-wrapper,
+.fv-article-lead:hover .fv-card-image-wrapper {
+  box-shadow: 0 0 15px var(--cat-accent);
 }
 
 /* 7. TRAILERS */
@@ -380,12 +396,16 @@
   overflow: hidden;
   border: 1px solid var(--color-border);
   cursor: pointer;
+  transition: box-shadow var(--transition-fast);
 }
 .fv-trailer-wrapper img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   transition: transform 0.6s ease;
+}
+.fv-trailer-wrapper:hover {
+  box-shadow: 0 0 15px var(--cat-accent);
 }
 .fv-trailer-wrapper:hover img {
   transform: scale(1.03);
@@ -552,6 +572,9 @@
 }
 
 @media (max-width: 768px) {
+  .fv-category-hero-content {
+    min-width: 0;
+  }
   .fv-category-title {
     font-size: clamp(40px, 10vw, 64px);
   }
@@ -574,5 +597,8 @@
   }
   .fv-event-details-col {
     padding: var(--space-md) var(--space-xl);
+  }
+  .fv-rail-item-16-9 {
+    min-width: 280px;
   }
 }

@@ -1,8 +1,8 @@
 import { useNavigate } from 'react-router-dom';
 import { Container } from '../ui/Container';
 import { articles } from '../../data/mockData';
-import { Card, CardTitle, CardMeta } from '../ui/Card';
-import { Badge } from '../ui/Badge';
+import { motion } from 'motion/react';
+import { ArticleCard } from '../ui/ContentCards';
 import './FeaturedArticles.css';
 
 export function FeaturedArticles() {
@@ -15,36 +15,42 @@ export function FeaturedArticles() {
     <section className="fv-section fv-articles-section">
       <Container>
         <div className="fv-section-header">
-          <h2>Featured Articles</h2>
-        </div>
-        <div className="fv-articles-layout">
-          <Card 
-            imageSrc={featured.image}
-            imageAlt={featured.title}
-            className="fv-article-featured"
-            onClick={() => openArticle(featured)}
+          <motion.h2
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
           >
-            <div className="fv-article-content-wrapper">
-              <Badge variant="accent">{featured.category}</Badge>
-              <h3 className="fv-article-hero-title">{featured.title}</h3>
-              <CardMeta>By {featured.author} • {featured.readTime}</CardMeta>
-            </div>
-          </Card>
-          
-          <div className="fv-article-supporting">
-            {supporting.map(art => (
-              <Card 
-                key={art.id} 
-                imageSrc={art.image} 
-                className="fv-article-small"
-                onClick={() => openArticle(art)}
+            Featured Articles
+          </motion.h2>
+        </div>
+        <div className="fv-articles-layout" style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: 'var(--space-xl)' }}>
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+          >
+            <ArticleCard 
+              item={{...featured, category: featured.category || 'Editorial'}} 
+              onClick={() => openArticle(featured)}
+              isLead={true}
+            />
+          </motion.div>
+          <div className="fv-article-supporting" style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-lg)' }}>
+            {supporting.map((art, idx) => (
+              <motion.div
+                key={art.id}
+                initial={{ opacity: 0, x: 30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 0.5, delay: idx * 0.15, ease: [0.16, 1, 0.3, 1] }}
               >
-                <div className="fv-article-content-wrapper">
-                  <Badge variant="default" style={{ alignSelf: 'flex-start' }}>{art.category}</Badge>
-                  <CardTitle style={{ marginTop: '8px' }}>{art.title}</CardTitle>
-                  <CardMeta>{art.readTime}</CardMeta>
-                </div>
-              </Card>
+                <ArticleCard 
+                  item={{...art, category: art.category || 'Editorial'}} 
+                  onClick={() => openArticle(art)}
+                />
+              </motion.div>
             ))}
           </div>
         </div>
