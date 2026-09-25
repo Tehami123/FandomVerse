@@ -29,7 +29,12 @@ export function About() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
         >
-          <div className="fv-about-kicker">ABOUT / FANDOMVERSE</div>
+          <div className="fv-about-kicker">
+            <Link to="/" className="fv-about-brand-link" aria-label="FandomVerse home">
+              <img src="/assets/branding/logo.jpg" alt="FandomVerse" />
+            </Link>
+            <span>ABOUT / FANDOMVERSE</span>
+          </div>
           <h1>Portal for fandom worlds</h1>
           <p>FandomVerse is a local-first discovery platform for people who move between stories, characters, releases, and the worlds that connect them.</p>
           <div className="fv-about-cta-row">

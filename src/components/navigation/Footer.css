@@ -12,13 +12,17 @@
   margin-bottom: var(--space-3xl);
 }
 
-.fv-footer-brand .fv-brand-text {
+.fv-footer-brand-link {
   display: block;
-  font-family: var(--font-family-display);
-  font-size: 24px;
-  font-weight: 800;
-  letter-spacing: 0.05em;
   margin-bottom: var(--space-md);
+}
+
+.fv-footer-logo {
+  display: block;
+  width: min(100%, 160px);
+  height: auto;
+  max-height: 88px;
+  object-fit: contain;
 }
 
 .fv-footer-desc {

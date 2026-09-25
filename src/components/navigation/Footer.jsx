@@ -29,7 +29,9 @@ export function Footer() {
       <Container>
         <div className="fv-footer-grid">
           <div className="fv-footer-brand">
-            <span className="fv-brand-text">FANDOMVERSE</span>
+            <Link to="/" className="fv-footer-brand-link" aria-label="FandomVerse home">
+              <img className="fv-footer-logo" src="/assets/branding/logo.jpg" alt="FandomVerse" />
+            </Link>
             <p className="fv-footer-desc">
               The ultimate sanctuary for fandom discovery. Explore anime, gaming, movies, events, and every major universe in one cinematic archive.
             </p>

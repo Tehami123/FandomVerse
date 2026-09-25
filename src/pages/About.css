@@ -28,11 +28,28 @@
 }
 
 .fv-about-kicker {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-md);
   margin-bottom: var(--space-md);
   color: var(--color-text-secondary);
   font-size: 11px;
   letter-spacing: 0.18em;
   text-transform: uppercase;
+}
+
+.fv-about-brand-link {
+  display: inline-flex;
+  align-items: center;
+}
+
+.fv-about-brand-link img {
+  display: block;
+  width: clamp(88px, 10vw, 116px);
+  max-height: 64px;
+  height: auto;
+  object-fit: contain;
 }
 
 .fv-about-header h1 {

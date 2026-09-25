@@ -132,7 +132,7 @@ export function Navbar() {
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           />
           <Link to="/" className="fv-brand" onClick={() => setMobileMenuOpen(false)}>
-            <span className="fv-brand-text">FANDOMVERSE</span>
+            <img className="fv-brand-logo" src="/assets/branding/logo.jpg" alt="FandomVerse" />
           </Link>
           
           <nav className="fv-desktop-nav">

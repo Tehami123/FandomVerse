@@ -54,13 +54,18 @@
 }
 
 .fv-brand {
-  font-family: var(--font-family-display);
-  font-size: 26px;
-  font-weight: 400;
-  letter-spacing: 0.05em;
-  color: var(--color-text-primary);
+  display: inline-flex;
+  align-items: center;
   margin-right: var(--space-xl);
   cursor: pointer;
+}
+
+.fv-brand-logo {
+  display: block;
+  width: clamp(84px, 8vw, 102px);
+  max-height: 56px;
+  height: auto;
+  object-fit: contain;
 }
 
 .fv-utility-nav {
@@ -209,11 +214,6 @@
     gap: var(--space-sm);
   }
 
-  .fv-brand {
-    font-size: 18px;
-    letter-spacing: 0.02em;
-  }
-  
   .fv-brand {
     margin-right: 0;
   }
