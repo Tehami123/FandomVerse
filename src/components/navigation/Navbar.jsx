@@ -79,7 +79,7 @@ export function Navbar() {
   ];
   const discoverItems = [
     ['Articles', '/articles'], ['Trailers', '/trailers'], ['Events', '/events'],
-    ['Characters', '/characters'], ['Summon', '/summon'], ['Fandom DNA', '/fandom-dna'], ['Merchandise', '/merchandise'], ['Releases', '/releases'],
+    ['Characters', '/characters'], ['Summon', '/summon'], ['Fandom DNA', '/fandom-dna'], ['Fandom Face-Off', '/clash'], ['Merchandise', '/merchandise'], ['Releases', '/releases'],
   ];
   const isGroupActive = (items) => items.some(([, path]) => location.pathname === path || location.pathname.startsWith(`${path}/`));
   const authLabel = isAuthenticated ? 'LOG OUT' : 'SIGN UP';
@@ -143,6 +143,7 @@ export function Navbar() {
             <Link to="/contact" className={`fv-nav-link${location.pathname === '/contact' ? ' is-current' : ''}`} onClick={closeNavigation}>CONTACT</Link>
             <Link to="/summon" className={`fv-nav-link${location.pathname === '/summon' ? ' is-current' : ''}`} onClick={closeNavigation}>SUMMON</Link>
             <Link to="/fandom-dna" className={`fv-nav-link${location.pathname === '/fandom-dna' ? ' is-current' : ''}`} onClick={closeNavigation}>FANDOM DNA</Link>
+            <Link to="/clash" className={`fv-nav-link${location.pathname === '/clash' ? ' is-current' : ''}`} onClick={closeNavigation}> FANDOM CLASH</Link>
           </nav>
         </div>
 

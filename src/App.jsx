@@ -25,6 +25,7 @@ import { AuthProvider } from './context/AuthContext.jsx'
 import { ScrollToTop } from './components/navigation/ScrollToTop'
 import { Summon } from './pages/Summon'
 import { FandomDNA } from './pages/FandomDNA'
+import { FandomClash } from './pages/FandomClash'
 
 function RouteTitle() {
   const location = useLocation();
@@ -43,6 +44,7 @@ function RouteTitle() {
                         : path === '/characters' ? 'Characters | FandomVerse'
                           : path === '/summon' ? 'Summon | FandomVerse'
                           : path === '/fandom-dna' ? 'Fandom DNA | FandomVerse'
+                          : path === '/clash' ? 'Fandom Face-Off | FandomVerse'
                           : path === '/merchandise' ? 'Merchandise | FandomVerse'
                 : path === '/about' ? 'About | FandomVerse'
                   : path === '/contact' ? 'Contact | FandomVerse'
@@ -88,6 +90,7 @@ function AnimatedRoutes() {
           <Route path="/characters" element={<ArchiveHub hub="characters" />} />
           <Route path="/summon" element={<Summon />} />
           <Route path="/fandom-dna" element={<FandomDNA />} />
+          <Route path="/clash" element={<FandomClash />} />
           <Route path="/merchandise" element={<ArchiveHub hub="merchandise" />} />
           <Route path="/release/:id" element={<ReleaseDetail />} />
           <Route path="/about" element={<About />} />
