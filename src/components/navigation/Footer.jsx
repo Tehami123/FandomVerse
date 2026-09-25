@@ -31,7 +31,7 @@ export function Footer() {
           <div className="fv-footer-brand">
             <span className="fv-brand-text">FANDOMVERSE</span>
             <p className="fv-footer-desc">
-              The ultimate sanctuary for fandom discovery. Explore Anime, Gaming, Movies, and beyond in a cinematic experience.
+              The ultimate sanctuary for fandom discovery. Explore anime, gaming, movies, events, and every major universe in one cinematic archive.
             </p>
             <div className="fv-footer-status" aria-label="FandomVerse local demo status">
               <span>Simulated visitors: {visitorCount.toLocaleString()}</span>
@@ -43,14 +43,30 @@ export function Footer() {
             <Link to="/category/anime">Anime</Link>
             <Link to="/category/gaming">Gaming</Link>
             <Link to="/category/movies">Movies</Link>
+            <Link to="/category/tv">TV Shows</Link>
             <Link to="/category/kpop">K-Pop</Link>
+            <Link to="/category/comics">Comics</Link>
+            <Link to="/category/manga">Manga</Link>
           </div>
           <div className="fv-footer-links">
-            <h4>Company</h4>
-            <Link to="/about">About Us</Link>
+            <h4>Discover</h4>
+            <Link to="/articles">Articles</Link>
+            <Link to="/trailers">Trailers</Link>
+            <Link to="/events">Events</Link>
+            <Link to="/characters">Characters</Link>
+            <Link to="/merchandise">Merchandise</Link>
+            <Link to="/releases">Releases</Link>
+          </div>
+          <div className="fv-footer-links">
+            <h4>Project</h4>
+            <Link to="/about">About</Link>
             <Link to="/contact">Contact</Link>
-            <Link to="/login">Login</Link>
-            <Link to="/signup">Sign up</Link>
+          </div>
+          <div className="fv-footer-links">
+            <h4>Utility</h4>
+            <Link to="/search">Search</Link>
+            <Link to="/bookmarks">Bookmarks</Link>
+            <Link to="/cart">Cart</Link>
           </div>
         </div>
         <div className="fv-footer-bottom">

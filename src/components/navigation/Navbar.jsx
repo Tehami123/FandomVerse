@@ -3,7 +3,6 @@ import { Link, useLocation } from 'react-router-dom';
 import { Search, Bookmark, ShoppingCart, User, LogOut, Menu, X, ChevronDown } from 'lucide-react';
 import { Container } from '../ui/Container';
 import { IconButton } from '../ui/IconButton';
-import { Button } from '../ui/Button';
 import { useCart } from '../../context/CartContext';
 import { useAuth } from '../../context/useAuth';
 import './Navbar.css';
@@ -58,6 +57,10 @@ export function Navbar() {
   const discoverItems = [
     ['Articles', '/articles'], ['Trailers', '/trailers'], ['Events', '/events'],
     ['Characters', '/characters'], ['Merchandise', '/merchandise'], ['Releases', '/releases'],
+  ];
+  const utilityItems = [
+    ['ABOUT', '/about'],
+    ['CONTACT', '/contact'],
   ];
   const isGroupActive = (items) => items.some(([, path]) => location.pathname === path || location.pathname.startsWith(`${path}/`));
 
@@ -122,8 +125,22 @@ export function Navbar() {
             <IconButton icon={ShoppingCart} aria-label="Cart" />
             {totalQuantity > 0 && <span className="fv-cart-count" aria-label={`${totalQuantity} items in cart`}>{totalQuantity}</span>}
           </Link>
-          <div className="fv-desktop-only">
-            {isAuthenticated ? <Button variant="ghost" onClick={logout} style={{ padding: '0 16px', height: '40px' }} aria-label={`Log out ${user.name}`}>Log out</Button> : <Link to="/login" onClick={() => setMobileMenuOpen(false)}><Button variant="ghost" style={{ padding: '0 16px', height: '40px' }}>Sign In</Button></Link>}
+          <div className="fv-utility-nav fv-desktop-only">
+            {utilityItems.map(([label, path]) => (
+              <Link
+                key={path}
+                to={path}
+                className={`fv-nav-link${location.pathname === path || location.pathname.startsWith(`${path}/`) ? ' is-current' : ''}`}
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                {label}
+              </Link>
+            ))}
+            {isAuthenticated ? (
+              <button type="button" className="fv-nav-link fv-auth-button" onClick={logout} aria-label={`Log out ${user.name}`}>AUTH</button>
+            ) : (
+              <Link to="/login" className="fv-nav-link" onClick={() => setMobileMenuOpen(false)}>AUTH</Link>
+            )}
           </div>
           {isAuthenticated ? <IconButton icon={LogOut} aria-label="Log out" className="fv-mobile-only" onClick={logout} /> : <Link to="/login" aria-label="Sign in" className="fv-mobile-only" onClick={() => setMobileMenuOpen(false)}><IconButton icon={User} aria-label="Sign in" /></Link>}
         </div>
@@ -137,6 +154,9 @@ export function Navbar() {
           <button type="button" className="fv-mobile-group-trigger" aria-expanded={openMenu === 'mobile-discover'} onClick={() => setOpenMenu((current) => current === 'mobile-discover' ? null : 'mobile-discover')}>DISCOVER <ChevronDown size={14} aria-hidden="true" /></button>
           {openMenu === 'mobile-discover' && <div className="fv-mobile-subnav">{discoverItems.map(([label, path]) => <Link key={path} to={path} onClick={closeNavigation}>{label}</Link>)}</div>}
           <Link to="/bookmarks" className="fv-nav-link" onClick={closeNavigation}>BOOKMARKS</Link>
+          <Link to="/about" className="fv-nav-link" onClick={closeNavigation}>ABOUT</Link>
+          <Link to="/contact" className="fv-nav-link" onClick={closeNavigation}>CONTACT</Link>
+          <Link to="/login" className="fv-nav-link" onClick={closeNavigation}>AUTH</Link>
         </div>
       )}
     </header>

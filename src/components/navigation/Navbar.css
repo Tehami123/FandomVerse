@@ -63,6 +63,13 @@
   cursor: pointer;
 }
 
+.fv-utility-nav {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  margin-left: var(--space-sm);
+}
+
 .fv-desktop-nav {
   display: flex;
   align-items: center;
@@ -75,6 +82,14 @@
   font-size: 11px;
   letter-spacing: 0.15em;
   transition: color var(--transition-fast);
+}
+
+.fv-auth-button {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  font: inherit;
+  cursor: pointer;
 }
 
 .fv-nav-link:hover {
