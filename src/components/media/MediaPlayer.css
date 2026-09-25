@@ -33,8 +33,13 @@
   content: "";
   position: absolute;
   inset: 0;
-  background: repeating-linear-gradient(0deg, rgba(255,255,255,0.01) 0px, rgba(255,255,255,0.01) 1px, transparent 1px, transparent 2px);
+  background:
+    repeating-linear-gradient(0deg, rgba(255,255,255,0.015) 0px, rgba(255,255,255,0.015) 1px, transparent 1px, transparent 3px),
+    linear-gradient(to right, rgba(255,255,255,0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255,255,255,0.03) 1px, transparent 1px);
+  background-size: auto, 72px 72px, 72px 72px;
   pointer-events: none;
+  opacity: 0.55;
 }
 
 .fv-media-transmission-lost {
@@ -50,13 +55,13 @@
   width: 12px;
   height: 12px;
   border-radius: 50%;
-  background-color: var(--color-movies);
-  box-shadow: 0 0 15px var(--color-movies);
+  background-color: var(--cat-accent, var(--color-movies));
+  box-shadow: 0 0 15px var(--cat-accent, var(--color-movies));
   animation: pulse 2s infinite;
 }
 
 .fv-media-transmission-lost strong {
-  color: var(--color-movies);
+  color: var(--cat-accent, var(--color-movies));
   font-family: var(--font-family-display);
   font-size: 32px;
   font-weight: 800;

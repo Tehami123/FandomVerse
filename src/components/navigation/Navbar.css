@@ -4,16 +4,18 @@
   z-index: 50;
   background-color: transparent;
   border-bottom: 1px solid transparent;
-  height: 72px;
+  height: 80px;
   display: flex;
   align-items: center;
-  transition: background-color 0.4s ease, border-color 0.4s ease, backdrop-filter 0.4s ease;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .fv-navbar.scrolled {
-  background-color: var(--glass-bg);
-  backdrop-filter: blur(12px);
-  border-bottom: 1px solid var(--color-border);
+  background-color: rgba(5, 5, 5, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  height: 64px;
 }
 
 .fv-navbar-inner {

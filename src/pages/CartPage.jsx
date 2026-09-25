@@ -22,8 +22,13 @@ export function CartPage() {
         {items.length > 0 ? (
           <div className="fv-cart-layout">
             <section className="fv-cart-items" aria-label="Cart items">
-              {items.map((item) => (
-                <article className="fv-cart-item" key={item.id}>
+              {items.map((item) => {
+                const isCharacter = item.type === 'character';
+                const priceLabel = isCharacter ? 'Character collectible' : `${formatPrice(item.unitPrice)} each`;
+                const lineTotal = isCharacter ? 'Character collectible' : formatPrice(item.unitPrice * item.quantity);
+
+                return (
+                <article className="fv-cart-item" key={`${item.type}-${item.id}`}>
                   <div className="fv-cart-item-image">
                     {item.image ? <img src={item.image} alt={item.title} /> : <div className="fv-cart-item-placeholder">FANDOMVERSE</div>}
                   </div>
@@ -31,25 +36,26 @@ export function CartPage() {
                     <div className="fv-cart-item-meta">{item.category} / {item.type}</div>
                     <h2>{item.title}</h2>
                     <p>{item.description}</p>
-                    <span className="fv-cart-item-price">{formatPrice(item.unitPrice)} each</span>
+                    <span className="fv-cart-item-price">{priceLabel}</span>
                   </div>
                   <div className="fv-cart-item-controls">
                     <div className="fv-cart-quantity" aria-label={`Quantity for ${item.title}`}>
-                      <button type="button" onClick={() => decreaseQuantity(item.id)} aria-label={`Decrease quantity for ${item.title}`}>
+                      <button type="button" onClick={() => decreaseQuantity(item.id, item.type)} aria-label={`Decrease quantity for ${item.title}`}>
                         <Minus size={16} aria-hidden="true" />
                       </button>
                       <span aria-live="polite">{item.quantity}</span>
-                      <button type="button" onClick={() => increaseQuantity(item.id)} aria-label={`Increase quantity for ${item.title}`}>
+                      <button type="button" onClick={() => increaseQuantity(item.id, item.type)} aria-label={`Increase quantity for ${item.title}`}>
                         <Plus size={16} aria-hidden="true" />
                       </button>
                     </div>
-                    <strong>{formatPrice(item.unitPrice * item.quantity)}</strong>
-                    <button type="button" className="fv-cart-remove" onClick={() => removeFromCart(item.id)} aria-label={`Remove ${item.title} from cart`}>
+                    <strong>{lineTotal}</strong>
+                    <button type="button" className="fv-cart-remove" onClick={() => removeFromCart(item.id, item.type)} aria-label={`Remove ${item.title} from cart`}>
                       <Trash2 size={17} aria-hidden="true" /> Remove
                     </button>
                   </div>
                 </article>
-              ))}
+                );
+              })}
             </section>
 
             <aside className="fv-cart-summary" aria-label="Cart summary">

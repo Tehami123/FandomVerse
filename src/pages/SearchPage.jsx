@@ -1,9 +1,8 @@
 import { useEffect, useMemo, useState } from 'react';
 import { ArrowRight, Search, X } from 'lucide-react';
-import { Link, useSearchParams, useNavigate } from 'react-router-dom';
+import { useSearchParams, useNavigate } from 'react-router-dom';
 import { motion } from 'motion/react';
 import { Container } from '../components/ui/Container';
-import { BookmarkButton } from '../components/ui/BookmarkButton';
 import { categoryDetails } from '../data/categoryData';
 import { filterAndSortContent, getSearchFilterOptions, searchContent } from '../utils/contentData';
 import { ContentCard } from '../components/ui/ContentCards';

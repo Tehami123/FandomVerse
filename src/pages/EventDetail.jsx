@@ -3,7 +3,7 @@ import { BookmarkButton } from '../components/ui/BookmarkButton';
 import { Gallery } from '../components/gallery/Gallery';
 import { getContentByType, getContentDestination, getGalleryImages, getRelatedContent } from '../utils/contentData';
 import { Container } from '../components/ui/Container';
-import { DetailBackLink, DetailNotFound, RelatedContent } from './ContentDetail';
+import { DetailBackLink, DetailNotFound, DetailShell, NextTransmission, RelatedContent } from './ContentDetail';
 import './ContentDetail.css';
 
 export function EventDetail() {
@@ -16,29 +16,44 @@ export function EventDetail() {
   const bookmark = { ...event, contentType: 'Event', destination: getContentDestination(event, 'Event') };
 
   return (
-    <main className="fv-detail-page">
+    <DetailShell category={event.category} variant="event" type="event">
       <Container>
         <div className="fv-detail-cinematic-header">
-          <div className="fv-detail-kicker">CALENDAR / {event.category}</div>
+          <div className="fv-detail-index"><span>01</span> // EVENT RECORD</div>
+          <div className="fv-detail-meta">
+            {[event.category, event.date, event.location].filter(Boolean).map((item) => <span key={item}>{item}</span>)}
+          </div>
+          <h1 className="fv-detail-cinematic-title">{event.title}</h1>
           <div className="fv-detail-cinematic-image">
             <Gallery images={getGalleryImages(event)} title={event.title} />
           </div>
-          <h1 className="fv-detail-cinematic-title">{event.title}</h1>
-          <div className="fv-detail-meta">
-            {[event.date, event.location].filter(Boolean).map((item) => <span key={item}>{item}</span>)}
-          </div>
         </div>
+
         <div className="fv-detail-copy-centered">
           <div className="fv-detail-copy">
             <BookmarkButton item={bookmark} />
-            <h2>{event.date}</h2>
+            <h2>Dispatch</h2>
             <p>{event.description}</p>
-            <p>{event.location}</p>
+            <div className="fv-event-facts">
+              <div className="fv-event-fact">
+                <span>Date</span>
+                <strong>{event.date}</strong>
+              </div>
+              <div className="fv-event-fact">
+                <span>Location</span>
+                <strong>{event.location}</strong>
+              </div>
+              <div className="fv-event-fact">
+                <span>Category</span>
+                <strong>{event.category}</strong>
+              </div>
+            </div>
             <DetailBackLink />
           </div>
         </div>
         <RelatedContent items={related} contentType="Event" getPath={(item) => `/event/${item.id}`} />
+        <NextTransmission item={related[0]} getPath={(item) => `/event/${item.id}`} />
       </Container>
-    </main>
+    </DetailShell>
   );
 }

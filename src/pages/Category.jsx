@@ -3,15 +3,34 @@ import { useParams, Navigate, Link, useNavigate } from 'react-router-dom';
 import { motion, useScroll, useTransform } from 'motion/react';
 import { Container } from '../components/ui/Container';
 import { categoryDetails } from '../data/categoryData';
+import { categories } from '../data/mockData';
 import { TextReveal } from '../components/ui/TextReveal';
 import { ArrowRight } from 'lucide-react';
 import { BookmarkButton } from '../components/ui/BookmarkButton';
-import { AddToCartButton } from '../components/ui/AddToCartButton';
 import { ContentCard, EventCard, ArticleCard } from '../components/ui/ContentCards';
 import { getContentDestination } from '../utils/contentData';
 import './Category.css';
 
 const EditorialPlaceholder = ({ label }) => <div className="fv-category-image-placeholder" aria-label={`${label} artwork unavailable`}>FANDOMVERSE</div>;
+
+const CategoryNavStrip = ({ currentId }) => (
+  <div className="fv-category-nav-strip">
+    <Container>
+      <div className="fv-category-nav-rail">
+        {categories.map((c) => (
+          <Link 
+            key={c.id} 
+            to={`/category/${c.id}`} 
+            className={`fv-category-nav-item ${c.id === currentId ? 'active' : ''}`}
+            style={{ '--item-accent': `var(--color-${c.id})` }}
+          >
+            {c.title}
+          </Link>
+        ))}
+      </div>
+    </Container>
+  </div>
+);
 
 export function Category() {
   const { categoryId } = useParams();
@@ -77,6 +96,7 @@ export function Category() {
       </section>
 
       {/* 2. Featured Section */}
+      <CategoryNavStrip currentId={categoryId} />
       <section className="fv-category-section">
         <Container>
           <div className="fv-editorial-header">
@@ -188,6 +208,7 @@ export function Category() {
                 <ContentCard 
                   item={{...item, type: 'character'}}
                   bookmarkItem={bookmarkItem(item, 'Character')}
+                  onClick={() => navigate(`/character/${item.id}`)}
                 />
               </div>
             ))}
@@ -212,7 +233,6 @@ export function Category() {
                 key={idx}
                 item={{...item, type: 'article', description: item.description || 'Explore the latest insights from the FandomVerse editorial team in this exclusive dive into the universe.'}}
                 bookmarkItem={bookmarkItem(item, 'Article')}
-                isLead={idx === 0}
                 onClick={() => navigate(`/article/${item.id}`)}
               />
             ))}

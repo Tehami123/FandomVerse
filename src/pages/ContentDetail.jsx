@@ -1,6 +1,8 @@
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Container } from '../components/ui/Container';
+import { AmbientFandomBackground } from '../components/visuals/AmbientFandomBackground';
+import { getCategorySlug } from '../utils/contentData';
 import './ContentDetail.css';
 
 export function DetailNotFound({ contentLabel }) {
@@ -16,6 +18,22 @@ export function DetailNotFound({ contentLabel }) {
           </Link>
         </section>
       </Container>
+    </main>
+  );
+}
+
+export function DetailShell({ category, variant = 'default', type, children, ambient = true }) {
+  const slug = getCategorySlug(category);
+
+  return (
+    <main
+      className={`fv-detail-page fv-detail-page--${variant}`}
+      style={{ '--cat-accent': `var(--color-${slug})` }}
+    >
+      {ambient ? <AmbientFandomBackground category={slug} type={type || variant} variant={variant} /> : null}
+      <div className="fv-detail-page-content">
+        {children}
+      </div>
     </main>
   );
 }
@@ -41,13 +59,29 @@ export function RelatedContent({ items, contentType, getPath }) {
       <div className="fv-detail-related-grid">
         {items.map((item) => (
           <Link to={getPath(item)} className="fv-detail-related-card" key={item.id}>
-            {item.image ? <img src={item.image} alt={item.title} /> : <div className="fv-detail-related-placeholder">FANDOMVERSE</div>}
+            {item.image ? <img src={item.image} alt={item.title || item.name} /> : <div className="fv-detail-related-placeholder">FANDOMVERSE</div>}
             <span>{item.category}</span>
-            <h3>{item.title}</h3>
+            <h3>{item.title || item.name}</h3>
             <ArrowRight size={16} aria-hidden="true" />
           </Link>
         ))}
       </div>
+    </section>
+  );
+}
+
+export function NextTransmission({ item, getPath }) {
+  if (!item) return null;
+  const label = item.title || item.name;
+
+  return (
+    <section className="fv-next-transmission">
+      <div className="fv-detail-section-label">NEXT TRANSMISSION</div>
+      <Link className="fv-next-transmission-link" to={getPath(item)}>
+        <span>{item.category}</span>
+        <strong>{label}</strong>
+        <ArrowRight size={18} aria-hidden="true" />
+      </Link>
     </section>
   );
 }

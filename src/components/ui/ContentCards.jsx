@@ -5,7 +5,7 @@ import './ContentCards.css';
 
 const CardPlaceholder = ({ label }) => (
   <div className="fv-card-placeholder">
-    <span>FANDOMVERSE</span>
+    <span>{label || 'FANDOMVERSE'}</span>
   </div>
 );
 

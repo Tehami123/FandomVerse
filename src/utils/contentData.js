@@ -6,6 +6,13 @@ const categorySlugs = Object.fromEntries(
   Object.entries(categoryDetails).map(([slug, category]) => [category.name, slug]),
 );
 
+export const getCategorySlug = (categoryName = '') => (
+  categorySlugs[categoryName]
+  || ({ 'k-pop': 'kpop', 'tv shows': 'tv', tv: 'tv' }[String(categoryName).toLowerCase()])
+  || String(categoryName).toLowerCase().replace(/[^a-z0-9]+/g, '')
+  || 'anime'
+);
+
 export const uniqueById = (items) => [...new Map(
   items.filter((item) => item?.id).map((item) => [item.id, item]),
 ).values()];
@@ -18,7 +25,8 @@ export const getContentDestination = (item, contentType) => {
   if (contentType === 'Article') return `/article/${item.id}`;
   if (contentType === 'Trailer') return `/trailer/${item.id}`;
   if (contentType === 'Event') return `/event/${item.id}`;
-  if (contentType === 'Release') return `/releases?category=${categorySlugs[item.category] || 'anime'}`;
+  if (contentType === 'Character') return `/character/${item.id}`;
+  if (contentType === 'Release') return `/release/${item.id}`;
   return getCategoryDestination(item.category);
 };
 
@@ -28,6 +36,7 @@ export const getContentByType = (contentType, id) => {
     Trailer: trailers,
     Event: allEvents,
     Release: releases,
+    Character: Object.values(categoryDetails).flatMap(c => c.characters || []),
   };
   return collections[contentType]?.find((item) => item.id === id) || null;
 };
@@ -39,18 +48,23 @@ export const getRelatedContent = (contentType, item, limit = 3) => {
     Article: articles,
     Trailer: trailers,
     Event: allEvents,
+    Character: Object.values(categoryDetails).flatMap((category) => category.characters || []),
   };
   const source = collections[contentType] || [];
-  const sourceTags = item.tags || [];
+  const sourceTags = item.tags || item.traits || [];
   const related = source
     .filter((candidate) => candidate.id !== item.id)
     .map((candidate) => {
-      const sharedTags = (candidate.tags || []).filter((tag) => sourceTags.includes(tag)).length;
+      const sharedTags = (candidate.tags || candidate.traits || []).filter((tag) => sourceTags.includes(tag)).length;
       const sameCategory = candidate.category && candidate.category === item.category ? 2 : 0;
       const sameFranchise = item.franchise && (candidate.franchise === item.franchise || candidate.series === item.franchise) ? 2 : 0;
       return { candidate, score: sharedTags + sameCategory + sameFranchise };
     })
-    .sort((left, right) => right.score - left.score || left.candidate.title.localeCompare(right.candidate.title))
+    .sort((left, right) => {
+      const leftTitle = left.candidate.title || left.candidate.name || '';
+      const rightTitle = right.candidate.title || right.candidate.name || '';
+      return right.score - left.score || leftTitle.localeCompare(rightTitle);
+    })
     .slice(0, limit)
     .map(({ candidate }) => candidate);
 

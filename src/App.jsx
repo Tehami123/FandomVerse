@@ -13,12 +13,15 @@ import { CartPage } from './pages/CartPage'
 import { ArticleDetail } from './pages/ArticleDetail'
 import { TrailerDetail } from './pages/TrailerDetail'
 import { EventDetail } from './pages/EventDetail'
+import { CharacterDetail } from './pages/CharacterDetail'
 import { Releases } from './pages/Releases'
+import { ReleaseDetail } from './pages/ReleaseDetail'
 import { About } from './pages/About'
 import { Contact } from './pages/Contact'
 import { Login } from './pages/Login'
 import { Signup } from './pages/Signup'
 import { AuthProvider } from './context/AuthContext.jsx'
+import { ScrollToTop } from './components/navigation/ScrollToTop'
 
 function RouteTitle() {
   const location = useLocation();
@@ -38,7 +41,9 @@ function RouteTitle() {
                         : path.startsWith('/article/') ? 'Article | FandomVerse'
                           : path.startsWith('/trailer/') ? 'Trailer | FandomVerse'
                             : path.startsWith('/event/') ? 'Event | FandomVerse'
-                              : 'FandomVerse | Fandom Discovery Archive';
+                                : path.startsWith('/character/') ? 'Character | FandomVerse'
+                                  : path.startsWith('/release/') ? 'Release | FandomVerse'
+                                : 'FandomVerse | Fandom Discovery Archive';
     document.title = title;
   }, [location.pathname]);
 
@@ -51,10 +56,10 @@ function AnimatedRoutes() {
     <AnimatePresence mode="wait">
       <motion.div
         key={location.pathname}
-        initial={{ opacity: 0, filter: 'blur(4px)' }}
-        animate={{ opacity: 1, filter: 'blur(0px)' }}
-        exit={{ opacity: 0, filter: 'blur(4px)' }}
-        transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: -10 }}
+        transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
       >
         <Routes location={location}>
           <Route path="/" element={<Home />} />
@@ -65,7 +70,9 @@ function AnimatedRoutes() {
           <Route path="/article/:id" element={<ArticleDetail />} />
           <Route path="/trailer/:id" element={<TrailerDetail />} />
           <Route path="/event/:id" element={<EventDetail />} />
+          <Route path="/character/:id" element={<CharacterDetail />} />
           <Route path="/releases" element={<Releases />} />
+          <Route path="/release/:id" element={<ReleaseDetail />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/login" element={<Login />} />
@@ -86,6 +93,7 @@ function App() {
         <AuthProvider>
           <CartProvider>
             <AppLayout>
+              <ScrollToTop />
               <AnimatedRoutes />
             </AppLayout>
           </CartProvider>

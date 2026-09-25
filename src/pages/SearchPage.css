@@ -1,4 +1,7 @@
 .fv-search-page {
+  position: relative;
+  isolation: isolate;
+  min-width: 0;
   min-height: calc(100vh - 72px);
   padding: var(--space-3xl) 0 120px;
   background:
@@ -30,7 +33,7 @@
 
 .fv-search-header h1 {
   margin-bottom: var(--space-md);
-  font-size: clamp(48px, 7vw, 88px);
+  font-size: clamp(42px, 7vw, 88px);
   font-style: italic;
 }
 
@@ -69,7 +72,7 @@
   background: transparent;
   color: var(--color-text-primary);
   font: inherit;
-  font-size: 32px;
+  font-size: clamp(20px, 3vw, 32px);
   font-weight: 500;
 }
 
@@ -154,10 +157,12 @@
   display: flex;
   flex-wrap: wrap;
   gap: var(--space-md);
+  min-width: 0;
 }
 
 .fv-search-control {
   display: flex;
+  min-width: 0;
   min-width: 170px;
   flex: 1 1 0;
   flex-direction: column;
@@ -231,11 +236,11 @@
 
 .fv-search-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 1px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--space-lg);
   margin-top: var(--space-2xl);
-  border-top: 1px solid var(--color-border);
-  border-left: 1px solid var(--color-border);
+  align-items: start;
+  min-width: 0;
 }
 
 .fv-search-result {
@@ -403,6 +408,12 @@
   border-color: var(--color-text-primary);
 }
 
+@media (max-width: 1200px) {
+  .fv-search-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
 @media (max-width: 1024px) {
   .fv-search-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -417,6 +428,9 @@
   .fv-search-header h1 {
     font-size: 48px;
   }
+
+  .fv-search-form { gap: var(--space-sm); min-height: 64px; }
+  .fv-search-form input { height: 62px; }
 
   .fv-search-grid {
     grid-template-columns: 1fr;

@@ -1,4 +1,4 @@
-import { trending, articles, charactersByCategory, trailers, eventsByCategory, merchandise, merchandiseByCategory } from './mockData';
+import { trending, articles, charactersByCategory, trailers, eventsByCategory, merchandiseByCategory } from './mockData';
 const heroImg1 = '/assets/anime/anime-hero.jpg';
 const heroImg2 = '/assets/gaming/gaming-hero.jpg';
 const heroImg3 = '/assets/movies/movies-hero.jpg';
@@ -58,6 +58,25 @@ const withCategoryMedia = (items, category, field) => items.map((item, index) =>
 }));
 
 // Reusing global mock data to populate category pages
+// Helper to safely build mixed content arrays
+const buildTrending = (catId, featuredItem) => {
+  const cArticles = withCategoryMedia(articles, catId, 'articles') || [];
+  const cEvents = eventsByCategory[catId] || [];
+  const cChars = charactersByCategory[catId] || [];
+  const cMerch = merchandiseByCategory[catId] || [];
+  const items = [featuredItem, cArticles[0], cEvents[0], cChars[0], cMerch[0], cArticles[1]].filter(Boolean);
+  // Ensure unique by ID
+  const unique = [];
+  const seen = new Set();
+  for (const item of items) {
+    if (!seen.has(item.id)) {
+      unique.push(item);
+      seen.add(item.id);
+    }
+  }
+  return unique.slice(0, 4);
+};
+
 export const categoryDetails = {
   anime: {
     id: 'anime',
@@ -70,10 +89,10 @@ export const categoryDetails = {
     description: 'Explore the vast worlds of Japanese animation. From high-octane shounen battles to deep psychological thrillers, discover your next obsession.',
     featuredContent: trending[1],
     featured: trending[1],
-    trendingContent: [trending[1], trending[1], trending[1], trending[1]],
-    trending: [trending[1], trending[1], trending[1], trending[1]],
-    latestContent: [trending[1], trending[0], trending[2]],
-    discovery: [trending[1], trending[0], trending[2]],
+    trendingContent: buildTrending('anime', trending[1]),
+    trending: buildTrending('anime', trending[1]),
+    latestContent: buildTrending('anime', articles[0]),
+    discovery: buildTrending('anime', articles[0]),
     characters: charactersByCategory.anime,
     articles: withCategoryMedia([articles[0], articles[1], articles[2]], 'anime', 'articles'),
     trailers: withCategoryMedia(trailers, 'anime', 'trailers'),
@@ -91,10 +110,10 @@ export const categoryDetails = {
     description: 'Dive into digital realms. The latest releases, deepest lore, and competitive scenes from across the gaming multiverse.',
     featuredContent: trending[0],
     featured: trending[0],
-    trendingContent: [trending[0], trending[0], trending[0], trending[0]],
-    trending: [trending[0], trending[0], trending[0], trending[0]],
-    latestContent: [trending[0], trending[1], trending[2]],
-    discovery: [trending[0], trending[1], trending[2]],
+    trendingContent: buildTrending('gaming', trending[0]),
+    trending: buildTrending('gaming', trending[0]),
+    latestContent: buildTrending('gaming', articles[1]),
+    discovery: buildTrending('gaming', articles[1]),
     characters: charactersByCategory.gaming,
     articles: withCategoryMedia([articles[1], articles[2], articles[0]], 'gaming', 'articles'),
     trailers: withCategoryMedia(trailers, 'gaming', 'trailers'),
@@ -112,10 +131,10 @@ export const categoryDetails = {
     description: 'Cinematic experiences that define generations. Blockbusters, indie darlings, and deep-cut classics await.',
     featuredContent: trending[2],
     featured: trending[2],
-    trendingContent: [trending[2], trending[2], trending[2], trending[2]],
-    trending: [trending[2], trending[2], trending[2], trending[2]],
-    latestContent: [trending[2], trending[3], trending[0]],
-    discovery: [trending[2], trending[3], trending[0]],
+    trendingContent: buildTrending('movies', trending[2]),
+    trending: buildTrending('movies', trending[2]),
+    latestContent: buildTrending('movies', articles[2]),
+    discovery: buildTrending('movies', articles[2]),
     characters: charactersByCategory.movies,
     articles: withCategoryMedia([articles[2], articles[0], articles[1]], 'movies', 'articles'),
     trailers: trailers,
@@ -133,10 +152,10 @@ export const categoryDetails = {
     description: 'Binge-worthy narratives and episodic adventures. Step into ongoing worlds of premium television.',
     featuredContent: trending[3],
     featured: trending[3],
-    trendingContent: [trending[3], trending[3], trending[3], trending[3]],
-    trending: [trending[3], trending[3], trending[3], trending[3]],
-    latestContent: [trending[3], trending[2], trending[1]],
-    discovery: [trending[3], trending[2], trending[1]],
+    trendingContent: buildTrending('tv', trending[3]),
+    trending: buildTrending('tv', trending[3]),
+    latestContent: buildTrending('tv', articles[0]),
+    discovery: buildTrending('tv', articles[0]),
     characters: charactersByCategory.tv,
     articles: withCategoryMedia([articles[0], articles[1], articles[2]], 'tv', 'articles'),
     trailers: withCategoryMedia(trailers, 'tv', 'trailers'),
@@ -154,10 +173,10 @@ export const categoryDetails = {
     description: 'The global phenomenon. Music videos, group spotlights, and the culture surrounding Korean pop.',
     featuredContent: trending[3],
     featured: trending[3],
-    trendingContent: [trending[3], trending[3], trending[3], trending[3]],
-    trending: [trending[3], trending[3], trending[3], trending[3]],
-    latestContent: [trending[3], trending[0], trending[1]],
-    discovery: [trending[3], trending[0], trending[1]],
+    trendingContent: buildTrending('kpop', trending[3]),
+    trending: buildTrending('kpop', trending[3]),
+    latestContent: buildTrending('kpop', articles[1]),
+    discovery: buildTrending('kpop', articles[1]),
     characters: charactersByCategory.kpop,
     articles: withCategoryMedia([articles[1], articles[0], articles[2]], 'kpop', 'articles'),
     trailers: withCategoryMedia(trailers, 'kpop', 'trailers'),
@@ -175,10 +194,10 @@ export const categoryDetails = {
     description: 'Sequential storytelling at its finest. From superhero epics to grounded indie graphic novels.',
     featuredContent: trending[0],
     featured: trending[0],
-    trendingContent: [trending[0], trending[0], trending[0], trending[0]],
-    trending: [trending[0], trending[0], trending[0], trending[0]],
-    latestContent: [trending[0], trending[2], trending[3]],
-    discovery: [trending[0], trending[2], trending[3]],
+    trendingContent: buildTrending('comics', trending[0]),
+    trending: buildTrending('comics', trending[0]),
+    latestContent: buildTrending('comics', articles[2]),
+    discovery: buildTrending('comics', articles[2]),
     characters: charactersByCategory.comics,
     articles: withCategoryMedia([articles[2], articles[1], articles[0]], 'comics', 'articles'),
     trailers: withCategoryMedia(trailers, 'comics', 'trailers'),
@@ -196,10 +215,10 @@ export const categoryDetails = {
     description: 'The source material. Read the stories that inspire the anime and dive into ongoing serializations.',
     featuredContent: trending[1],
     featured: trending[1],
-    trendingContent: [trending[1], trending[1], trending[1], trending[1]],
-    trending: [trending[1], trending[1], trending[1], trending[1]],
-    latestContent: [trending[1], trending[0], trending[2]],
-    discovery: [trending[1], trending[0], trending[2]],
+    trendingContent: buildTrending('manga', trending[1]),
+    trending: buildTrending('manga', trending[1]),
+    latestContent: buildTrending('manga', articles[0]),
+    discovery: buildTrending('manga', articles[0]),
     characters: charactersByCategory.manga,
     articles: withCategoryMedia([articles[0], articles[2], articles[1]], 'manga', 'articles'),
     trailers: withCategoryMedia(trailers, 'manga', 'trailers'),

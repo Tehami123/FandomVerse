@@ -5,8 +5,30 @@
   background: var(--color-bg-surface);
   border-radius: var(--radius-lg);
   overflow: hidden;
-  border: 1px solid var(--color-border);
+  border: 1px solid rgba(255, 255, 255, 0.05);
   position: relative;
+  box-shadow: var(--shadow-subtle);
+}
+
+.fv-character-bg-layer {
+  position: absolute;
+  top: -10%;
+  left: -10%;
+  width: 120%;
+  height: 120%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.fv-character-bg-glow {
+  position: absolute;
+  top: 50%;
+  left: 30%;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(99, 102, 241, 0.15) 0%, transparent 70%);
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
 }
 
 .fv-character-image-col {
@@ -14,6 +36,12 @@
   aspect-ratio: 3/4;
   position: relative;
   overflow: hidden;
+}
+
+.fv-character-image-wrapper {
+  width: 100%;
+  height: 100%;
+  position: relative;
 }
 
 .fv-character-img-placeholder {
@@ -33,14 +61,28 @@
   display: block;
 }
 
+.fv-character-fg-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><filter id="noiseFilter"><feTurbulence type="fractalNoise" baseFrequency="1" numOctaves="3" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(%23noiseFilter)"/></svg>');
+  opacity: 0.05;
+  mix-blend-mode: overlay;
+  pointer-events: none;
+  z-index: 3;
+}
+
 .fv-character-img-overlay {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(to right, transparent 60%, var(--color-bg-surface) 100%), linear-gradient(to top, rgba(18,18,22,0.8) 0%, transparent 40%);
+  background: linear-gradient(to right, transparent 60%, var(--color-bg-surface) 100%), linear-gradient(to top, rgba(15,15,17,0.9) 0%, transparent 40%);
   pointer-events: none;
+  z-index: 4;
 }
 
 .fv-character-info-col {
@@ -49,7 +91,7 @@
   flex-direction: column;
   justify-content: center;
   position: relative;
-  z-index: 2;
+  z-index: 5;
 }
 
 .fv-character-eyebrow {
@@ -63,6 +105,7 @@
 .fv-character-name {
   font-size: 48px;
   margin-bottom: var(--space-xs);
+  text-shadow: 0 4px 12px rgba(0,0,0,0.5);
 }
 
 .fv-character-franchise {
@@ -76,7 +119,7 @@
   gap: var(--space-lg);
   margin-bottom: var(--space-lg);
   padding-bottom: var(--space-lg);
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .fv-stat {
