@@ -10,7 +10,7 @@ const CardPlaceholder = ({ label }) => (
 );
 
 // 1. ArticleCard
-export function ArticleCard({ item, bookmarkItem, onClick, isLead = false }) {
+export function ArticleCard({ item, bookmarkItem = item, onClick, isLead = false }) {
   return (
     <motion.div 
       className={`fv-card-variant fv-article-card ${isLead ? 'fv-article-lead' : ''}`}
@@ -35,7 +35,7 @@ export function ArticleCard({ item, bookmarkItem, onClick, isLead = false }) {
 }
 
 // 2. CharacterCard
-export function CharacterCard({ item, bookmarkItem, onClick }) {
+export function CharacterCard({ item, bookmarkItem = item, onClick }) {
   return (
     <motion.div 
       className="fv-card-variant fv-character-card"
@@ -55,7 +55,7 @@ export function CharacterCard({ item, bookmarkItem, onClick }) {
 }
 
 // 3. EventCard
-export function EventCard({ item, bookmarkItem, onClick, asEditorial = false, index = 0 }) {
+export function EventCard({ item, bookmarkItem = item, onClick, asEditorial = false, index = 0 }) {
   if (asEditorial) {
     return (
       <motion.div 
@@ -107,7 +107,7 @@ export function EventCard({ item, bookmarkItem, onClick, asEditorial = false, in
 }
 
 // 4. MerchandiseCard
-export function MerchandiseCard({ item, bookmarkItem, onClick }) {
+export function MerchandiseCard({ item, bookmarkItem = item, onClick }) {
   return (
     <motion.div 
       className="fv-card-variant fv-merch-card"
@@ -130,7 +130,7 @@ export function MerchandiseCard({ item, bookmarkItem, onClick }) {
 }
 
 // 5. ReleaseCard
-export function ReleaseCard({ item, bookmarkItem, onClick }) {
+export function ReleaseCard({ item, bookmarkItem = item, onClick }) {
   return (
     <motion.div 
       className="fv-card-variant fv-release-card"
@@ -150,7 +150,7 @@ export function ReleaseCard({ item, bookmarkItem, onClick }) {
 }
 
 // Helper to render correct card type
-export function ContentCard({ item, bookmarkItem, onClick, ...props }) {
+export function ContentCard({ item, bookmarkItem = item, onClick, ...props }) {
   const type = item.contentType?.toLowerCase() || item.type?.toLowerCase() || '';
   if (type === 'article' || type === 'trailer') return <ArticleCard item={item} bookmarkItem={bookmarkItem} onClick={onClick} {...props} />;
   if (type === 'character') return <CharacterCard item={item} bookmarkItem={bookmarkItem} onClick={onClick} {...props} />;
