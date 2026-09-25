@@ -65,6 +65,7 @@
 
 .fv-desktop-nav {
   display: flex;
+  align-items: center;
   gap: var(--space-lg);
 }
 
@@ -77,6 +78,69 @@
 }
 
 .fv-nav-link:hover {
+  color: var(--color-text-primary);
+}
+
+.fv-nav-link.is-current,
+.fv-nav-group.is-active .fv-nav-group-trigger {
+  color: var(--color-text-primary);
+}
+
+.fv-nav-group {
+  position: relative;
+}
+
+.fv-nav-group-trigger,
+.fv-mobile-group-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  font: inherit;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.fv-nav-group-trigger:hover,
+.fv-nav-group-trigger:focus-visible,
+.fv-mobile-group-trigger:hover,
+.fv-mobile-group-trigger:focus-visible {
+  color: var(--color-text-primary);
+}
+
+.fv-nav-dropdown {
+  position: absolute;
+  top: calc(100% + 18px);
+  left: 50%;
+  z-index: 60;
+  display: grid;
+  min-width: 190px;
+  padding: 8px;
+  border: 1px solid var(--color-border);
+  background: rgba(15, 15, 17, 0.98);
+  box-shadow: var(--shadow-subtle);
+  transform: translateX(-50%);
+}
+
+.fv-nav-dropdown a {
+  padding: 9px 10px;
+  color: var(--color-text-secondary);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.fv-nav-dropdown a:hover,
+.fv-nav-dropdown a:focus-visible,
+.fv-nav-dropdown a.is-current {
+  background: var(--color-bg-elevated);
   color: var(--color-text-primary);
 }
 
@@ -125,4 +189,32 @@
 .fv-mobile-nav .fv-nav-link {
   font-size: 14px;
   padding: var(--space-sm) 0;
+}
+
+.fv-mobile-group-trigger {
+  justify-content: space-between;
+  width: 100%;
+  padding: var(--space-sm) 0;
+  font-size: 14px;
+  text-align: left;
+}
+
+.fv-mobile-subnav {
+  display: grid;
+  gap: var(--space-sm);
+  padding: 0 0 var(--space-sm) var(--space-md);
+  border-left: 1px solid var(--color-border);
+}
+
+.fv-mobile-subnav a {
+  padding: 3px 0;
+  color: var(--color-text-secondary);
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.fv-mobile-subnav a:hover,
+.fv-mobile-subnav a:focus-visible {
+  color: var(--color-text-primary);
 }

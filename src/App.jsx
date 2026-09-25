@@ -20,6 +20,7 @@ import { About } from './pages/About'
 import { Contact } from './pages/Contact'
 import { Login } from './pages/Login'
 import { Signup } from './pages/Signup'
+import { ArchiveHub } from './pages/ArchiveHub'
 import { AuthProvider } from './context/AuthContext.jsx'
 import { ScrollToTop } from './components/navigation/ScrollToTop'
 
@@ -33,7 +34,12 @@ function RouteTitle() {
         : path === '/search' ? 'Search | FandomVerse'
           : path === '/bookmarks' ? 'Bookmarks | FandomVerse'
             : path === '/cart' ? 'Cart | FandomVerse'
-              : path === '/releases' ? 'Releases | FandomVerse'
+                : path === '/releases' ? 'Releases | FandomVerse'
+                  : path === '/articles' ? 'Articles | FandomVerse'
+                    : path === '/trailers' ? 'Trailers | FandomVerse'
+                      : path === '/events' ? 'Events | FandomVerse'
+                        : path === '/characters' ? 'Characters | FandomVerse'
+                          : path === '/merchandise' ? 'Merchandise | FandomVerse'
                 : path === '/about' ? 'About | FandomVerse'
                   : path === '/contact' ? 'Contact | FandomVerse'
                     : path === '/login' ? 'Sign In | FandomVerse'
@@ -72,6 +78,11 @@ function AnimatedRoutes() {
           <Route path="/event/:id" element={<EventDetail />} />
           <Route path="/character/:id" element={<CharacterDetail />} />
           <Route path="/releases" element={<Releases />} />
+          <Route path="/articles" element={<ArchiveHub hub="articles" />} />
+          <Route path="/trailers" element={<ArchiveHub hub="trailers" />} />
+          <Route path="/events" element={<ArchiveHub hub="events" />} />
+          <Route path="/characters" element={<ArchiveHub hub="characters" />} />
+          <Route path="/merchandise" element={<ArchiveHub hub="merchandise" />} />
           <Route path="/release/:id" element={<ReleaseDetail />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />

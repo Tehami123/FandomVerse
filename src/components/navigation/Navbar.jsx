@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { Search, Bookmark, ShoppingCart, User, LogOut, Menu, X } from 'lucide-react';
+import { useState, useEffect, useRef } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import { Search, Bookmark, ShoppingCart, User, LogOut, Menu, X, ChevronDown } from 'lucide-react';
 import { Container } from '../ui/Container';
 import { IconButton } from '../ui/IconButton';
 import { Button } from '../ui/Button';
@@ -10,6 +10,9 @@ import './Navbar.css';
 
 export function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [openMenu, setOpenMenu] = useState(null);
+  const navbarRef = useRef(null);
+  const location = useLocation();
   const { totalQuantity } = useCart();
   const { user, isAuthenticated, logout } = useAuth();
   const [scrolled, setScrolled] = useState(false);
@@ -22,8 +25,73 @@ export function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  useEffect(() => {
+    const handlePointerDown = (event) => {
+      if (!navbarRef.current?.contains(event.target)) {
+        setOpenMenu(null);
+        setMobileMenuOpen(false);
+      }
+    };
+    const handleKeyDown = (event) => {
+      if (event.key === 'Escape') {
+        setOpenMenu(null);
+        setMobileMenuOpen(false);
+      }
+    };
+    document.addEventListener('pointerdown', handlePointerDown);
+    document.addEventListener('keydown', handleKeyDown);
+    return () => {
+      document.removeEventListener('pointerdown', handlePointerDown);
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, []);
+
+  const closeNavigation = () => {
+    setOpenMenu(null);
+    setMobileMenuOpen(false);
+  };
+
+  const exploreItems = [
+    ['Anime', '/category/anime'], ['Gaming', '/category/gaming'], ['Movies', '/category/movies'],
+    ['TV Shows', '/category/tv'], ['K-Pop', '/category/kpop'], ['Comics', '/category/comics'], ['Manga', '/category/manga'],
+  ];
+  const discoverItems = [
+    ['Articles', '/articles'], ['Trailers', '/trailers'], ['Events', '/events'],
+    ['Characters', '/characters'], ['Merchandise', '/merchandise'], ['Releases', '/releases'],
+  ];
+  const isGroupActive = (items) => items.some(([, path]) => location.pathname === path || location.pathname.startsWith(`${path}/`));
+
+  const renderGroup = (label, group, id) => (
+    <div className={`fv-nav-group${isGroupActive(group) ? ' is-active' : ''}`}>
+      <button
+        type="button"
+        className="fv-nav-group-trigger"
+        aria-expanded={openMenu === id}
+        aria-controls={`fv-nav-menu-${id}`}
+        onClick={() => setOpenMenu((current) => current === id ? null : id)}
+      >
+        {label} <ChevronDown size={14} aria-hidden="true" />
+      </button>
+      {openMenu === id && (
+        <div className="fv-nav-dropdown" id={`fv-nav-menu-${id}`} role="menu">
+          {group.map(([itemLabel, path]) => (
+            <Link
+              key={path}
+              to={path}
+              role="menuitem"
+              className={location.pathname === path || location.pathname.startsWith(`${path}/`) ? 'is-current' : ''}
+              onClick={closeNavigation}
+            >
+              {itemLabel}
+            </Link>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+
   return (
-    <header className={`fv-navbar ${scrolled ? 'scrolled' : ''}`}>
+    <header ref={navbarRef} className={`fv-navbar ${scrolled ? 'scrolled' : ''}`}>
       <Container className="fv-navbar-inner">
         <div className="fv-navbar-left">
           <IconButton 
@@ -37,15 +105,9 @@ export function Navbar() {
           </Link>
           
           <nav className="fv-desktop-nav">
-            <Link to="/" className="fv-nav-link">HOME</Link>
-            <Link to="/category/anime" className="fv-nav-link">ANIME</Link>
-            <Link to="/category/gaming" className="fv-nav-link">GAMING</Link>
-            <Link to="/category/movies" className="fv-nav-link">MOVIES</Link>
-            <Link to="/category/tv" className="fv-nav-link">TV SHOWS</Link>
-            <Link to="/category/kpop" className="fv-nav-link">K-POP</Link>
-            <Link to="/category/comics" className="fv-nav-link">COMICS</Link>
-            <Link to="/category/manga" className="fv-nav-link">MANGA</Link>
-            <Link to="/releases" className="fv-nav-link">RELEASES</Link>
+            <Link to="/" className={`fv-nav-link${location.pathname === '/' ? ' is-current' : ''}`} onClick={closeNavigation}>HOME</Link>
+            {renderGroup('EXPLORE', exploreItems, 'explore')}
+            {renderGroup('DISCOVER', discoverItems, 'discover')}
           </nav>
         </div>
 
@@ -69,16 +131,12 @@ export function Navbar() {
 
       {mobileMenuOpen && (
         <div className="fv-mobile-nav">
-          <Link to="/" className="fv-nav-link" onClick={() => setMobileMenuOpen(false)}>HOME</Link>
-          <Link to="/category/anime" className="fv-nav-link" onClick={() => setMobileMenuOpen(false)}>ANIME</Link>
-          <Link to="/category/gaming" className="fv-nav-link" onClick={() => setMobileMenuOpen(false)}>GAMING</Link>
-          <Link to="/category/movies" className="fv-nav-link" onClick={() => setMobileMenuOpen(false)}>MOVIES</Link>
-          <Link to="/category/tv" className="fv-nav-link" onClick={() => setMobileMenuOpen(false)}>TV SHOWS</Link>
-          <Link to="/category/kpop" className="fv-nav-link" onClick={() => setMobileMenuOpen(false)}>K-POP</Link>
-          <Link to="/category/comics" className="fv-nav-link" onClick={() => setMobileMenuOpen(false)}>COMICS</Link>
-          <Link to="/category/manga" className="fv-nav-link" onClick={() => setMobileMenuOpen(false)}>MANGA</Link>
-          <Link to="/releases" className="fv-nav-link" onClick={() => setMobileMenuOpen(false)}>RELEASES</Link>
-          <Link to="/bookmarks" className="fv-nav-link" onClick={() => setMobileMenuOpen(false)}>BOOKMARKS</Link>
+          <Link to="/" className="fv-nav-link" onClick={closeNavigation}>HOME</Link>
+          <button type="button" className="fv-mobile-group-trigger" aria-expanded={openMenu === 'mobile-explore'} onClick={() => setOpenMenu((current) => current === 'mobile-explore' ? null : 'mobile-explore')}>EXPLORE <ChevronDown size={14} aria-hidden="true" /></button>
+          {openMenu === 'mobile-explore' && <div className="fv-mobile-subnav">{exploreItems.map(([label, path]) => <Link key={path} to={path} onClick={closeNavigation}>{label}</Link>)}</div>}
+          <button type="button" className="fv-mobile-group-trigger" aria-expanded={openMenu === 'mobile-discover'} onClick={() => setOpenMenu((current) => current === 'mobile-discover' ? null : 'mobile-discover')}>DISCOVER <ChevronDown size={14} aria-hidden="true" /></button>
+          {openMenu === 'mobile-discover' && <div className="fv-mobile-subnav">{discoverItems.map(([label, path]) => <Link key={path} to={path} onClick={closeNavigation}>{label}</Link>)}</div>}
+          <Link to="/bookmarks" className="fv-nav-link" onClick={closeNavigation}>BOOKMARKS</Link>
         </div>
       )}
     </header>
