@@ -80,6 +80,16 @@ export function Contact() {
               <h2 id="contact-location-heading">A digital home for fandom</h2>
               <p>No physical studio address is configured for this local project. FandomVerse is an online frontend experience.</p>
               <a className="fv-contact-map-link" href="https://www.openstreetmap.org/search?query=FandomVerse" target="_blank" rel="noreferrer">Search OpenStreetMap <span aria-hidden="true">-&gt;</span></a>
+              <div className="fv-contact-map-frame">
+                <iframe
+                  title="Google Maps search for FandomVerse"
+                  src="https://www.google.com/maps?q=FandomVerse&output=embed"
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  allowFullScreen
+                />
+              </div>
+              <a className="fv-contact-map-link" href="https://www.google.com/maps/search/?api=1&query=FandomVerse" target="_blank" rel="noreferrer">Open Google Maps <span aria-hidden="true">-&gt;</span></a>
             </div>
           </motion.aside>
         </div>
